@@ -1,0 +1,6 @@
+meteor-platform
+autopublish
+insecure
+voodoohop:masonrify
+meteorhacks:inject-initial
+differential:vulcanize
