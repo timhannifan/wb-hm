@@ -1,0 +1,37 @@
+<template name="home">
+  <div class="vertical-section">
+    <paper-card heading="Brief Summary" class="card">
+      <div class="card-content">
+        <p>This is a demonstration of a web-scraper cabable of streaming in multiple RSS feeds, collecting and storing data from those feeds, then performing secondary keyword analysis in an effort to create meta-data for individual job listings. The eventual goal of this effort is to create live data visualisations to allow a non-technical user to understand frequency trends in labor markets.</p>
+      </div>
+    </paper-card>
+    <paper-card heading="Structured Data vs Static HTML Scraping" class="card">
+      <div class="card-content">
+        <h3>Structured Data: A Cumulative Approach </h3>
+        <p>The advantage of this approach is mainly in the immediate uniformity of data. Less pre-processing means faster, more reliable results.  To the downside, one would need to allow data to accumulate over time in order to obtain a sufficient sample.  RSS parsing only adds new information to the database when it made available by the publisher. This is not a recommended approach for retrospective analysis.
+        </p>
+        <br>
+        <h3>Static Scraping: A Snapshot In Time</h3>
+        <p>Static scraping is a good approach for a one-off experiment, but it does not allow for accumulating data over time without significant man-hours.  This approach seeks to "download" and entire site's data at once; this is certainly possible, but it requires server-based methods to re-run the scraping activity at fixed intervals to identify new data, then additional post-processing to eliminate duplicates.</p>
+      </div>
+    </paper-card>
+<!--     <paper-card heading="Static HTML Scraping" class="card">
+      <div class="card-content">
+        <div class="flex-6">
+          <h3>Steps</h3>
+          <h3>Pros and Cons</h3>
+        </div>
+        <div class="flex-6">
+          <h3>Steps</h3>
+          <h3>Pros and Cons</h3>
+        </div>
+
+      </div>
+    </paper-card>
+    <paper-card heading="Further Work: Combined Approach" class="card">
+      <div class="card-content">
+
+      </div>
+    </paper-card> -->
+  </div>
+</template>

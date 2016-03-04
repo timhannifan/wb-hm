@@ -1,0 +1,31 @@
+<template name="sources">
+  <div class="vertical-section">
+    <paper-card heading="RSS Sources" class="card">
+      <!-- <paper-icon-button icon="icons:refresh" id="call-fetch-sources">Force Refresh</paper-icon-button> -->
+      <div class="card-content">
+        <div class="list">
+          <paper-item class="flex">
+          <p class="flex-1 type-size-subhead"><strong>Name</strong></p>
+          <p class="flex-5 type-size-subhead"><strong>Source URL</strong></p>
+          <p class="flex-2 type-size-subhead"><strong>Categories</strong></p>
+          <p class="flex-1 type-size-subhead"><strong>Delete</strong></p>
+          </paper-item>
+
+          {{#each sources}}
+            <div class="list list-item">
+              {{> source_item}}
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    </paper-card>
+  </div>
+</template>
+<!-- 
+  <div class="vertical-section">
+    <button type="button">Refresh Sources</button>
+
+      <span>Add a new source:</span>
+      {{> quickForm collection="Sources" id="insertSourceForm" type="insert" label-class="control-label" input-col-class="controls" }}
+
+  </div> -->
