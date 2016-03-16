@@ -83,22 +83,6 @@ var sourceHandler = {
     
     return;
   },
-  // getItemCompany: function(item) {
-  //     if (string) {
-  //       console.log(str.lastIndexOf("Company:"));
-  //       return string.slice(str.lastIndexOf("Company:"),str.firstIndexOf("Bhd"));  
-  //     } 
-
-  //   return 'getItemCompany';
-  // },
-  getItemExperience: function(item) {
-    //console.log('getItemExperience called');
-    return 'getItemExperience';
-  },
-  getItemLocation: function(item) {
-    //console.log('getItemLocation called');
-    return 'getItemLocation';
-  },
 
 
   handle: function(contentBuffer, sourceCategories, sourceId) {
