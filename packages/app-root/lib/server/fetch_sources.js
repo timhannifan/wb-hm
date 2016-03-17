@@ -324,6 +324,3 @@ Meteor.methods({
     return exportcsv.exportToCSV(collection, heading, delimiter);
   }
 });
-
-
-console.log('scrape',Scrape.website('http://jobs.monster.com.my/details/15237787.html'));

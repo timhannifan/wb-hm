@@ -29,6 +29,7 @@ packages_update.py
 .editorconfig
 
 public/bower_components/*
+packages/app-root/.npm/*
 .sublimetext/* 
 
 settings.json

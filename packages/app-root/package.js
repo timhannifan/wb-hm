@@ -9,7 +9,8 @@ Npm.depends({
   'to-markdown': '0.0.2',
   'he': '0.5.0',
   'striptags': '2.1.1',
-  'iconv-lite': '0.4.7'
+  'iconv-lite': '0.4.7',
+  'cheerio': '0.20.0'
 });
 
 Package.onUse(function (api) {
@@ -28,21 +29,12 @@ Package.onUse(function (api) {
 
   api.imply(packages);
 
-  // api.addFiles([
-  //   'lib/model.js'
-  // ], ['client', 'server']);
-
   api.addFiles([
     // 'lib/server/cron.js',
     'lib/server/fetch_sources.js',
-    // 'lib/server/publications.js',
-    // 'lib/server/server.js'
+    'lib/server/job_street.js',
   ], ['server']);
 
-  api.export([
-    // 'Sources',
-    // 'SourceItems',
-    // 'Categories'
-  ]);
+  api.export('cheerio');
 
 });

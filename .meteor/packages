@@ -33,7 +33,7 @@ momentjs:moment
 aldeed:tabular
 
 harrison:papa-parse
-rclai89:cheerio
+# rclai89:cheerio
 anonyfox:scrape
 bobbigmac:scrape-parser
 nefiltari:yaki
