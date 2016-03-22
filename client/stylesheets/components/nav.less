@@ -6,54 +6,59 @@
   color: @color-black;
 }
 
-.nav paper-item @{deep} .button-content {
+.nav paper-item .button-content {
   padding-left: 5px;
 }
 
-.nav paper-item @{deep} core-icon {
+.nav paper-item iron-icon {
   color: @color-black;
   margin-right: 32px;
 }
 .nav .is-active,
-.nav .is-active @{deep} core-icon {
+.nav .is-active iron-icon {
   color: @color-accent;
 }
-.nav core-submenu @{deep} #icon {
+.nav paper-submenu #icon {
   color: @color-black;
   margin-right: 32px;
 }
-.nav core-submenu @{deep} #label {
+.nav paper-submenu #label {
   .type-subhead();
 }
-.nav core-submenu @{deep} #submenu {
+.nav paper-submenu #submenu {
   margin: 0 0 0 20px;
 }
-.nav core-submenu @{deep} paper-item,
-.nav core-submenu @{deep} paper-item core-icon {
+.nav paper-submenu paper-item,
+.nav paper-submenu paper-item iron-icon {
   color: @color-black-light;
 }
 
   // SAFARI & iOS
 
-.nav paper-item core-icon {
+.nav paper-item iron-icon {
   color: @color-black-light;
   margin-right: 32px;
 }
 .nav .is-active,
-.nav .is-active core-icon {
+.nav .is-active iron-icon {
   color: @color-accent;
 }
-.nav core-submenu #icon {
+.nav paper-submenu #icon {
   color: @color-black;
   margin-right: 32px;
 }
-.nav core-submenu #label {
+.nav paper-submenu #label {
   .type-subhead();
 }
-.nav core-submenu #submenu {
+.nav paper-submenu #submenu {
   margin: 0 0 0 20px;
 }
-.nav core-submenu paper-item,
-.nav core-submenu paper-item core-icon {
+.nav paper-submenu paper-item,
+.nav paper-submenu paper-item iron-icon {
   color: @color-black-light;
 }
+
+
+//.nav .menu-content paper-item{
+// margin: 0 0 0 20px; 
+//}

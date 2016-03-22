@@ -27,6 +27,17 @@ Meteor.startup(function () {
       }
     });
 
+    this.route('jobStreetSources', {
+      path: '/jobStreetSources',
+      template:'jobStreetSources',
+      waitOn: function() {
+        Meteor.subscribe('JobStreetSources');
+      },
+      data: function () {
+        return JobStreetSources.find().fetch();
+      }
+    });
+
     this.route('data', {
       path: '/data',
       template:'data',
@@ -37,6 +48,16 @@ Meteor.startup(function () {
         return SourceItems.find().fetch();
       }
     });
+    this.route('jobStreetData', {
+      path: '/jobStreetData',
+      template:'jobStreetData',
+      waitOn: function() {
+        Meteor.subscribe('JobSteetItems');
+      },
+      data: function () {
+        return JobStreetItems.find().fetch();
+      }
+    });
     this.route('dataItem', {
       path: '/data/:_id',
       template:'dataItem',
@@ -45,6 +66,16 @@ Meteor.startup(function () {
       },
       data: function () {
         return SourceItems.findOne({_id: this.params._id});
+      }
+    });
+    this.route('jobStreetDataItem', {
+      path: '/jobStreetData/:_id',
+      template:'jobStreetData',
+      waitOn: function() {
+        Meteor.subscribe('JobSteetItems');
+      },
+      data: function () {
+        return JobSteetItems.findOne({_id: this.params._id});
       }
     });
     this.route('graph', {
@@ -59,9 +90,13 @@ Meteor.startup(function () {
       path: '/about',
       template:'about'
     });
-    this.route('download', {
-      path: '/download',
-      template:'download'
+    this.route('export', {
+      path: '/export',
+      template:'export'
+    });
+    this.route('import', {
+      path: '/import',
+      template:'import'
     });
   });
 });

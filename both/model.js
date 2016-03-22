@@ -1,8 +1,10 @@
 Sources = new Mongo.Collection('Sources');
+JobStreetSources = new Mongo.Collection('JobStreetSources');
 SourceItems = new Mongo.Collection('SourceItems');
 Categories = new Mongo.Collection('Categories');
 Events = new Mongo.Collection('Events');
 Notifications = new Mongo.Collection('Notifications');
+JobStreetItems = new Mongo.Collection('JobStreetItems');
 
 // Sources Schema and Permissions
 Sources.schema = new SimpleSchema({
@@ -137,6 +139,41 @@ Categories.allow({
   }
 });
 
+JobStreetItems.schema = new SimpleSchema({
+  title: {
+    type: String,
+    optional: true
+  },
+  url: {
+    type: String,
+    regEx: SimpleSchema.RegEx.Url
+  },
+  location: {
+    type: String,
+    optional: true
+  },
+  experience: {
+    type: String,
+    optional: true
+  },
+  company: {
+    type: String,
+    optional: true
+  },
+  companyIndustry: {
+    type: String,
+    optional: true
+  }
+});
+JobStreetItems.attachSchema(JobStreetItems.schema);
+JobStreetItems.allow({
+  insert: function (userId, doc) {
+    return true;
+  },
+  remove: function (userId, doc) {
+    return true;
+  }
+});
 // Meteor.methods({
 //   insertSource: function(sourceUrl, categories){
 //     // check(sourceUrl, Sources.schema);
