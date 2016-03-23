@@ -16,8 +16,9 @@ Meteor.startup(function () {
       path: '/',
       template:'home'
     });
+    
     this.route('sources', {
-      path: '/sources',
+      path: '/sources/monster',
       template:'sources',
       waitOn: function() {
         Meteor.subscribe('Sources');
@@ -26,9 +27,9 @@ Meteor.startup(function () {
         return Sources.find().fetch();
       }
     });
-
+    
     this.route('jobStreetSources', {
-      path: '/jobStreetSources',
+      path: '/sources/jobstreet',
       template:'jobStreetSources',
       waitOn: function() {
         Meteor.subscribe('JobStreetSources');
@@ -39,7 +40,7 @@ Meteor.startup(function () {
     });
 
     this.route('data', {
-      path: '/data',
+      path: '/data/monster',
       template:'data',
       waitOn: function() {
         Meteor.subscribe('SourceItems');
@@ -48,18 +49,8 @@ Meteor.startup(function () {
         return SourceItems.find().fetch();
       }
     });
-    this.route('jobStreetData', {
-      path: '/jobStreetData',
-      template:'jobStreetData',
-      waitOn: function() {
-        Meteor.subscribe('JobSteetItems');
-      },
-      data: function () {
-        return JobStreetItems.find().fetch();
-      }
-    });
     this.route('dataItem', {
-      path: '/data/:_id',
+      path: '/data/monster/:_id',
       template:'dataItem',
       waitOn: function() {
         Meteor.subscribe('SourceItems');
@@ -68,8 +59,18 @@ Meteor.startup(function () {
         return SourceItems.findOne({_id: this.params._id});
       }
     });
+    this.route('jobStreetData', {
+      path: '/data/jobstreet',
+      template:'jobStreetData',
+      waitOn: function() {
+        Meteor.subscribe('JobSteetItems');
+      },
+      data: function () {
+        return JobStreetItems.find().fetch();
+      }
+    });
     this.route('jobStreetDataItem', {
-      path: '/jobStreetData/:_id',
+      path: '/data/jobstreet/:_id',
       template:'jobStreetData',
       waitOn: function() {
         Meteor.subscribe('JobSteetItems');
@@ -78,6 +79,7 @@ Meteor.startup(function () {
         return JobSteetItems.findOne({_id: this.params._id});
       }
     });
+
     this.route('graph', {
       path: '/graph',
       template:'graph'
@@ -97,6 +99,14 @@ Meteor.startup(function () {
     this.route('import', {
       path: '/import',
       template:'import'
+    });
+    this.route('newMonsterSource', {
+      path: '/new-rss-feed',
+      template:'newMonsterSource'
+    });
+    this.route('newJobstreetSource', {
+      path: '/new-web-target',
+      template:'newJobstreetSource'
     });
   });
 });

@@ -1,130 +1,155 @@
 Meteor.startup(function(){
   if (!Sources.find().fetch().length){
    Sources.insert({
-      sourceName: 'Monster IT',
+      sourceName: 'monster',
+      sourceIndustry: 'IT',
       sourceUrl:'http://jobsearch.monster.com.my/rss_jobs.html?cat=22',
-      sourceCategories: ['IT']
+      // sourceCategories: ['IT']
     });
    Sources.insert({
-      sourceName: 'Monster Marketing',
+      sourceName: 'monster',
+      sourceIndustry: 'Marketing',
       sourceUrl:'http://jobsearch.monster.com.my/rss_jobs.html?cat=14',
-      sourceCategories: ['marketing','communications']
+      // sourceCategories: ['marketing','communications']
     });
    Sources.insert({
-      sourceName: 'Monster Customer Service',
+      sourceName: 'monster',
+      sourceIndustry: 'Customer Service',
       sourceUrl:'http://jobsearch.monster.com.my/rss_jobs.html?cat=3',
-      sourceCategories: ['customer-service','call-center','BPO']
+      // sourceCategories: ['customer-service','call-center','BPO']
     });
    Sources.insert({
-      sourceName: 'Monster Admin',
+      sourceName: 'monster',
+      sourceIndustry: 'Admin',
       sourceUrl:'http://jobsearch.monster.com.my/rss_jobs.html?cat=907',
-      sourceCategories: ['admin','secretarial']
+      // sourceCategories: ['admin','secretarial']
     });
    Sources.insert({
-      sourceName: 'Monster Supply Chain',
+      sourceName: 'monster',
+      sourceIndustry: 'Supply Chain',
       sourceUrl:'http://jobsearch.monster.com.my/rss_jobs.html?cat=18',
-      sourceCategories: ['purchasing','logistics','supply-chain']
+      // sourceCategories: ['purchasing','logistics','supply-chain']
     });
    Sources.insert({
-      sourceName: 'Monster Manufacturing',
+      sourceName: 'monster',
+      sourceIndustry: 'Manufacturing',
       sourceUrl:'http://jobsearch.monster.com.my/rss_jobs.html?cat=17',
-      sourceCategories: ['maufacturing','engineering','research and development']
+      // sourceCategories: ['maufacturing','engineering','research and development']
     });
 
    Sources.insert({
-      sourceName: 'Monster Telecom',
+      sourceName: 'monster',
+      sourceIndustry: 'Telecom',
       sourceUrl:'http://jobsearch.monster.com.my/rss_jobs.html?cat=23',
-      sourceCategories: ['telecom','isp']
+      // sourceCategories: ['telecom','isp']
     });
   Sources.insert({
-     sourceName: 'Monster Retail',
+     sourceName: 'monster',
+     sourceIndustry: 'Retail',
      sourceUrl:'http://jobsearch.monster.com.my/rss_jobs.html?cat=18',
-     sourceCategories: ['retail']
+     // sourceCategories: ['retail']
    });
   Sources.insert({
-     sourceName: 'Monster Biotech',
+     sourceName: 'monster',
+     sourceIndustry: 'Biotech',
      sourceUrl:'http://jobsearch.monster.com.my/rss_jobs.html?cat=16',
-     sourceCategories: ['pharmaceutical', 'biotechnology']
+     // sourceCategories: ['pharmaceutical', 'biotechnology']
    });
   Sources.insert({
-     sourceName: 'Monster Advertising',
+     sourceName: 'monster',
+     sourceIndustry: 'Advertising',
      sourceUrl:'http://jobsearch.monster.com.my/rss_jobs.html?cat=5',
-     sourceCategories: ['advertising', 'entertainment', 'media']
+     // sourceCategories: ['advertising', 'entertainment', 'media']
    });
   Sources.insert({
-     sourceName: 'Monster Import/Export',
+     sourceName: 'monster',
+     sourceIndustry: 'Import/Export',
      sourceUrl:'http://jobsearch.monster.com.my/rss_jobs.html?cat=6',
-     sourceCategories: ['export', 'import']
+     // sourceCategories: ['export', 'import']
    });
   Sources.insert({
-     sourceName: 'Monster Real Estate',
+     sourceName: 'monster',
+     sourceIndustry: 'Real Estate',
      sourceUrl:'http://jobsearch.monster.com.my/rss_jobs.html?cat=908',
-     sourceCategories: ['real estate']
+     // sourceCategories: ['real estate']
    });
   Sources.insert({
-     sourceName: 'Monster Other',
+     sourceName: 'monster',
+     sourceIndustry: 'Other',
      sourceUrl:'http://jobsearch.monster.com.my/rss_jobs.html?cat=15',
-     sourceCategories: ['uncategorized']
+     // sourceCategories: ['uncategorized']
    });
   Sources.insert({
-     sourceName: 'Monster Sales',
+     sourceName: 'monster',
+     sourceIndustry: 'Sales',
      sourceUrl:'http://jobsearch.monster.com.my/rss_jobs.html?cat=20',
-     sourceCategories: ['sales', 'business development']
+     // sourceCategories: ['sales', 'business development']
    });
   Sources.insert({
-     sourceName: 'Monster Finance',
+     sourceName: 'monster',
+     sourceIndustry: 'Finance',
      sourceUrl:'http://jobsearch.monster.com.my/rss_jobs.html?cat=7',
-     sourceCategories: ['finance', 'accounts']
+     // sourceCategories: ['finance', 'accounts']
    });
   Sources.insert({
-     sourceName: 'Monster HR',
+     sourceName: 'monster',
+     sourceIndustry: 'HR',
      sourceUrl:'http://jobsearch.monster.com.my/rss_jobs.html?cat=11',
-     sourceCategories: ['human resources']
+     // sourceCategories: ['human resources']
    });
   Sources.insert({
-     sourceName: 'Monster Legal',
+     sourceName: 'monster',
+     sourceIndustry: 'Legal',
      sourceUrl:'http://jobsearch.monster.com.my/rss_jobs.html?cat=13',
-     sourceCategories: ['legal']
+     // sourceCategories: ['legal']
    });
   Sources.insert({
-     sourceName: 'Monster Banking',
+     sourceName: 'monster',
+     sourceIndustry: 'Banking',
      sourceUrl:'http://jobsearch.monster.com.my/rss_jobs.html?cat=2',
-     sourceCategories: ['banking', 'insurance', 'financial services']
+     // sourceCategories: ['banking', 'insurance', 'financial services']
    });
   Sources.insert({
-     sourceName: 'Monster Construction',
+     sourceName: 'monster',
+     sourceIndustry: 'Construction',
      sourceUrl:'http://jobsearch.monster.com.my/rss_jobs.html?cat=786',
-     sourceCategories: ['construction']
+     // sourceCategories: ['construction']
    });
   Sources.insert({
-     sourceName: 'Monster Education',
+     sourceName: 'monster',
+     sourceIndustry: 'Education',
      sourceUrl:'http://jobsearch.monster.com.my/rss_jobs.html?cat=1000',
-     sourceCategories: ['education', 'teaching']
+     // sourceCategories: ['education', 'teaching']
    });
   Sources.insert({
-     sourceName: 'Monster Oil and Gas',
+     sourceName: 'monster',
+     sourceIndustry: 'Oil and Gas',
      sourceUrl:'http://jobsearch.monster.com.my/rss_jobs.html?cat=785',
-     sourceCategories: ['oil and gas', 'exploration']
+     // sourceCategories: ['oil and gas', 'exploration']
    });
   Sources.insert({
-     sourceName: 'Monster Healthcare',
+     sourceName: 'monster',
+     sourceIndustry: 'Healthcare',
      sourceUrl:'http://jobsearch.monster.com.my/rss_jobs.html?cat=9',
-     sourceCategories: ['healthcare']
+     // sourceCategories: ['healthcare']
    });
   Sources.insert({
-     sourceName: 'Monster Analytics/Business Intelligence',
+     sourceName: 'monster',
+     sourceIndustry: 'Analytics/Business Intelligence',
      sourceUrl:'http://jobsearch.monster.com.my/rss_jobs.html?cat=1071',
-     sourceCategories: ['analytics', 'business intelligence']
+     // sourceCategories: ['analytics', 'business intelligence']
    });
   Sources.insert({
-     sourceName: 'Monster Hotels/Restaurants',
+     sourceName: 'monster',
+     sourceIndustry: 'Hotels/Restaurants',
      sourceUrl:'http://jobsearch.monster.com.my/rss_jobs.html?cat=10',
-     sourceCategories: ['hotels', 'restaurants']
+     // sourceCategories: ['hotels', 'restaurants']
    });
   Sources.insert({
-     sourceName: 'Monster Travel',
+     sourceName: 'monster',
+     sourceIndustry: 'Travel',
      sourceUrl:'http://jobsearch.monster.com.my/rss_jobs.html?cat=24',
-     sourceCategories: ['travel', 'airlines']
+     // sourceCategories: ['travel', 'airlines']
    });
 
   }

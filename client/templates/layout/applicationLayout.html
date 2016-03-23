@@ -1,81 +1,71 @@
 <template name="applicationLayout">
 	<paper-drawer-panel class="flex">
 	  
-	  <paper-header-panel drawer>
-	    <paper-toolbar>
-	      <span class="type-title">Scrape Malaysia!</span>
-	    </paper-toolbar>
-	    <paper-menu class="nav">
-	    	<paper-item  paper-drawer-toggle data-action="home" class="menu-trigger">
-	    	    <iron-icon icon="icons:info" item-icon></iron-icon>About
-	    	</paper-item>
-			<paper-submenu class="nav-submenu">
-				<paper-item class="menu-trigger">
-				<iron-icon icon="icons:dns" item-icon></iron-icon>Sources
+		<paper-header-panel drawer>
+			<paper-toolbar>
+			  <span class="type-title">Scraping the Skills Gap: Malaysia</span>
+			</paper-toolbar>
+			<paper-menu class="nav">
+				<paper-item  paper-drawer-toggle data-action="home" class="menu-trigger">
+					    <iron-icon icon="icons:info" item-icon></iron-icon>About
 				</paper-item>
-				<paper-menu class="menu-content" id="submenu">
-					<paper-item paper-drawer-toggle data-action="sources">Monster RSS Feeds</paper-item>
-					<paper-item paper-drawer-toggle data-action="jobStreetSources">Job Street Queries</paper-item>
-				</paper-menu>
-			</paper-submenu>
+				<paper-submenu class="nav-submenu">
+					<paper-item class="menu-trigger">
+						<iron-icon icon="icons:dns" item-icon></iron-icon>Sources
+					</paper-item>
+					<paper-menu class="menu-content" id="submenu">
+						<paper-item paper-drawer-toggle data-action="sources">RSS Feeds</paper-item>
+						<paper-item paper-drawer-toggle data-action="jobStreetSources">Web Scraping Targets</paper-item>
+					</paper-menu>
+				</paper-submenu>
 
-			<paper-submenu>
-				<paper-item class="menu-trigger">
-				<iron-icon icon="icons:view-list" item-icon></iron-icon>Data
-				</paper-item>
-				<paper-menu class="menu-content" id="submenu">
-					<paper-item paper-drawer-toggle data-action="data">Monster</paper-item>
-					<paper-item paper-drawer-toggle data-action="jobStreetData">Job Street</paper-item>
-					<paper-item paper-drawer-toggle data-action="data">Combined</paper-item>
-				</paper-menu>
-			</paper-submenu>
+				<paper-submenu>
+					<paper-item class="menu-trigger">
+						<iron-icon icon="icons:view-list" item-icon></iron-icon>Data
+					</paper-item>
+					<paper-menu class="menu-content" id="submenu">
+						<paper-item paper-drawer-toggle data-action="data">Monster</paper-item>
+						<paper-item paper-drawer-toggle data-action="jobStreetData">Job Street</paper-item>
+						<paper-item paper-drawer-toggle data-action="data">Combined</paper-item>
+					</paper-menu>
+				</paper-submenu>
 
-			<paper-submenu>
-				<paper-item class="menu-trigger">
-				<iron-icon icon="icons:assessment" item-icon></iron-icon>Data Visualization
-				</paper-item>
-				<paper-menu class="menu-content" id="submenu">
-					<paper-item paper-drawer-toggle data-action="graph">Demo 1</paper-item>
-					<paper-item paper-drawer-toggle data-action="graph">Demo 2</paper-item>
-					<paper-item paper-drawer-toggle data-action="graph">Demo 3</paper-item>
-				</paper-menu>
-			</paper-submenu>
+				<paper-submenu>
+					<paper-item class="menu-trigger">
+						<iron-icon icon="icons:assessment" item-icon></iron-icon>Visualization
+					</paper-item>
+					<paper-menu class="menu-content" id="submenu">
+						<paper-item paper-drawer-toggle data-action="graph">Demo 1</paper-item>
+						<paper-item paper-drawer-toggle data-action="graph">Demo 2</paper-item>
+						<paper-item paper-drawer-toggle data-action="graph">Demo 3</paper-item>
+					</paper-menu>
+				</paper-submenu>
 
-			<paper-submenu>
-				<paper-item class="menu-trigger">
-				    <iron-icon icon="icons:perm-data-setting" item-icon></iron-icon>Utilities
-				</paper-item>
-				<paper-menu class="menu-content" id="submenu">
-				  <paper-item paper-drawer-toggle data-action="import">Import CSV</paper-item> 
-				  <paper-item paper-drawer-toggle data-action="export">Export CSV</paper-item>
-				  <paper-item>Add RSS Feed</paper-item>
-				  <paper-item>Add Job Street Query</paper-item>
-				</paper-menu>
-			</paper-submenu>
+				<paper-submenu>
+					<paper-item class="menu-trigger">
+						    <iron-icon icon="icons:perm-data-setting" item-icon></iron-icon>Utilities
+					</paper-item>
+					<paper-menu class="menu-content" id="submenu">
+					  <paper-item paper-drawer-toggle data-action="import">Import CSV</paper-item> 
+					  <paper-item paper-drawer-toggle data-action="export">Export CSV</paper-item>
+					  <paper-item paper-drawer-toggle data-action="newMonsterSource">Add RSS Feed</paper-item>
+					  <paper-item paper-drawer-toggle data-action="newJobstreetSource">Add Web Target</paper-item>
+					</paper-menu>
+				</paper-submenu>
 
-	    </paper-menu>
-	  </paper-header-panel>
-	  <paper-header-panel main>
-	    
-		<!--<paper-toolbar>
-	      <paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
-	      <span class="title">wb-hm</span>
-	      <paper-icon-button icon="icons:refresh" id="js-fetch-rss"></paper-icon-button>
-	    </paper-toolbar> -->
-
-	    <div class="flex">
-	    	<div class="vertical-center-justified layout">
-	    		<div class="page-container">
-				    {{> yield}}		
-	    		</div>
-	    	</div>
-	    </div>
-	    <div class="flex vertical-left-justified layout">
-		    {{ > publicFooter}}
-	    </div>
-	  </paper-header-panel>
+			</paper-menu>
+		</paper-header-panel>
+		<paper-header-panel main>
+			<div class="flex">
+				<div class="vertical-center-justified layout">
+					<div class="page-container">
+					    {{> yield}}		
+					</div>
+				</div>
+			</div>
+			<div class="flex vertical-left-justified layout">
+			    {{ > publicFooter}}
+			</div>
+		</paper-header-panel>
 	</paper-drawer-panel>
-	
-
-
 </template>

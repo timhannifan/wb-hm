@@ -10,11 +10,11 @@ Npm.depends({
   'he': '0.5.0',
   'striptags': '2.1.1',
   'iconv-lite': '0.4.7',
-  'cheerio': '0.20.0'
+  'cheerio': '0.20.0',
+  'babyparse': '0.4.5'
 });
 
 Package.onUse(function (api) {
-
   api.versionsFrom(['METEOR@1.0']);
 
   var packages = [
@@ -24,9 +24,7 @@ Package.onUse(function (api) {
     'nefiltari:yaki',
     'anonyfox:scrape'
   ];
-
   api.use(packages);
-
   api.imply(packages);
 
   api.addFiles([
@@ -36,5 +34,6 @@ Package.onUse(function (api) {
   ], ['server']);
 
   api.export('cheerio');
+  api.export('Baby');
 
 });

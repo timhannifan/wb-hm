@@ -17,8 +17,8 @@ columns: [
     class: "flex-2"
   },
   {
-    data: "sourceCategories", 
-    title: "Categories", 
+    data: "sourceIndustry", 
+    title: "Industry", 
     class: "flex-1"
   },
   {data: "company", title: "Company", class: "flex-1"},
@@ -43,11 +43,6 @@ columns: [
     title: "Title", 
     class: "flex-2"
   },
-  // {
-  //   data: "sourceCategories", 
-  //   title: "Categories", 
-  //   class: "flex-1"
-  // },
   {data: "company", title: "Company", class: "flex-1"},
   {data: "experience", title: "Experience", class: "flex-1"},
   {data: "location", title: "Location", class: "flex-1"},

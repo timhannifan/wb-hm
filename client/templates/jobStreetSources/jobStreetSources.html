@@ -1,18 +1,18 @@
 <template name="jobStreetSources">
   <div class="vertical-section">
-    <paper-card heading="Job Street HTML Targets" class="card">
+    <paper-card heading="Web Scraping Targets" class="card">
       <div class="card-content">
         <div class="list">
           <paper-item class="flex">
-          <p class="flex-1 type-size-subhead"><strong>Name</strong></p>
-          <p class="flex-5 type-size-subhead"><strong> URL</strong></p>
-          <p class="flex-2 type-size-subhead"><strong>Categories</strong></p>
-          <p class="flex-1 type-size-subhead"><strong>Delete</strong></p>
+            <p class="flex-4 type-size-subhead flex-start-justified"><strong>Industry</strong></p>
+            <p class="flex-4 type-size-subhead flex-start-justified"><strong>Specialization</strong></p>
+            <p class="flex-3 type-size-subhead flex-start-justified"><strong>Page Depth</strong></p>
+            <p class="flex-1 type-size-subhead flex-start-justified"><strong>Delete</strong></p>
           </paper-item>
 
           {{#each sources}}
             <div class="list list-item">
-              {{> source_item}}
+              {{> jobStreet_source_item}}
             </div>
           {{/each}}
         </div>

@@ -41,51 +41,20 @@ var sourceHandler = {
     return stream;
   },
 
-  getSourceCategories: function(item, sourceCategories) {
+  // getSourceIndustry: function(item, sourceIndustry) {
 
-    var itemCategories = [];
+  //   var sourceIndustry = [];
 
-    // // loop over categories if they exist
-    // if (item.categories && item.categories.length > 0) {
-    //   item.categories.forEach(function(name) {
-    //     // look up category by name
-    //     var category = Categories.findOne({name: name}, {fields: {_id: 1}});
-    //     // if it exists, push the _id to the new array, othewise add it to Categories collection
-    //     if (category) {
-    //       itemCategories.push(category._id);
-    //     } else {
-    //       var newId = Categories.insert({
-    //         name: name
-    //       });
-    //       itemCategories.push(newId._id);
-    //     }
-    //   });
-    // }
+  //   // itemCategories = _.uniq(itemCategories.concat(sourceCategories));
 
-    // // add predefined source categories if there are any and remove any duplicates
-    // if (!!sourceCategories) {
-    //   sourceCategories.forEach(function(name) {
-    //     // look up category by name
-    //     var category = Categories.findOne({name: name}, {fields: {_id: 1}});
-    //     // if it exists, push the _id to the new array
-    //     if (category) {
-    //       itemCategories.push(category._id);
-    //     } 
-    //   });
-    // }
-
-    itemCategories = _.uniq(itemCategories.concat(sourceCategories));
-
-    return itemCategories;
-  },
+  //   return itemCategories;
+  // },
   getItemKeywords: function(string) {
     // var test = Yaki(string).clean().extract();
     
     return;
   },
-
-
-  handle: function(contentBuffer, sourceCategories, sourceId) {
+  handle: function(contentBuffer, sourceIndustry, sourceId) {
     var content = normalizeEncoding(contentBuffer);
     var stream = this.getStream(content),
     sourceParser = new FeedParser(),
@@ -187,12 +156,12 @@ var sourceHandler = {
         console.log('Parsing new item: ', item.title);
         
         // if item has no guid, use the URL to give it one
-        if (!item.guid) {
-          item.guid = item.link;
-        }
+        // if (!item.guid) {
+        //   item.guid = item.link;
+        // }
 
         // // check if newSourceItem already exists
-        if (!!SourceItems.findOne({itemGuid: item.guid})) {
+        if (!!SourceItems.findOne({sourceUrl: item.sourceUrl})) {
           console.log('///// This item was already imported//////');
           continue;
         }
@@ -203,8 +172,8 @@ var sourceHandler = {
           title: heDecode(item.title),
           url: item.link,
           sourceId: sourceId,
-          itemGuid: item.guid,
-          sourceCategories: self.getSourceCategories(item, sourceCategories),
+          // itemGuid: item.guid,
+          sourceIndustry: sourceIndustry,//self.getSourceIndustry(item, sourceIndustry),
           description: stripThis(item.description),
           pubDate: item.meta.pubdate,
           postedAt: new Date()
@@ -249,12 +218,6 @@ var sourceHandler = {
 
             return callback(str);
           }();
-        // if (item.guid) 
-          // newSourceItem.parsedKeywords = _.uniq(Scrape.website(item.guid).tags);
-          // newSourceItem.parsedKeywords = _.uniq(Scrape.website(item.guid).tags);
-          // console.log('extract',Yaki(item.description).extract());
-          // console.log('clean',Yaki(item.description).extract().clean());
-
 
           // if RSS item link is a 301 or 302 redirect, follow the redirect
           // var get = HTTP.get(item.link, {followRedirects: false});
@@ -283,12 +246,12 @@ fetchSources = function() {
 
   Sources.find().forEach(function(source) {
 
-    var sourceCategories = source.sourceCategories;
+    // var sourceIndustry = source.sourceIndustry;
     var sourceId = source._id;
 
     try {
       contentBuffer = HTTP.get(source.sourceUrl, {responseType: 'buffer'}).content;
-      sourceHandler.handle(contentBuffer, sourceCategories, sourceId);
+      sourceHandler.handle(contentBuffer, source.sourceIndustry, source._id);
     } catch (error) {
       console.log('fetchSources error', error);
       return true; // just go to next source URL

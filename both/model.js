@@ -11,29 +11,40 @@ Sources.schema = new SimpleSchema({
   sourceName: {
     type: String,
     optional: true,
+    defaultValue: 'monster',
+  },
+  sourceIndustry: {
+    type: String,
+    optional: true,
   },
   sourceUrl: {
     type: String,
     regEx: SimpleSchema.RegEx.Url,
     optional: true
   },
-  sourceCategories: {
-    type: [String],
+  sourceSpecialization: {
+    type: String,
     optional: true,
-    label: "Source Categories",
-    autoform: {
-      type: "selectize-input",
-      afFieldInput: {
-        multiple: true,
-        selectizeOptions: {
-          plugins: ['remove_button'],
-          persist: false,
-          create: true,
-          createOnBlur: true,
-        }
-      }
-    }
+    defaultValue: null
   },
+
+  // sourceCategories: {
+  //   type: [String],
+  //   optional: true,
+  //   label: "Source Categories",
+  //   autoform: {
+  //     type: "selectize-input",
+  //     afFieldInput: {
+  //       multiple: true,
+  //       selectizeOptions: {
+  //         plugins: ['remove_button'],
+  //         persist: false,
+  //         create: true,
+  //         createOnBlur: true,
+  //       }
+  //     }
+  //   }
+  // },
 });
 Sources.attachSchema(Sources.schema);
 Sources.allow({
@@ -44,6 +55,46 @@ Sources.allow({
 		return true;
 	}
 });
+
+// JobStreetSources Schema and Permissions
+JobStreetSources.schema = new SimpleSchema({
+  sourceName: {
+    type: String,
+    optional: true,
+    defaultValue: 'jobstreet'
+  },
+  sourceIndustry: {
+    type: String,
+    optional: true
+  },
+  sourceUrl: {
+    type: String,
+    regEx: SimpleSchema.RegEx.Url,
+    optional: true
+  },
+  sourceSpecialization: {
+    type: String,
+    optional: true
+  },
+  sourceSearchDepth: {
+    type: Number,
+    optional: true
+  },
+  sourceSpecializationCode: {
+    type: Number,
+    optional: true
+  }
+});
+JobStreetSources.attachSchema(JobStreetSources.schema);
+JobStreetSources.allow({
+  insert: function (userId, doc) {
+    return true;
+  },
+  remove: function (userId, doc) {
+    return true;
+  }
+});
+
 
 // SourceItems Schema and Permissions
 SourceItems.schema = new SimpleSchema({
@@ -148,7 +199,21 @@ JobStreetItems.schema = new SimpleSchema({
     type: String,
     regEx: SimpleSchema.RegEx.Url
   },
-  location: {
+  sourceId: {
+    type: String,
+    optional: true
+  },
+  description: {
+    type: String,
+    label: 'Raw Description',
+    optional: true
+  },
+  parsedKeywords: {
+    type: [String],
+    label: 'parsedKeywords keywords',
+    optional: true
+  },
+  company: {
     type: String,
     optional: true
   },
@@ -156,14 +221,19 @@ JobStreetItems.schema = new SimpleSchema({
     type: String,
     optional: true
   },
-  company: {
+
+  location: {
     type: String,
     optional: true
   },
-  companyIndustry: {
+  sourceIndustry: {
     type: String,
     optional: true
-  }
+  },
+  sourceSpecialization: {
+    type: String,
+    optional: true
+  },
 });
 JobStreetItems.attachSchema(JobStreetItems.schema);
 JobStreetItems.allow({

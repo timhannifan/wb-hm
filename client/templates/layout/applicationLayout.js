@@ -26,5 +26,11 @@ Template.applicationLayout.events({
 	},
 	'click [data-action=import]': function () {
 	  Router.go('import');
+	},
+	'click [data-action=newMonsterSource]': function () {
+	  Router.go('newMonsterSource');
+	},
+	'click [data-action=newJobstreetSource]': function () {
+	  Router.go('newJobstreetSource');
 	}
 });

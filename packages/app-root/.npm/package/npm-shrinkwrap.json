@@ -1,5 +1,8 @@
 {
   "dependencies": {
+    "babyparse": {
+      "version": "0.4.5"
+    },
     "cheerio": {
       "version": "0.20.0",
       "dependencies": {

@@ -1,18 +1,14 @@
 <template name="jobStreet_source_item">
-	<paper-item class="flex">
-
-		<p class="flex-1 type-size-subhead">{{this.sourceName}}</p>
-		<p class="flex-5 type-size-subhead">{{this.sourceUrl}}</p>
-
-		<p class="flex-2 type-size-subhead">
-			{{#each this.sourceCategories}}
-				<p style="display:block;">・{{this}}</p>
-			{{/each}}
-		</p>
-		<p class="flex-1 type-size-subhead">
-			<paper-button noink class="delete-link right-justified">
-			  <iron-icon icon="icons:clear"></iron-icon>
-			</paper-button>			
-		</p>
-	</paper-item>
+	<a href="{{this.sourceUrl}}" target="_blank" title="">
+		<paper-item class="flex">
+			<p class="flex-4 type-size-type-size-body flex-start-justified">{{this.sourceIndustry}}</p>
+			<p class="flex-4 type-size-type-size-body flex-start-justified">{{this.sourceSpecialization}}</p>
+			<p class="flex-3 type-size-type-size-body flex-center-justified">{{this.sourceSearchDepth}}</p>
+			<p class="flex-1 type-size-type-size-body flex-start-justified">
+				<paper-button noink class="delete-link right-justified">
+				  <iron-icon icon="icons:clear"></iron-icon>
+				</paper-button>			
+			</p>
+		</paper-item>
+	</a>
 </template>
