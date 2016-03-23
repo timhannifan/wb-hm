@@ -40,21 +40,12 @@ var sourceHandler = {
 
     return stream;
   },
-
-  // getSourceIndustry: function(item, sourceIndustry) {
-
-  //   var sourceIndustry = [];
-
-  //   // itemCategories = _.uniq(itemCategories.concat(sourceCategories));
-
-  //   return itemCategories;
-  // },
   getItemKeywords: function(string) {
     // var test = Yaki(string).clean().extract();
-    
     return;
   },
   handle: function(contentBuffer, sourceIndustry, sourceId) {
+    console.log('sourceIndustry',sourceIndustry);
     var content = normalizeEncoding(contentBuffer);
     var stream = this.getStream(content),
     sourceParser = new FeedParser(),
@@ -153,24 +144,24 @@ var sourceHandler = {
       }
 
       while (item = s.read()) {
-        console.log('Parsing new item: ', item.title);
+        console.log('/////checking if  '+item.guid+' was already imported//////');
         
         // if item has no guid, use the URL to give it one
-        // if (!item.guid) {
-        //   item.guid = item.link;
-        // }
-
-        // // check if newSourceItem already exists
-        if (!!SourceItems.findOne({sourceUrl: item.sourceUrl})) {
-          console.log('///// This item was already imported//////');
-          continue;
+        if (!item.guid) {
+          item.guid = item.link;
         }
 
+        // // check if newSourceItem already exists
+        if (!!SourceItems.findOne({url: item.guid})) {
+          console.log('///// '+item.guid+' was already imported//////');
+          continue;
+        }
+        console.log('///// '+item.guid+' is a new item. adding new record....');
         newItemsCount++;
 
         var newSourceItem = {
           title: heDecode(item.title),
-          url: item.link,
+          url: item.guid,
           sourceId: sourceId,
           // itemGuid: item.guid,
           sourceIndustry: sourceIndustry,//self.getSourceIndustry(item, sourceIndustry),
@@ -244,19 +235,27 @@ var sourceHandler = {
 fetchSources = function() {
   var contentBuffer;
 
-  Sources.find().forEach(function(source) {
+  var existingSources = Sources.find({}).fetch();
 
-    // var sourceIndustry = source.sourceIndustry;
-    var sourceId = source._id;
+  existingSources.each(function(obj){
+    var sourceIndustry = obj.sourceIndustry;
+    var sourceId = obj._id;
+    var sourceUrl = obj.sourceUrl;
 
     try {
-      contentBuffer = HTTP.get(source.sourceUrl, {responseType: 'buffer'}).content;
-      sourceHandler.handle(contentBuffer, source.sourceIndustry, source._id);
+      contentBuffer = HTTP.get(sourceUrl, {responseType: 'buffer'}).content;
+      sourceHandler.handle(contentBuffer, sourceIndustry, sourceId);
     } catch (error) {
       console.log('fetchSources error', error);
       return true; // just go to next source URL
-    }
+    }      
   });
+
+  // Sources.find().each(function(source) {
+
+
+  // });
+
 };
 
 Meteor.methods({

@@ -114,10 +114,9 @@ SourceItems.schema = new SimpleSchema({
     type: String,
     optional: true
   },
-  sourceCategories: {
-    type: [String],
-    label: 'Source Categories',
-    optional: true
+  sourceIndustry: {
+    type: String,
+    optional: true,
   },
   htmlDescription: {
     type: String,
@@ -161,27 +160,6 @@ SourceItems.schema = new SimpleSchema({
 
 SourceItems.attachSchema(SourceItems.schema);
 SourceItems.allow({
-  insert: function (userId, doc) {
-    return true;
-  },
-  remove: function (userId, doc) {
-    return true;
-  }
-});
-
-// Categories Schema and Permissions
-Categories.schema = new SimpleSchema({
-  name: {
-    type: String,
-    label: 'name',
-    optional: true,
-    autoform: {
-      omit: true
-    }
-  }
-});
-Categories.attachSchema(Categories.schema);
-Categories.allow({
   insert: function (userId, doc) {
     return true;
   },
