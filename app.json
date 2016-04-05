@@ -1,0 +1,10 @@
+{
+  "name": "wb-hm",
+  "description": "Malaysia skills gap analysis using RSS feeds, HTML scraping, d3.js",
+  "env": {
+  	"NODE_ENV" : "production",
+  	"MONGO_URL" : "mongodb://root:Nimiti9gom@olympia.modulusmongo.net:27017/Uvavo8su?autoReconnect=true&connectTimeoutMS=60000",
+  	"ROOT_URL" : "http://wbhmproduction-60586.onmodulus.net"
+  }
+}
+

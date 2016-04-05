@@ -5,6 +5,6 @@
 // });
 
 
-// Template.dataItem.rendered = function () {
+// Template.data_item.rendered = function () {
 // 	console.log(this);
 // };

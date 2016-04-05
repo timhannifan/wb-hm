@@ -196,30 +196,32 @@ Meteor.startup(function() {
     var subSpecTargets = [];
     var jobDescriptionTargets = [];
     var jobContentURLs = [];
+    var insertJSSource = function(obj){
+        JobStreetSources.insert({
+          sourceIndustry: obj.sourceIndustry,
+          sourceUrl: obj.sourceUrl,
+          sourceSpecialization: obj.sourceSpecialization,
+          sourceSearchDepth: obj.sourceSearchDepth,
+          sourceSpecializationCode: obj.sourceSpecializationCode
+        }, function(err, res){
+          if (err)
+            console.log(err);
+        });
 
-    specializationCodes.each(function(obj, index, callback){
+        subSpecTargets.push({
+          sourceUrl: obj.sourceUrl, 
+          sourceSearchDepth: obj.sourceSearchDepth,
+          sourceIndustry: obj.sourceIndustry,
+          sourceSpecialization: obj.sourceSpecialization,
+        });
+        console.log('subSpecTargets' + subSpecTargets);
+    };
 
-      JobStreetSources.insert({
-        sourceIndustry: obj.sourceIndustry,
-        sourceUrl: obj.sourceUrl,
-        sourceSpecialization: obj.sourceSpecialization,
-        sourceSearchDepth: obj.sourceSearchDepth,
-        sourceSpecializationCode: obj.sourceSpecializationCode
-      }, function(err, res){
-        if (err)
-          console.log(err);
-      });
+    for (var i = specializationCodes.length - 1; i >= 0; i--) {
+      insertJSSource(specializationCodes[i]);
+    }
 
-      subSpecTargets.push({
-        sourceUrl: obj.sourceUrl, 
-        sourceSearchDepth: obj.sourceSearchDepth,
-        sourceIndustry: obj.sourceIndustry,
-        sourceSpecialization: obj.sourceSpecialization,
-      });
-      console.log('subSpecTargets' + subSpecTargets);
-    });
-      
-    subSpecTargets.each(function(obj,index){
+    var callback = function(obj,index){
       var i = 1;
       // upperLimit defines the pagedepth of the search minus 1
       var upperLimit = obj.sourceSearchDepth;
@@ -235,7 +237,12 @@ Meteor.startup(function() {
           sourceSpecialization: obj.sourceSpecialization
         });
       }
-    });
+    }
+
+    for (var i = subSpecTargets.length - 1; i >= 0; i--) {  
+      callback(subSpecTargets[i]);
+    };
+
 
     var groupedItems = [];
     var uniqueItems = _.uniq(groupedItems);

@@ -1,5 +1,5 @@
 Meteor.startup(function () {
-  Template.jobStreetSources.helpers({
+  Template.job_street_sources.helpers({
     sources: function(){
       return JobStreetSources.find({});
     },

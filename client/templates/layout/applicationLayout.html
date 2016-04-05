@@ -14,8 +14,8 @@
 						<iron-icon icon="icons:dns" item-icon></iron-icon>Sources
 					</paper-item>
 					<paper-menu class="menu-content" id="submenu">
-						<paper-item paper-drawer-toggle data-action="sources">RSS Feeds</paper-item>
-						<paper-item paper-drawer-toggle data-action="jobStreetSources">Web Scraping Targets</paper-item>
+						<paper-item paper-drawer-toggle data-action="sources">Monster.com</paper-item>
+						<paper-item paper-drawer-toggle data-action="job_street_sources">JobStreet.com</paper-item>
 					</paper-menu>
 				</paper-submenu>
 
@@ -25,12 +25,12 @@
 					</paper-item>
 					<paper-menu class="menu-content" id="submenu">
 						<paper-item paper-drawer-toggle data-action="data">Monster</paper-item>
-						<paper-item paper-drawer-toggle data-action="jobStreetData">Job Street</paper-item>
+						<paper-item paper-drawer-toggle data-action="job_street_data">Job Street</paper-item>
 						<paper-item paper-drawer-toggle data-action="data">Combined</paper-item>
 					</paper-menu>
 				</paper-submenu>
 
-				<paper-submenu>
+<!-- 				<paper-submenu>
 					<paper-item class="menu-trigger">
 						<iron-icon icon="icons:assessment" item-icon></iron-icon>Visualization
 					</paper-item>
@@ -39,17 +39,17 @@
 						<paper-item paper-drawer-toggle data-action="graph">Demo 2</paper-item>
 						<paper-item paper-drawer-toggle data-action="graph">Demo 3</paper-item>
 					</paper-menu>
-				</paper-submenu>
+				</paper-submenu> -->
 
 				<paper-submenu>
 					<paper-item class="menu-trigger">
 						    <iron-icon icon="icons:perm-data-setting" item-icon></iron-icon>Utilities
 					</paper-item>
 					<paper-menu class="menu-content" id="submenu">
-					  <paper-item paper-drawer-toggle data-action="import">Import CSV</paper-item> 
+					  <paper-item paper-drawer-toggle data-action="upload">Import CSV</paper-item> 
 					  <paper-item paper-drawer-toggle data-action="export">Export CSV</paper-item>
-					  <paper-item paper-drawer-toggle data-action="newMonsterSource">Add RSS Feed</paper-item>
-					  <paper-item paper-drawer-toggle data-action="newJobstreetSource">Add Web Target</paper-item>
+					  <paper-item paper-drawer-toggle data-action="new_monster_source">New Monster RSS</paper-item>
+					  <paper-item paper-drawer-toggle data-action="newJobstreetSource">New JobStreet Specialization</paper-item>
 					</paper-menu>
 				</paper-submenu>
 

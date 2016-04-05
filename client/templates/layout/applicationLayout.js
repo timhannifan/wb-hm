@@ -9,26 +9,26 @@ Template.applicationLayout.events({
 	'click [data-action=sources]': function () {
 	  Router.go('sources');
 	},
-	'click [data-action=jobStreetSources]': function () {
-	  Router.go('jobStreetSources');
+	'click [data-action=job_street_sources]': function () {
+	  Router.go('job_street_sources');
 	},
 	'click [data-action=data]': function () {
 	  Router.go('data');
 	},
-	'click [data-action=jobStreetData]': function () {
-	  Router.go('jobStreetData');
+	'click [data-action=job_street_data]': function () {
+	  Router.go('job_street_data');
 	},
-	'click [data-action=graph]': function () {
-	  Router.go('graph');
-	},
+	// 'click [data-action=graph]': function () {
+	//   Router.go('graph');
+	// },
 	'click [data-action=export]': function () {
 	  Router.go('export');
 	},
-	'click [data-action=import]': function () {
-	  Router.go('import');
+	'click [data-action=upload]': function () {
+	  Router.go('upload');
 	},
-	'click [data-action=newMonsterSource]': function () {
-	  Router.go('newMonsterSource');
+	'click [data-action=new_monster_source]': function () {
+	  Router.go('new_monster_source');
 	},
 	'click [data-action=newJobstreetSource]': function () {
 	  Router.go('newJobstreetSource');

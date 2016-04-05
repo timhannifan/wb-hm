@@ -28,9 +28,9 @@ Meteor.startup(function () {
       }
     });
     
-    this.route('jobStreetSources', {
+    this.route('job_street_sources', {
       path: '/sources/jobstreet',
-      template:'jobStreetSources',
+      template:'job_street_sources',
       waitOn: function() {
         Meteor.subscribe('JobStreetSources');
       },
@@ -49,9 +49,9 @@ Meteor.startup(function () {
         return SourceItems.find().fetch();
       }
     });
-    this.route('dataItem', {
+    this.route('data_item', {
       path: '/data/monster/:_id',
-      template:'dataItem',
+      template:'data_item',
       waitOn: function() {
         Meteor.subscribe('SourceItems');
       },
@@ -59,9 +59,9 @@ Meteor.startup(function () {
         return SourceItems.findOne({_id: this.params._id});
       }
     });
-    this.route('jobStreetData', {
+    this.route('job_street_data', {
       path: '/data/jobstreet',
-      template:'jobStreetData',
+      template:'job_street_data',
       waitOn: function() {
         Meteor.subscribe('JobSteetItems');
       },
@@ -69,24 +69,15 @@ Meteor.startup(function () {
         return JobStreetItems.find().fetch();
       }
     });
-    this.route('jobStreetDataItem', {
+    this.route('job_street_data_item', {
       path: '/data/jobstreet/:_id',
-      template:'jobStreetData',
+      template:'job_street_data_item',
       waitOn: function() {
         Meteor.subscribe('JobSteetItems');
       },
       data: function () {
         return JobSteetItems.findOne({_id: this.params._id});
       }
-    });
-
-    this.route('graph', {
-      path: '/graph',
-      template:'graph'
-    });
-    this.route('map', {
-      path: '/map',
-      template:'map'
     });
     this.route('about', {
       path: '/about',
@@ -96,17 +87,17 @@ Meteor.startup(function () {
       path: '/export',
       template:'export'
     });
-    this.route('import', {
-      path: '/import',
-      template:'import'
+    this.route('new_monster_source', {
+      path: '/new-monster-source',
+      template:'new_monster_source'
     });
-    this.route('newMonsterSource', {
-      path: '/new-rss-feed',
-      template:'newMonsterSource'
+    this.route('new_jobstreet_source', {
+      path: '/new-jobstreet-source',
+      template:'new_jobstreet_source'
     });
-    this.route('newJobstreetSource', {
-      path: '/new-web-target',
-      template:'newJobstreetSource'
+    this.route('upload', {
+      path: '/utilities/upload-csv',
+      template:'upload'
     });
   });
 });

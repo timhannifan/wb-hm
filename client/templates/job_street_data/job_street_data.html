@@ -1,39 +1,42 @@
-<template name="data">
+<template name="job_street_data">
   <div class="vertical-section">
-    <paper-card heading="Monster.com.my Data Table" class="card">
+    <paper-card heading="Job Street Data" class="card">
       <div class="card-content">
       		<div class="data-filters">
       			
       		</div>
       		<div class="data-table">
-      			{{> tabular table=TabularTables.SourceItems class="mytable flex"}}
+      			{{> tabular table=TabularTables.JobStreetItems class="mytable flex"}}
       		</div>
       </div>
     </paper-card>
 	</div>
 </template>
 
-<template name="dataItem">
+<template name="job_street_data_item">
   <div class="vertical-section">
-    <paper-card heading="{{title}}" class="card">
+    <paper-card heading="{{this.title}}" class="card">
       <div class="card-content">
       <p class="flex"><strong>Posted:</strong>
-       {{this.pubDate}}
+       <!-- {{this.pubDate}} -->
        </p>
       <p class="flex"><strong>Imported:</strong>
-       {{this.postedAt}}
+       <!-- {{this.postedAt}} -->
        </p>
         <p class="flex"><strong>URL:</strong>
          {{this.url}}
          </p>
+         <p class="flex"><strong>Company:</strong>
+          {{this.company}}
+          </p>
         <p class="flex"><strong>Description:</strong>
-         {{{this.htmlDescription}}}
+         <!-- {{{this.htmlDescription}}} -->
          </p>
         <p class="flex"><strong>Parsed Keywords:</strong>
         <div class="flex-6">
-          {{#each this.parsedKeywords}}
-            {{this}}<br>
-          {{/each}}
+          <!-- {{#each this.parsedKeywords}} -->
+            <!-- {{this}}<br> -->
+          <!-- {{/each}} -->
         </div>
         </p>
 
@@ -43,6 +46,6 @@
   </div>
 </template>
 
-<template name="tabTitle">
-  <a href="{{pathFor route='dataItem' _id=getPost}}">{{this.title}}</a>
+<template name="jobStreetTabTitle">
+  <a href="{{pathFor route='job_street_data_item' _id=getPost}}">{{this.title}}</a>
 </template>

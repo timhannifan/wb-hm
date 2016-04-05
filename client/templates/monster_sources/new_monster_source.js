@@ -1,5 +1,5 @@
 
-Template.newMonsterSource.helpers({
+Template.new_monster_source.helpers({
   sources: function(){
     return Sources.find({});
   },

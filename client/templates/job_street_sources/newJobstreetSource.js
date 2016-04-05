@@ -1,13 +1,13 @@
 
 Template.newJobstreetSource.helpers({
-  JobStreetSources: function(){
-    return JobStreetSources.find({});
+  job_street_sources: function(){
+    return job_street_sources.find({});
   },
   sourcesArray: function(){
-    return JobStreetSources.find({}).fetch();
+    return job_street_sources.find({}).fetch();
   },
   jsonArray: function () {
-    var sources = JobStreetSources.find({});
+    var sources = job_street_sources.find({});
     return EJSON.toJSONValue(sources);
   }
 });

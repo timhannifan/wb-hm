@@ -9,7 +9,7 @@ Meteor.startup(function () {
     'click .delete-link': function(e, instance){
       e.preventDefault();
       if (confirm("Delete source?")) {
-        JobStreetSources.remove(instance.data._id);
+        job_street_sources.remove(instance.data._id);
       }
     }
   });

@@ -5,6 +5,7 @@ Categories = new Mongo.Collection('Categories');
 Events = new Mongo.Collection('Events');
 Notifications = new Mongo.Collection('Notifications');
 JobStreetItems = new Mongo.Collection('JobStreetItems');
+UnionItems = new Mongo.Collection('UnionItems');
 
 // Sources Schema and Permissions
 Sources.schema = new SimpleSchema({
@@ -26,32 +27,11 @@ Sources.schema = new SimpleSchema({
     type: String,
     optional: true,
     defaultValue: null
-  },
-
-  // sourceCategories: {
-  //   type: [String],
-  //   optional: true,
-  //   label: "Source Categories",
-  //   autoform: {
-  //     type: "selectize-input",
-  //     afFieldInput: {
-  //       multiple: true,
-  //       selectizeOptions: {
-  //         plugins: ['remove_button'],
-  //         persist: false,
-  //         create: true,
-  //         createOnBlur: true,
-  //       }
-  //     }
-  //   }
-  // },
+  }
 });
 Sources.attachSchema(Sources.schema);
 Sources.allow({
 	insert: function (userId, doc) {
-		return true;
-	},
-	remove: function (userId, doc) {
 		return true;
 	}
 });
@@ -88,9 +68,6 @@ JobStreetSources.schema = new SimpleSchema({
 JobStreetSources.attachSchema(JobStreetSources.schema);
 JobStreetSources.allow({
   insert: function (userId, doc) {
-    return true;
-  },
-  remove: function (userId, doc) {
     return true;
   }
 });
@@ -162,12 +139,10 @@ SourceItems.attachSchema(SourceItems.schema);
 SourceItems.allow({
   insert: function (userId, doc) {
     return true;
-  },
-  remove: function (userId, doc) {
-    return true;
   }
 });
 
+// JobStreetItems Schema and Permissions
 JobStreetItems.schema = new SimpleSchema({
   title: {
     type: String,
@@ -217,20 +192,58 @@ JobStreetItems.attachSchema(JobStreetItems.schema);
 JobStreetItems.allow({
   insert: function (userId, doc) {
     return true;
+  }
+});
+
+// UnionItems Schema and Permissions
+UnionItems.schema = new SimpleSchema({
+  title: {
+    type: String,
+    optional: true
   },
-  remove: function (userId, doc) {
+  url: {
+    type: String,
+    regEx: SimpleSchema.RegEx.Url
+  },
+  sourceId: {
+    type: String,
+    optional: true
+  },
+  description: {
+    type: String,
+    label: 'Raw Description',
+    optional: true
+  },
+  parsedKeywords: {
+    type: [String],
+    label: 'parsedKeywords keywords',
+    optional: true
+  },
+  company: {
+    type: String,
+    optional: true
+  },
+  experience: {
+    type: String,
+    optional: true
+  },
+
+  location: {
+    type: String,
+    optional: true
+  },
+  sourceIndustry: {
+    type: String,
+    optional: true
+  },
+  sourceSpecialization: {
+    type: String,
+    optional: true
+  },
+});
+UnionItems.attachSchema(UnionItems.schema);
+UnionItems.allow({
+  insert: function (userId, doc) {
     return true;
   }
 });
-// Meteor.methods({
-//   insertSource: function(sourceUrl, categories){
-//     // check(sourceUrl, Sources.schema);
-
-//     if (Sources.findOne({url: sourceUrl.url}))
-//       throw new Meteor.Error('already-exists', ('This source has already been added. Please try again.'));
-
-//     return Sources.insert({
-//     	url: sourceUrl,
-//     });
-//   }
-
