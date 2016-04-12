@@ -69,6 +69,18 @@ Meteor.startup(function () {
         return JobStreetItems.find().fetch();
       }
     });
+
+    this.route('combined_data', {
+      path: '/data/combined',
+      template:'combined_data'
+      // waitOn: function() {
+      //   Meteor.subscribe('JobSteetItems');
+      // },
+      // data: function () {
+      //   return JobStreetItems.find().fetch();
+      // }
+    });
+
     this.route('job_street_data_item', {
       path: '/data/jobstreet/:_id',
       template:'job_street_data_item',

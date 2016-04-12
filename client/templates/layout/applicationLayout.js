@@ -18,19 +18,16 @@ Template.applicationLayout.events({
 	'click [data-action=job_street_data]': function () {
 	  Router.go('job_street_data');
 	},
-	// 'click [data-action=graph]': function () {
-	//   Router.go('graph');
-	// },
+	'click [data-action=combined_data]': function () {
+	  Router.go('combined_data');
+	},
 	'click [data-action=export]': function () {
 	  Router.go('export');
-	},
-	'click [data-action=upload]': function () {
-	  Router.go('upload');
 	},
 	'click [data-action=new_monster_source]': function () {
 	  Router.go('new_monster_source');
 	},
-	'click [data-action=newJobstreetSource]': function () {
-	  Router.go('newJobstreetSource');
+	'click [data-action=new_jobstreet_source]': function () {
+	  Router.go('new_jobstreet_source');
 	}
 });

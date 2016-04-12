@@ -6,66 +6,53 @@
 			  <span class="type-title">Scraping the Skills Gap: Malaysia</span>
 			</paper-toolbar>
 			<paper-menu class="nav">
-				<paper-item  paper-drawer-toggle data-action="home" class="menu-trigger">
-					    <iron-icon icon="icons:info" item-icon></iron-icon>About
+				<paper-item data-action="home">
+				    <iron-icon icon="icons:home" item-icon></iron-icon>Home
 				</paper-item>
-				<paper-submenu class="nav-submenu">
-					<paper-item class="menu-trigger">
+				<paper-submenu class="">
+					<paper-item class="menu-trigger" data-action="sources">
 						<iron-icon icon="icons:dns" item-icon></iron-icon>Sources
 					</paper-item>
 					<paper-menu class="menu-content" id="submenu">
-						<paper-item paper-drawer-toggle data-action="sources">Monster.com</paper-item>
-						<paper-item paper-drawer-toggle data-action="job_street_sources">JobStreet.com</paper-item>
+						<paper-item data-action="sources">Monster.com RSS</paper-item>
+						<paper-item data-action="job_street_sources">JobStreet.com Queries</paper-item>
 					</paper-menu>
 				</paper-submenu>
 
-				<paper-submenu>
-					<paper-item class="menu-trigger">
+				<paper-submenu class="">
+					<paper-item class="menu-trigger" data-action="data">
 						<iron-icon icon="icons:view-list" item-icon></iron-icon>Data
 					</paper-item>
 					<paper-menu class="menu-content" id="submenu">
-						<paper-item paper-drawer-toggle data-action="data">Monster</paper-item>
-						<paper-item paper-drawer-toggle data-action="job_street_data">Job Street</paper-item>
-						<paper-item paper-drawer-toggle data-action="data">Combined</paper-item>
+						<paper-item data-action="data">Monster</paper-item>
+						<paper-item data-action="job_street_data">JobStreet</paper-item>
+						<paper-item data-action="combined_data">Combined</paper-item>
 					</paper-menu>
 				</paper-submenu>
 
-<!-- 				<paper-submenu>
-					<paper-item class="menu-trigger">
-						<iron-icon icon="icons:assessment" item-icon></iron-icon>Visualization
+				<paper-submenu class="">
+					<paper-item class="menu-trigger" data-action="export">
+						<iron-icon icon="icons:build" item-icon></iron-icon>Utitlites
 					</paper-item>
 					<paper-menu class="menu-content" id="submenu">
-						<paper-item paper-drawer-toggle data-action="graph">Demo 1</paper-item>
-						<paper-item paper-drawer-toggle data-action="graph">Demo 2</paper-item>
-						<paper-item paper-drawer-toggle data-action="graph">Demo 3</paper-item>
-					</paper-menu>
-				</paper-submenu> -->
-
-				<paper-submenu>
-					<paper-item class="menu-trigger">
-						    <iron-icon icon="icons:perm-data-setting" item-icon></iron-icon>Utilities
-					</paper-item>
-					<paper-menu class="menu-content" id="submenu">
-					  <paper-item paper-drawer-toggle data-action="upload">Import CSV</paper-item> 
-					  <paper-item paper-drawer-toggle data-action="export">Export CSV</paper-item>
-					  <paper-item paper-drawer-toggle data-action="new_monster_source">New Monster RSS</paper-item>
-					  <paper-item paper-drawer-toggle data-action="newJobstreetSource">New JobStreet Specialization</paper-item>
+						<paper-item data-action="export">Export CSV</paper-item>
+						<paper-item data-action="new_monster_source">Add Monster RSS</paper-item>
+						<paper-item data-action="new_jobstreet_source">Add JobStreet Query</paper-item>
 					</paper-menu>
 				</paper-submenu>
-
 			</paper-menu>
 		</paper-header-panel>
 		<paper-header-panel main>
-			<div class="flex">
-				<div class="vertical-center-justified layout">
-					<div class="page-container">
-					    {{> yield}}		
-					</div>
-				</div>
+			<!-- <div > -->
+				<!-- <div class="vertical-center-justified layout"> -->
+			<div id="content" class="flex">
+			    {{> yield}}		
 			</div>
-			<div class="flex vertical-left-justified layout">
-			    {{ > publicFooter}}
-			</div>
+				<!-- </div> -->
+			<!-- </div> -->
+			<!-- <div class="flex vertical-left-justified layout"> -->
+			    <!-- {{ > publicFooter}} -->
+			<!-- </div> -->
 		</paper-header-panel>
 	</paper-drawer-panel>
 </template>

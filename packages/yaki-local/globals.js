@@ -1,0 +1,1 @@
+Yaki = this.Yaki;
