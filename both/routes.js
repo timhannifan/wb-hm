@@ -17,9 +17,9 @@ Meteor.startup(function () {
       template:'home'
     });
     
-    this.route('sources', {
+    this.route('monster_sources', {
       path: '/sources/monster',
-      template:'sources',
+      template:'monster_sources',
       waitOn: function() {
         Meteor.subscribe('MonsterSources');
       },

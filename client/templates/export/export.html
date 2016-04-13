@@ -1,10 +1,11 @@
 <template name="export">
-  <paper-material>
-    <paper-toolbar>
-      <span class="title">Export CSV Data</span>
-    </paper-toolbar>
-    <div class="list-wrapper">
+  <div class="flex page-header">
+    <span class="title">Export CSV Data</span>
+    <!-- <paper-icon-button icon="refresh" class="action-button"></paper-icon-button> -->
+  </div>
 
+  <paper-material>
+    <div class="list-wrapper">
       <div role="listbox" class="list">
     
         <paper-icon-item class="list-item" id="methodExportMonsterSources">
@@ -53,7 +54,6 @@
         </paper-icon-item>
           
       </div>
-
     </div>  
   </paper-material>
 </template>

@@ -6,9 +6,9 @@ Template.app_layout.events({
 	'click [data-action=home]': function () {
 	  Router.go('home');
 	},
-	'click [data-action=sources]': function () {
+	'click [data-action=monster_sources]': function () {
 		Meteor.setTimeout(function() {}, 250);
-	  Router.go('sources');
+	  Router.go('monster_sources');
 	},
 	'click [data-action=job_street_sources]': function () {
 	  Router.go('job_street_sources');
