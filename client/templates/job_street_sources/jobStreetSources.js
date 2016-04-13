@@ -12,6 +12,13 @@ Meteor.startup(function () {
     }
   });
 
+  Template.job_street_sources.events({
+    'click #js-add-jobstreet-source': function () {
+      console.log('clicked add jobstreet source');
+      GlobalUI.showDialog({heading: "Add a new JobStreet Query", template:"new_jobstreet_source"});
+    }
+  });
+
 
 });
 

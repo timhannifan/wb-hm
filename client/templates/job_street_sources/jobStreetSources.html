@@ -1,22 +1,24 @@
 <template name="job_street_sources">
-  <div class="vertical-section">
-    <paper-card heading="JobStreet.com Queries" class="card">
-      <div class="card-content">
-        <div class="list">
-          <paper-item class="flex">
-            <p class="flex-4 type-size-subhead flex-start-justified"><strong>Specialization</strong></p>
-            <p class="flex-4 type-size-subhead flex-start-justified"><strong>Sub-specialization</strong></p>
-            <p class="flex-3 type-size-subhead flex-start-justified"><strong>Query Depth</strong></p>
-            <p class="flex-1 type-size-subhead flex-start-justified"><strong>Delete</strong></p>
-          </paper-item>
-
-          {{#each sources}}
-            <div class="list list-item">
-              {{> jobStreet_source_item}}
-            </div>
-          {{/each}}
-        </div>
+  <paper-material>
+    <paper-toolbar>
+      <span class="title">JobStreet.com Search Queries</span>
+      <paper-icon-button icon="refresh"></paper-icon-button>
+      <paper-icon-button icon="add" id="js-add-jobstreet-source">+</paper-icon-button>
+    </paper-toolbar>
+    <div class="list-wrapper">
+      <div role="listbox" class="list">
+        <paper-item class="item divider-bottom">
+          <p class="type-size-subhead flex-3"><strong>Specialization</strong></p>
+          <p class="type-size-subhead flex-3"><strong>Sub-specialization</strong></p>
+          <p class="type-size-subhead flex-3"><strong>Query Depth</strong></p>
+          <p class="type-size-subhead flex-3"><strong>Delete</strong></p>
+        </paper-item>
+        {{#each sources}}
+          <div class="list list-item">
+            {{> jobStreet_source_item}}
+          </div>
+        {{/each}}
       </div>
-    </paper-card>
-  </div>
+    </div>  
+  </paper-material>
 </template>

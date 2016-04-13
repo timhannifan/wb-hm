@@ -7,8 +7,8 @@ Meteor.startup(function() {
         sourceName: 'jobstreet',
         sourceCategory: 'Accounting/Finance',
         sourceUrl: 'http://www.jobstreet.com.my/en/job-search/job-vacancy.php?key=&location=&specialization=130&area=&salary=&src=12',
-        sourceSpecialization: 'Audit & Taxation Jobs',
-        sourceSearchDepth: 55,
+        sourceSpecialization: 'Audit and Taxation',
+        sourceSearchDepth: 2,
         sourceSpecializationCode: 130
       }
     ];
@@ -33,8 +33,6 @@ Meteor.startup(function() {
           sourceCategory: obj.sourceCategory,
           sourceSpecialization: obj.sourceSpecialization,
         });
-        console.log('subSpecTargets:');
-        // console.dir(subSpecTargets);
     };
 
     for (var i = specializationCodes.length - 1; i >= 0; i--) {

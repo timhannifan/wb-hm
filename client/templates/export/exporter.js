@@ -1,23 +1,84 @@
 MyAppExporter = {
-	exportAllRpt: function() {
+	methodExportMonsterSources: function() {
 		var self = this;
-		Meteor.call("exportAllRpt", function(error, data) {
- 
+
+		Meteor.apply("exportMonsterSources",[],{wait: true}, function(error, data) {
+		
 			if ( error ) {
 				alert(error); 
 				return false;
 			}
 			
 			var csv = Papa.unparse(data);
-			self._downloadCSV(csv);
+			var title = "MonsterSources.csv";
+			self._downloadCSV(csv, title);
 		});
 	},
- 
-	_downloadCSV: function(csv) {
+	methodExportJobStreetSources: function() {
+		var self = this;
+
+		Meteor.apply("exportJobStreetSources",[],{wait: true}, function(error, data) {
+		
+			if ( error ) {
+				alert(error); 
+				return false;
+			}
+			
+			var csv = Papa.unparse(data);
+			var title = "JobStreetSources.csv";
+			self._downloadCSV(csv, title);
+		});
+	},
+	methodExportJobStreetItems: function() {
+		var self = this;
+
+		Meteor.apply("exportJobStreetItems",[],{wait: true}, function(error, data) {
+		
+			if ( error ) {
+				alert(error); 
+				return false;
+			}
+			
+			var csv = Papa.unparse(data);
+			var title = "JobStreetItems.csv";
+			self._downloadCSV(csv, title);
+		});
+	},
+	methodExportMonsterItems: function() {
+		var self = this;
+
+		Meteor.apply("exportMonsterItems",[],{wait: true}, function(error, data) {
+		
+			if ( error ) {
+				alert(error); 
+				return false;
+			}
+			
+			var csv = Papa.unparse(data);
+			var title = "MonsterItems.csv";
+			self._downloadCSV(csv, title);
+		});
+	},
+	methodExportCombinedItems: function() {
+		var self = this;
+
+		Meteor.apply("exportCombinedItems",[],{wait: true}, function(error, data) {
+		
+			if ( error ) {
+				alert(error); 
+				return false;
+			}
+			
+			var csv = Papa.unparse(data);
+			var title = "CombinedItems.csv";
+			self._downloadCSV(csv, title);
+		});
+	},
+	_downloadCSV: function(csv, title) {
 		var blob = new Blob([csv]);
 		var a = window.document.createElement("a");
 	    a.href = window.URL.createObjectURL(blob, {type: "text/plain"});
-	    a.download = "rpt.csv";
+	    a.download = title;
 	    document.body.appendChild(a);
 	    a.click();
 	    document.body.removeChild(a);

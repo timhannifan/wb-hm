@@ -1,0 +1,18 @@
+<template name="globalLayout">
+
+
+  {{> UI.contentBlock}}
+
+  <paper-dialog global-dialog with-backdrop
+    entry-animation="hero-animation"
+    exit-animation="fade-out-animation"
+    class="{{#if globalDialogFullOnMobile}}full-on-mobile{{/if}} flex">
+    {{#if globalDialogTemplate}}
+    <h2>{{#if globalDialogHeading}}{{globalDialogHeading}}{{/if}}</h2>
+      {{> UI.dynamic template=globalDialogTemplate data=globalDialogData}}
+    {{/if}}
+
+  </paper-dialog>
+
+  <paper-toast global-toast></paper-toast>
+</template>

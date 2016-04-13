@@ -1,13 +1,13 @@
 <template name="jobStreet_source_item">
-	<a href="{{this.sourceUrl}}" target="_blank" title="">
+	<a href="{{this.sourceUrl}}" target="_blank" title="" class="item">
 		<paper-item class="flex">
-			<p class="flex-4 type-size-type-size-body flex-start-justified">{{this.sourceCategory}}</p>
-			<p class="flex-4 type-size-type-size-body flex-start-justified">{{this.sourceSpecialization}}</p>
-			<p class="flex-3 type-size-type-size-body flex-center-justified">{{this.sourceSearchDepth}}</p>
-			<p class="flex-1 type-size-type-size-body flex-start-justified">
-				<paper-button noink class="delete-link right-justified">
-				  <iron-icon icon="icons:clear"></iron-icon>
-				</paper-button>			
+			<p class="flex-3 type-size-type-size-body">{{this.sourceCategory}}</p>
+			<p class="flex-3 type-size-type-size-body">{{this.sourceSpecialization}}</p>
+			<p class="flex-3 type-size-type-size-body">{{this.sourceSearchDepth}}</p>
+			<p class="flex-3 type-size-type-size-body">
+			<paper-button noink class="delete-link">
+			  <iron-icon icon="icons:clear"></iron-icon>
+			</paper-button>			
 			</p>
 		</paper-item>
 	</a>

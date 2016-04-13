@@ -1,3 +1,59 @@
 <template name="export">
-	<button type="button" id="export">Download</button>
+  <paper-material>
+    <paper-toolbar>
+      <span class="title">Export CSV Data</span>
+    </paper-toolbar>
+    <div class="list-wrapper">
+
+      <div role="listbox" class="list">
+    
+        <paper-icon-item class="list-item" id="methodExportMonsterSources">
+        	<paper-item-body two-line>
+    	      <div>Monster.com Sources</div>
+    	      <div secondary>Last updated:</div>
+    	    </paper-item-body>
+
+          <iron-icon  item-icon icon="file-download"></iron-icon>
+        </paper-icon-item>
+    
+        <paper-icon-item class="list-item" id="methodExportJobStreetSources">
+        	<paper-item-body two-line>
+    	      <div>JobStreet.com Sources</div>
+    	      <div secondary>Last updated:</div>
+    	    </paper-item-body>
+
+          <iron-icon  item-icon icon="file-download"></iron-icon>
+        </paper-icon-item>
+    
+        <paper-icon-item class="list-item" id="methodExportMonsterItems">
+        	<paper-item-body two-line>
+    	      <div>Monster.com Job Data</div>
+    	      <div secondary>Last updated:</div>
+    	    </paper-item-body>
+
+          <iron-icon  item-icon icon="file-download"></iron-icon>
+        </paper-icon-item>
+    
+        <paper-icon-item class="list-item" id="methodExportJobStreetItems">
+        	<paper-item-body two-line>
+    	      <div>JobStreet.com Job Data</div>
+    	      <div secondary>Last updated:</div>
+    	    </paper-item-body>
+
+          <iron-icon  item-icon icon="file-download"></iron-icon>
+        </paper-icon-item>
+    
+        <paper-icon-item class="list-item" id="methodExportCombinedItems">
+        	<paper-item-body two-line>
+    	      <div>Combined Data</div>
+    	      <div secondary>Last updated:</div>
+    	    </paper-item-body>
+
+          <iron-icon  item-icon icon="file-download"></iron-icon>
+        </paper-icon-item>
+          
+      </div>
+
+    </div>  
+  </paper-material>
 </template>
