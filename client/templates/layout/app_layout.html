@@ -11,7 +11,7 @@
 				    <iron-icon icon="icons:home" item-icon></iron-icon>Home
 				</paper-item>
 				<paper-submenu class="">
-					<paper-item class="menu-trigger" data-action="sources">
+					<paper-item class="menu-trigger">
 						<iron-icon icon="icons:dns" item-icon></iron-icon>Sources
 					</paper-item>
 					<paper-menu class="menu-content" id="submenu">
@@ -21,13 +21,13 @@
 				</paper-submenu>
 
 				<paper-submenu class="">
-					<paper-item class="menu-trigger" data-action="data">
+					<paper-item class="menu-trigger">
 						<iron-icon icon="icons:view-list" item-icon></iron-icon>Job Market Data
 					</paper-item>
 					<paper-menu class="menu-content" id="submenu">
 						<paper-item data-action="data">Monster.com</paper-item>
 						<paper-item data-action="job_street_data">JobStreet.com</paper-item>
-						<paper-item data-action="combined_data">Processed Data</paper-item>
+						<paper-item data-action="combined_data">Processed &amp; Combined</paper-item>
 					</paper-menu>
 				</paper-submenu>
 
@@ -37,8 +37,6 @@
 					</paper-item>
 					<paper-menu class="menu-content" id="submenu">
 						<paper-item data-action="export">Export CSV Data</paper-item>
-						<!-- <paper-item data-action="new_monster_source">Add Monster RSS</paper-item> -->
-						<!-- <paper-item data-action="new_jobstreet_source">Add JobStreet Query</paper-item> -->
 					</paper-menu>
 				</paper-submenu>
 			</paper-menu>
