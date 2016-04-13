@@ -74,7 +74,7 @@
           }
         },
         "lodash": {
-          "version": "4.6.1"
+          "version": "4.10.0"
         },
         "jsdom": {
           "version": "7.2.2",
@@ -146,7 +146,7 @@
               "version": "1.5.1"
             },
             "request": {
-              "version": "2.69.0",
+              "version": "2.71.0",
               "dependencies": {
                 "aws-sign2": {
                   "version": "0.6.0"
@@ -155,7 +155,7 @@
                   "version": "1.3.2",
                   "dependencies": {
                     "lru-cache": {
-                      "version": "4.0.0",
+                      "version": "4.0.1",
                       "dependencies": {
                         "pseudomap": {
                           "version": "1.0.2"
@@ -168,7 +168,7 @@
                   }
                 },
                 "bl": {
-                  "version": "1.0.3",
+                  "version": "1.1.2",
                   "dependencies": {
                     "readable-stream": {
                       "version": "2.0.6",
@@ -224,15 +224,10 @@
                   "version": "2.0.6",
                   "dependencies": {
                     "chalk": {
-                      "version": "1.1.1",
+                      "version": "1.1.3",
                       "dependencies": {
                         "ansi-styles": {
-                          "version": "2.2.0",
-                          "dependencies": {
-                            "color-convert": {
-                              "version": "1.0.0"
-                            }
-                          }
+                          "version": "2.2.1"
                         },
                         "escape-string-regexp": {
                           "version": "1.0.5"
@@ -289,7 +284,7 @@
                       }
                     },
                     "pinkie-promise": {
-                      "version": "2.0.0",
+                      "version": "2.0.1",
                       "dependencies": {
                         "pinkie": {
                           "version": "2.0.4"
@@ -353,7 +348,7 @@
                           "version": "0.1.0"
                         },
                         "tweetnacl": {
-                          "version": "0.14.1"
+                          "version": "0.14.3"
                         },
                         "jodid25519": {
                           "version": "1.0.2"
@@ -389,7 +384,7 @@
                   "version": "0.8.1"
                 },
                 "qs": {
-                  "version": "6.0.2"
+                  "version": "6.1.0"
                 },
                 "stringstream": {
                   "version": "0.0.5"
@@ -400,7 +395,7 @@
               }
             },
             "sax": {
-              "version": "1.1.6"
+              "version": "1.2.1"
             },
             "symbol-tree": {
               "version": "3.1.4"
@@ -467,7 +462,12 @@
       "version": "2.1.1"
     },
     "to-markdown": {
-      "version": "0.0.2"
+      "version": "0.0.2",
+      "dependencies": {
+        "he": {
+          "version": "1.0.0"
+        }
+      }
     }
   }
 }

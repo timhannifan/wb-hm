@@ -20,6 +20,7 @@ Package.onUse(function (api) {
   var packages = [
     'meteor-platform',  
     'yaki-local',
+    'http'
   ];
   api.use(packages);
   api.imply(packages);
@@ -27,6 +28,7 @@ Package.onUse(function (api) {
   api.addFiles([
     'lib/server/fetch_sources.js',
     'lib/server/job_street.js',
+    // 'lib/server/cheerio_test.js',
   ], ['server']);
 
   api.export('cheerio');

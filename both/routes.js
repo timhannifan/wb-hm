@@ -3,7 +3,7 @@ Meteor.startup(function () {
   console.log('/////configuring router/////');
 
   Router.configure({
-    layoutTemplate: 'applicationLayout',
+    layoutTemplate: 'app_layout',
     loadingTemplate: 'loading',
     not_foundTemplate: 'notFound'
     // autoRender: true,
@@ -21,10 +21,10 @@ Meteor.startup(function () {
       path: '/sources/monster',
       template:'sources',
       waitOn: function() {
-        Meteor.subscribe('Sources');
+        Meteor.subscribe('MonsterSources');
       },
       data: function () {
-        return Sources.find().fetch();
+        return MonsterSources.find().fetch();
       }
     });
     
@@ -43,20 +43,20 @@ Meteor.startup(function () {
       path: '/data/monster',
       template:'data',
       waitOn: function() {
-        Meteor.subscribe('SourceItems');
+        Meteor.subscribe('MonsterItems');
       },
       data: function () {
-        return SourceItems.find().fetch();
+        return MonsterItems.find().fetch();
       }
     });
     this.route('data_item', {
       path: '/data/monster/:_id',
       template:'data_item',
       waitOn: function() {
-        Meteor.subscribe('SourceItems');
+        Meteor.subscribe('MonsterItems');
       },
       data: function () {
-        return SourceItems.findOne({_id: this.params._id});
+        return MonsterItems.findOne({_id: this.params._id});
       }
     });
     this.route('job_street_data', {

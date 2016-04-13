@@ -1,18 +1,47 @@
-// Meteor.methods({
 
-//   downloadMonster: function() {
-//     var collection = SourceItems.find().fetch();
-//     // var heading = true; // Optional, defaults to true
-//     // var delimiter = ";" // Optional, defaults to ",";
-//     // return exportcsv.exportToCSV(collection, heading, delimiter);
-//     return exportcsv.exportToCSV(collection);
-//   },
-  
-//   downloadJobStreet: function() {
-//     var collection = JobStreetItems.find().fetch();
-//     // var heading = true; // Optional, defaults to true
-//     // var delimiter = ";" // Optional, defaults to ",";
-//     return exportcsv.exportToCSV(collection);
-//   },
+// function resetRptTitleInKeywords (col) {
+//   var data = Rpt.find();
+//   var removeData = function(_id) {
+//     Rpt.update(
+//       {_id: _id}, 
+//       { 
+//         $unset: { 
+//           titleInKeywords: ""
+//         }
+//       }, function(err,res) {
+//           if( err) {
+//             console.log(err);
+//           } else {
+//             console.log('successfully completed resetting titleInKeywords. ' + res + 'items removed');
+//           }
+//       }
+//     );  
+//   }
 
-// });
+//   data.forEach(function (el) {
+//     var id = el._id;
+
+//     if ( id ) {
+//       removeData(id);
+//     }
+//   });
+// };
+
+Meteor.methods({
+resetMonsterSources: function () {
+  MonsterSources.remove({});
+},
+resetJobStreetSources: function () {
+  JobStreetSources.remove({});
+},
+
+resetJobStreetItems: function () {
+  JobStreetItems.remove({});
+},
+
+resetJobStreetSources: function () {
+  JobStreetSources.remove({});
+},
+
+
+})

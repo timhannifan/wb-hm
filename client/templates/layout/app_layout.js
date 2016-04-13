@@ -1,18 +1,20 @@
-Template.applicationLayout.events({
+Template.app_layout.events({
 	'click #js-fetch-rss': function () {
-	  Meteor.call('fetchSources');
+	  Meteor.call('fetchMonsterSources');
 	  toast('Refreshing data...');
 	},
 	'click [data-action=home]': function () {
 	  Router.go('home');
 	},
 	'click [data-action=sources]': function () {
+		Meteor.setTimeout(function() {}, 250);
 	  Router.go('sources');
 	},
 	'click [data-action=job_street_sources]': function () {
 	  Router.go('job_street_sources');
 	},
 	'click [data-action=data]': function () {
+		Meteor.setTimeout(function() {}, 250);
 	  Router.go('data');
 	},
 	'click [data-action=job_street_data]': function () {

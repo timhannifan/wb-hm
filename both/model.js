@@ -1,20 +1,17 @@
-Sources = new Mongo.Collection('Sources');
+MonsterSources = new Mongo.Collection('MonsterSources');
 JobStreetSources = new Mongo.Collection('JobStreetSources');
-SourceItems = new Mongo.Collection('SourceItems');
-Categories = new Mongo.Collection('Categories');
-Events = new Mongo.Collection('Events');
-Notifications = new Mongo.Collection('Notifications');
+MonsterItems = new Mongo.Collection('MonsterItems');
 JobStreetItems = new Mongo.Collection('JobStreetItems');
 UnionItems = new Mongo.Collection('UnionItems');
 
-// Sources Schema and Permissions
-Sources.schema = new SimpleSchema({
+// MonsterSources Schema and Permissions
+MonsterSources.schema = new SimpleSchema({
   sourceName: {
     type: String,
     optional: true,
     defaultValue: 'monster',
   },
-  sourceIndustry: {
+  sourceCategory: {
     type: String,
     optional: true,
   },
@@ -29,8 +26,8 @@ Sources.schema = new SimpleSchema({
     defaultValue: null
   }
 });
-Sources.attachSchema(Sources.schema);
-Sources.allow({
+MonsterSources.attachSchema(MonsterSources.schema);
+MonsterSources.allow({
 	insert: function (userId, doc) {
 		return true;
 	}
@@ -43,7 +40,7 @@ JobStreetSources.schema = new SimpleSchema({
     optional: true,
     defaultValue: 'jobstreet'
   },
-  sourceIndustry: {
+  sourceCategory: {
     type: String,
     optional: true
   },
@@ -73,8 +70,8 @@ JobStreetSources.allow({
 });
 
 
-// SourceItems Schema and Permissions
-SourceItems.schema = new SimpleSchema({
+// MonsterItems Schema and Permissions
+MonsterItems.schema = new SimpleSchema({
   title: {
     type: String,
     optional: true
@@ -91,7 +88,7 @@ SourceItems.schema = new SimpleSchema({
     type: String,
     optional: true
   },
-  sourceIndustry: {
+  sourceCategory: {
     type: String,
     optional: true,
   },
@@ -135,8 +132,8 @@ SourceItems.schema = new SimpleSchema({
   }
 });
 
-SourceItems.attachSchema(SourceItems.schema);
-SourceItems.allow({
+MonsterItems.attachSchema(MonsterItems.schema);
+MonsterItems.allow({
   insert: function (userId, doc) {
     return true;
   }
@@ -179,7 +176,7 @@ JobStreetItems.schema = new SimpleSchema({
     type: String,
     optional: true
   },
-  sourceIndustry: {
+  sourceCategory: {
     type: String,
     optional: true
   },
@@ -232,7 +229,7 @@ UnionItems.schema = new SimpleSchema({
     type: String,
     optional: true
   },
-  sourceIndustry: {
+  sourceCategory: {
     type: String,
     optional: true
   },

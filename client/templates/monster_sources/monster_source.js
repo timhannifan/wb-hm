@@ -1,12 +1,12 @@
 Template.sources.helpers({
   sources: function(){
-    return Sources.find({});
+    return MonsterSources.find({});
   },
   sourcesArray: function(){
-    return Sources.find({}).fetch();
+    return MonsterSources.find({}).fetch();
   },
   jsonArray: function () {
-    var sources = Sources.find({});
+    var sources = MonsterSources.find({});
     return EJSON.toJSONValue(sources);
   }
 });

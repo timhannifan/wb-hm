@@ -44,8 +44,8 @@ var sourceHandler = {
     // var test = Yaki(string).clean().extract();
     return;
   },
-  handle: function(contentBuffer, sourceIndustry, sourceId) {
-    console.log('sourceIndustry',sourceIndustry);
+  handle: function(contentBuffer, sourceCategory, sourceId) {
+    console.log('sourceCategory',sourceCategory);
     var content = normalizeEncoding(contentBuffer);
     var stream = this.getStream(content),
     sourceParser = new FeedParser(),
@@ -152,7 +152,7 @@ var sourceHandler = {
         }
 
         // // check if newSourceItem already exists
-        if (!!SourceItems.findOne({url: item.guid})) {
+        if (!!MonsterItems.findOne({url: item.guid})) {
           console.log('///// '+item.guid+' was already imported//////');
           continue;
         }
@@ -164,7 +164,7 @@ var sourceHandler = {
           url: item.guid,
           sourceId: sourceId,
           // itemGuid: item.guid,
-          sourceIndustry: sourceIndustry,//self.getSourceIndustry(item, sourceIndustry),
+          sourceCategory: sourceCategory,//self.getsourceCategory(item, sourceCategory),
           description: stripThis(item.description),
           pubDate: item.meta.pubdate,
           postedAt: new Date()
@@ -218,7 +218,7 @@ var sourceHandler = {
           //     }
 
         try {
-          SourceItems.insert(newSourceItem);
+          MonsterItems.insert(newSourceItem);
         } catch (error) {
           // catch errors so they don't stop the loop
           console.log(error);
@@ -238,13 +238,13 @@ fetchSources = function() {
   var existingSources = Sources.find({}).fetch();
 
   existingSources.each(function(obj){
-    var sourceIndustry = obj.sourceIndustry;
+    var sourceCategory = obj.sourceCategory;
     var sourceId = obj._id;
     var sourceUrl = obj.sourceUrl;
 
     try {
       contentBuffer = HTTP.get(sourceUrl, {responseType: 'buffer'}).content;
-      sourceHandler.handle(contentBuffer, sourceIndustry, sourceId);
+      sourceHandler.handle(contentBuffer, sourceCategory, sourceId);
     } catch (error) {
       console.log('fetchSources error', error);
       return true; // just go to next source URL
@@ -280,7 +280,7 @@ Meteor.methods({
     console.log(data);
   },
   download: function() {
-    var collection = SourceItems.find().fetch();
+    var collection = MonsterItems.find().fetch();
     var heading = true; // Optional, defaults to true
     var delimiter = ";" // Optional, defaults to ",";
     return exportcsv.exportToCSV(collection, heading, delimiter);

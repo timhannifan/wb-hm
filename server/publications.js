@@ -1,13 +1,13 @@
-Meteor.publish('Sources', function() {
-	return Sources.find({});
+Meteor.publish('MonsterSources', function() {
+	return MonsterSources.find({});
 });
 
 Meteor.publish('JobStreetSources', function() {
 	return JobStreetSources.find({});
 });
 
-Meteor.publish('SourceItems', function() {
-	return SourceItems.find({});
+Meteor.publish('MonsterItems', function() {
+	return MonsterItems.find({});
 });
 
 
