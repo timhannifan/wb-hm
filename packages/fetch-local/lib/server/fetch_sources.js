@@ -235,9 +235,9 @@ var sourceHandler = {
 fetchSources = function() {
   var contentBuffer;
 
-  var existingSources = Sources.find({}).fetch();
+  var existingSources = MonsterSources.find({});
 
-  existingSources.each(function(obj){
+  existingSources.forEach(function(obj){
     var sourceCategory = obj.sourceCategory;
     var sourceId = obj._id;
     var sourceUrl = obj.sourceUrl;
@@ -250,12 +250,6 @@ fetchSources = function() {
       return true; // just go to next source URL
     }      
   });
-
-  // Sources.find().each(function(source) {
-
-
-  // });
-
 };
 
 Meteor.methods({
