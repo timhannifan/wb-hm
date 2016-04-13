@@ -29,8 +29,5 @@ packages_update.py
 .editorconfig
 
 public/components/*
-packages/app-root/.npm/*
-.sublimetext/* 
-
 settings.json
 *.sh
