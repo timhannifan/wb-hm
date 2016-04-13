@@ -28,7 +28,7 @@ packages_update.py
 .break
 .editorconfig
 
-public/bower_components/*
+public/components/*
 packages/app-root/.npm/*
 .sublimetext/* 
 
