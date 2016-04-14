@@ -75,6 +75,30 @@ MonsterItems.schema = new SimpleSchema({
   title: {
     type: String,
     optional: true
+  },  
+  description: {
+    type: String,
+    optional: true
+  },  
+  companyRegistrationNumber: {
+    type: String,
+    optional: true
+  },  
+  companySize: {
+    type: String,
+    optional: true
+  },  
+  benefits: {
+    type: String,
+    optional: true
+  },  
+  languagesSpoken: {
+    type: String,
+    optional: true
+  },  
+  companyAddress: {
+    type: String,
+    optional: true
   },
   url: {
     type: String,
@@ -122,12 +146,8 @@ MonsterItems.schema = new SimpleSchema({
     type: String,
     optional: true
   },
-  pubDate: {
-    type: String,
-    optional: true
-  },
-  postedAt: {
-    type: String,
+  createdAt: {
+    type: Date,
     optional: true
   }
 });
@@ -145,35 +165,49 @@ JobStreetItems.schema = new SimpleSchema({
     type: String,
     optional: true
   },
-  url: {
-    type: String,
-    regEx: SimpleSchema.RegEx.Url
-  },
-  sourceId: {
-    type: String,
-    optional: true
-  },
-  description: {
-    type: String,
-    label: 'Raw Description',
-    optional: true
-  },
-  parsedKeywords: {
-    type: [String],
-    label: 'parsedKeywords keywords',
-    optional: true
-  },
   company: {
+    type: String,
+    optional: true
+  },
+  location: {
     type: String,
     optional: true
   },
   experience: {
     type: String,
     optional: true
-  },
-
-  location: {
+  },  
+  description: {
     type: String,
+    label: 'Raw Description',
+    optional: true
+  },
+  companyRegistrationNumber: {
+    type: String,
+    optional: true
+  },  
+  companySize: {
+    type: String,
+    optional: true
+  },  
+  benefits: {
+    type: String,
+    optional: true
+  },  
+  languagesSpoken: {
+    type: String,
+    optional: true
+  },  
+  companyAddress: {
+    type: String,
+    optional: true
+  }, 
+  url: {
+    type: String,
+    regEx: SimpleSchema.RegEx.Url
+  },
+  createdAt: {
+    type: Date,
     optional: true
   },
   sourceCategory: {
