@@ -146,6 +146,10 @@ MonsterItems.schema = new SimpleSchema({
     type: String,
     optional: true
   },
+  datePosted: {
+    type: String,
+    optional: true
+  },
   createdAt: {
     type: Date,
     optional: true
@@ -165,6 +169,10 @@ JobStreetItems.schema = new SimpleSchema({
     type: String,
     optional: true
   },
+  titleTags: {
+    type: [String],
+    optional: true
+  },
   company: {
     type: String,
     optional: true
@@ -179,7 +187,10 @@ JobStreetItems.schema = new SimpleSchema({
   },  
   description: {
     type: String,
-    label: 'Raw Description',
+    optional: true
+  },  
+  descriptionTags: {
+    type: [String],
     optional: true
   },
   companyRegistrationNumber: {
@@ -206,18 +217,22 @@ JobStreetItems.schema = new SimpleSchema({
     type: String,
     regEx: SimpleSchema.RegEx.Url
   },
+  parentCategory: {
+    type: String,
+    optional: true
+  },
+  subSpecialization: {
+    type: String,
+    optional: true
+  },
+  datePosted: {
+      type: String,
+      optional: true
+  },
   createdAt: {
-    type: Date,
-    optional: true
-  },
-  sourceCategory: {
-    type: String,
-    optional: true
-  },
-  sourceSpecialization: {
-    type: String,
-    optional: true
-  },
+      type: Date,
+      optional: true
+    },
 });
 JobStreetItems.attachSchema(JobStreetItems.schema);
 JobStreetItems.allow({
@@ -242,7 +257,6 @@ UnionItems.schema = new SimpleSchema({
   },
   description: {
     type: String,
-    label: 'Raw Description',
     optional: true
   },
   parsedKeywords: {

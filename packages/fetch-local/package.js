@@ -26,9 +26,8 @@ Package.onUse(function (api) {
   api.imply(packages);
 
   api.addFiles([
-    'lib/server/fetch_sources.js',
-    'lib/server/job_street.js',
-    'lib/server/jobStreetFixtures.js',
+    'lib/server/monster.js',
+    'lib/server/jobstreet.js',
   ], ['server']);
 
   api.export('cheerio');
