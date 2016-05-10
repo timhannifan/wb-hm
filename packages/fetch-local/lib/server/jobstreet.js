@@ -52,9 +52,12 @@ function getHTTPjobUrlandInsert (obj, category, subspec) {
       newItem.companySize = cleanUp($body.find('#company_size').text());
       newItem.benefits = cleanUp($body.find('#work_environment_benefits').text());
       newItem.languagesSpoken = cleanUp($body.find('#work_environment_spoken_language').text());
-      newItem.postingDate = cleanUp($body.find('#posting_date').children().text());
+      newItem.datePosted = cleanUp($body.find('#posting_date').children().text());
       newItem.parentCategory = parentCategory;
       newItem.subSpecialization = subSpecialization;
+      newItem.listedSpec = obj.listedSpec;
+      newItem.listedRole = obj.listedRole;
+      newItem.listedIndustry = obj.listedIndustry;
 
       newItem.description = $body.find('#job_description').text();
       if (newItem.description)
@@ -88,6 +91,9 @@ function getHTTPjobUrlandInsert (obj, category, subspec) {
       newItem.description = cleanUp($body.find('.rRowJobFull').text());
       newItem.sourceCategory = parentCategory;
       newItem.sourceSpecialization = subSpecialization;
+      newItem.listedSpec = obj.listedSpec;
+      newItem.listedRole = obj.listedRole;
+      newItem.listedIndustry = obj.listedIndustry;
       
       if (newItem.description)
         newItem.descriptionTags = _.uniq(yakiSplitClean(newItem.description));
@@ -100,21 +106,6 @@ function getHTTPjobUrlandInsert (obj, category, subspec) {
   });
 }
 
-function insertJobStreetItems(array, category, subspec) {
-  for (var i = array.length - 1; i >= 0; i--) {
-
-    var exists = JobStreetItems.findOne({
-      url: array[i].jobUrl
-    });
-
-    if (!exists){
-        getHTTPjobUrl(array[i], category, subspec);
-        console.log('New jobStreetItem found, creating document....');      
-    } else {
-        console.log('Found a matching URL. Skipping to next item');
-    }
-  }
-}
 
 Meteor.methods({
   insertJobStreetSource: function( data) {
@@ -145,7 +136,6 @@ Meteor.methods({
   },
   testHttp: function (url) {
     console.log('testHttp called', url);
-    // console.dir(obj);
 
     var parentCategory = 'test',
     subSpecialization = 'testsubspec';
@@ -222,16 +212,147 @@ Meteor.methods({
         
         JobStreetItems.insert(newItem);
       }
+    });
+  },
+  testPageQuery: function (url) {
+    HTTP.call("GET", url, function (error, result) {
+      var parentCategory = 'test',
+      subSpecialization = 'testsubspec';
 
+      var self = this;
+      var groupedItems = [];
+      self.items = new Array();
+      if(error)
+        console.log(error);
+      
+      if (result && result.statusCode == 200){
+        console.log('Successful HTTP request!');
+
+        //.position-title-link elements contain target URLS
+        var info = result.content
+        , $ = cheerio.load(info)
+        , $body = $('body')
+        , $linkTargets = $body.find('.position-title-link');
+
+        // for each one of those elements found
+
+        for (var i = $linkTargets.length - 1; i >= 0; i--) {
+          
+          var $a = $($linkTargets[i]).attr('href');
+          var specArray = [];
+          // var specFields = $($linkTargets[i]).parent().parent().find('.job-specialization').children().each(function(i, elem) {
+          //   specArray[i] = cleanUp($(this).text());
+          // });
+          var specFields = $($linkTargets[i]).parent().parent().find('.job-specialization').children();
+        
+          var modifiedObj = {};
+          modifiedObj.jobUrl = $a;
+          if (specFields.length == 3){
+            // console.log(specFields[0].children[0].data);            
+            modifiedObj.listedSpec = specFields[0].children[0].data;
+            modifiedObj.listedRole = specFields[1].children[0].data;
+            modifiedObj.listedIndustry = specFields[2].children[0].data;
+          } else if (specFields.length == 2) {
+            modifiedObj.listedSpec = specFields[0].children[0].data;
+            modifiedObj.listedRole = null;
+            modifiedObj.listedIndustry = specFields[1].children[0].data;
+          } 
+
+          groupedItems.push(modifiedObj);
+        }
+
+      }
+
+      var uniques = getUniq(groupedItems) || null;
+
+      if (uniques) {
+        for (var i = uniques.length - 1; i >= 0; i--) {
+
+          var exists = JobStreetItems.findOne({
+            url: uniques[i].jobUrl
+          });
+
+          if (!!exists){
+              console.log('Found a matching URL. Skipping to next item');  
+          } else {
+              getHTTPjobUrlandInsert(uniques[i], parentCategory, subSpecialization);
+              console.log('New jobStreetItem found, creating document....');    
+          }
+        }
+      }
     });
   }
 });
 
+function callAndGetJobStreetPageQuery (url, parentCategory, subSpecialization) {
+  HTTP.call("GET", url, function (error, result) {
+    var self = this;
+    var groupedItems = [];
+    self.items = new Array();
+    if(error)
+      console.log(error);
+    
+    if (result && result.statusCode == 200){
+      console.log('Successful HTTP request!');
+
+      //.position-title-link elements contain target URLS
+      var info = result.content
+      , $ = cheerio.load(info)
+      , $body = $('body')
+      , $linkTargets = $body.find('.position-title-link');
+
+      // for each one of those elements found
+
+      for (var i = $linkTargets.length - 1; i >= 0; i--) {
+        
+        var $a = $($linkTargets[i]).attr('href');
+        var specArray = [];
+        // var specFields = $($linkTargets[i]).parent().parent().find('.job-specialization').children().each(function(i, elem) {
+        //   specArray[i] = cleanUp($(this).text());
+        // });
+        var specFields = $($linkTargets[i]).parent().parent().find('.job-specialization').children();
+      
+        var modifiedObj = {};
+        modifiedObj.jobUrl = $a;
+        if (specFields.length == 3){
+          // console.log(specFields[0].children[0].data);            
+          modifiedObj.listedSpec = specFields[0].children[0].data;
+          modifiedObj.listedRole = specFields[1].children[0].data;
+          modifiedObj.listedIndustry = specFields[2].children[0].data;
+        } else if (specFields.length == 2) {
+          modifiedObj.listedSpec = specFields[0].children[0].data;
+          modifiedObj.listedRole = null;
+          modifiedObj.listedIndustry = specFields[1].children[0].data;
+        } 
+
+        groupedItems.push(modifiedObj);
+      }
+
+    }
+
+    var uniques = getUniq(groupedItems) || null;
+
+    if (uniques) {
+      for (var i = uniques.length - 1; i >= 0; i--) {
+
+        var exists = JobStreetItems.findOne({
+          url: uniques[i].jobUrl
+        });
+
+        if (!!exists){
+            console.log('Found a matching URL. Skipping to next item');  
+        } else {
+            getHTTPjobUrlandInsert(uniques[i], parentCategory, subSpecialization);
+            console.log('New jobStreetItem found, creating document....');    
+        }
+      }
+    }
+  });  
+}
+
 Meteor.startup(function() {
   JobStreetSources.after.insert(function (userId, doc) {
   	//// ADDING CLEANTITLE, MAPTOFOUR, KEYWORDS TO TITLETAGS AND TAGSONLY
-    console.log('running after JobStreetSources insert');
-  	
     var newDoc = JobStreetSources.findOne({_id: doc._id});
 
   	if (newDoc){
@@ -244,8 +365,6 @@ Meteor.startup(function() {
         targetItem.url = newDoc.sourceUrl + '&pg=' + i;
         targetItem.sourceCategory = newDoc.sourceCategory;
         targetItem.sourceSpecialization = newDoc.sourceSpecialization;
-        console.log('target: ');
-        console.dir(targetItem);
         targets.push(targetItem);
 
         i++;
@@ -254,58 +373,8 @@ Meteor.startup(function() {
       for (var i = targets.length - 1; i >= 0; i--) {
         var parentCategory = targets[i].sourceCategory;
         var subSpecialization = targets[i].sourceSpecialization;
-        // var exists = JobStreetSources.findOne({sourceUrl: data.sourceUrl});
 
-        HTTP.call("GET", targets[i].url, function (error, result) {
-          var self = this;
-          var groupedItems = [];
-          self.items = new Array();
-          if(error)
-            console.log(error);
-          
-          if (result && result.statusCode == 200){
-            console.log('Successful HTTP request!');
-
-            //.position-title-link elements contain target URLS
-            var info = result.content
-            , $ = cheerio.load(info)
-            , $body = $('body')
-            , $linkTargets = $body.find('.position-title-link');
-            // , $jobDescTarget = $body.find("#job_desc_spec_1");
-
-            // for each one of those elements found
-
-            for (var i = $linkTargets.length - 1; i >= 0; i--) {
-              
-              var $a = $($linkTargets[i]).attr('href');
-              var modifiedObj = {};
-              modifiedObj.jobUrl = $a;
-              
-              groupedItems.push(modifiedObj);
-            }
-
-          }
-
-          var uniques = getUniq(groupedItems) || null;
-
-          if (uniques) {
-            for (var i = uniques.length - 1; i >= 0; i--) {
-
-              var exists = JobStreetItems.findOne({
-                url: uniques[i].jobUrl
-              });
-
-              if (!exists){
-                  getHTTPjobUrlandInsert(uniques[i], parentCategory, subSpecialization);
-                  console.log('New jobStreetItem found, creating document....');      
-              } else {
-                  console.log('Found a matching URL. Skipping to next item');
-              }
-            }
-
-            // insertJobStreetItems(getUniq(groupedItems), parentCategory, subSpecialization);            
-          }
-        });
+        callAndGetJobStreetPageQuery(targets[i].url, parentCategory, subSpecialization);
       }
   	}
   });

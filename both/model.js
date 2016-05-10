@@ -225,6 +225,18 @@ JobStreetItems.schema = new SimpleSchema({
     type: String,
     optional: true
   },
+  listedSpec: {
+    type: String,
+    optional: true
+  },
+  listedRole: {
+    type: String,
+    optional: true
+  },
+  listedIndustry: {
+    type: String,
+    optional: true
+  },
   datePosted: {
       type: String,
       optional: true
