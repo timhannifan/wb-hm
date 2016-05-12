@@ -10,7 +10,6 @@ Meteor.publish('MonsterItems', function() {
 	return MonsterItems.find({});
 });
 
-
 Meteor.publish('Categories', function() {
 	return Categories.find({});
 });

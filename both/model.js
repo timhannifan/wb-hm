@@ -212,7 +212,27 @@ JobStreetItems.schema = new SimpleSchema({
   companyAddress: {
     type: String,
     optional: true
-  }, 
+  },  
+  companySnapIndustry: {
+    type: String,
+    optional: true
+  },  
+  companySnapDressCode: {
+    type: String,
+    optional: true
+  },   
+  companyOverview: {
+    type: String,
+    optional: true
+  },
+  companyOverviewTags: {
+    type: [String],
+    optional: true
+  },
+  companyRecruitBool: {
+    type: Number,
+    optional: true
+  },
   url: {
     type: String,
     regEx: SimpleSchema.RegEx.Url
@@ -238,6 +258,10 @@ JobStreetItems.schema = new SimpleSchema({
     optional: true
   },
   datePosted: {
+      type: String,
+      optional: true
+  },
+  dateClosing: {
       type: String,
       optional: true
   },
