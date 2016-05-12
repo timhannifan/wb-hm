@@ -17,3 +17,16 @@ Meteor.publish('Categories', function() {
 Meteor.publish('JobStreetItems', function() {
 	return JobStreetItems.find({});
 });
+
+Meteor.publish('MascoFive', function() {
+	return MascoFive.find({});
+});
+
+Meteor.publish('MascoFour', function() {
+	return MascoFour.find({});
+});
+
+
+Meteor.publish('MascoKey', function() {
+	return MascoKey.find({});
+});

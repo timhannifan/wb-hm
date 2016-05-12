@@ -32,6 +32,24 @@
 				</paper-submenu>
 
 				<paper-submenu class="">
+					<paper-item class="menu-trigger">
+						<iron-icon icon="icons:account-balance" item-icon></iron-icon>Masco Classification
+
+					</paper-item>
+					<paper-menu class="menu-content" id="submenu">
+						<a href="{{pathFor 'mascoFour'}}">
+							<paper-item>Masco Four</paper-item>
+						</a>
+						<a href="{{pathFor 'mascoFive'}}">
+							<paper-item>Masco Five</paper-item>
+						</a>	
+						<a href="{{pathFor 'mascoKey'}}">
+							<paper-item>Combined Master Key</paper-item>
+						</a>
+					</paper-menu>
+				</paper-submenu>
+
+				<paper-submenu class="">
 					<paper-item class="menu-trigger" data-action="export">
 						<iron-icon icon="icons:build" item-icon></iron-icon>Utilities
 					</paper-item>

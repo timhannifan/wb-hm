@@ -4,6 +4,10 @@ MonsterItems = new Mongo.Collection('MonsterItems');
 JobStreetItems = new Mongo.Collection('JobStreetItems');
 UnionItems = new Mongo.Collection('UnionItems');
 
+MascoFive = new Mongo.Collection('MascoFive');
+MascoFour = new Mongo.Collection('MascoFour');
+MascoKey = new Mongo.Collection('MascoKey');
+
 // MonsterSources Schema and Permissions
 MonsterSources.schema = new SimpleSchema({
   sourceName: {

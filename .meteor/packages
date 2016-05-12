@@ -27,7 +27,6 @@ differential:vulcanize
 momentjs:moment
 aldeed:tabular
 rclai89:cheerio
-themeteorchef:bert@1.1.0
 harrison:papa-parse
 fortawesome:fontawesome
 # d3js:d3

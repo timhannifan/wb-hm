@@ -5,10 +5,14 @@ Meteor.startup(function () {
   Router.configure({
     layoutTemplate: 'app_layout',
     loadingTemplate: 'loading',
-    not_foundTemplate: 'notFound'
-    // autoRender: true,
-    // autoStart: false
-    // waitOn: function () {this.next();},
+    not_foundTemplate: 'notFound',
+    action: function () {
+      if (this.ready()) {
+        this.render();
+      } else {
+        this.render('loading');
+      }
+    }
   });
 
   Router.map(function(){
@@ -69,7 +73,6 @@ Meteor.startup(function () {
         return JobStreetItems.find().fetch();
       }
     });
-
     this.route('combined_data', {
       path: '/data/combined',
       template:'combined_data'
@@ -80,7 +83,6 @@ Meteor.startup(function () {
       //   return JobStreetItems.find().fetch();
       // }
     });
-
     this.route('job_street_data_item', {
       path: '/data/jobstreet/:_id',
       template:'job_street_data_item',
@@ -110,6 +112,27 @@ Meteor.startup(function () {
     this.route('upload', {
       path: '/utilities/upload-csv',
       template:'upload'
+    });
+    this.route('mascoFour', {
+      path: '/masco-4',
+      template:'mascoFour',
+      waitOn: function() {
+        return Meteor.subscribe('MascoFour');
+      }
+    });
+    this.route('mascoFive', {
+      path: 'masco-5',
+      template:'mascoFive',
+      waitOn: function() {
+        return Meteor.subscribe('MascoFive');
+      }
+    });
+    this.route('mascoKey', {
+      path: '/masco-key',
+      template:'mascoKey',
+      waitOn: function() {
+        return Meteor.subscribe('MascoKey');
+      }
     });
   });
 });
