@@ -4,7 +4,7 @@
   //   sourceCategory: 'Accounting/Finance',
   //   sourceUrl: 'http://www.jobstreet.com.my/en/job-search/job-vacancy.php?key=&location=&specialization=130&area=&salary=&src=12',
   //   sourceSpecialization: 'Audit and Taxation',
-  //   sourceSearchDepth: 150,
+  //   sourceSearchDepth: 52,
   //   sourceSpecializationCode: 130
   // },
   // {

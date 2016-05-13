@@ -38,10 +38,24 @@ MyAppExporter = {
 				alert(error); 
 				return false;
 			}
-			
-			var csv = Papa.unparse(data);
-			var title = "JobStreetItems.csv";
-			self._downloadCSV(csv, title);
+			else {
+				if(data){
+					console.log('we got a result from JobStreetItems');
+					var csv = Papa.unparse(data,{
+						// step: function(results, parser) {
+						// 	console.log("Row data:", results.data);
+						// 	console.log("Row errors:", results.errors);
+						// },
+						complete: function(results, file) {
+							console.log("Parsing complete");
+						}
+					});
+					var title = "JobStreetItems.csv";
+					self._downloadCSV(csv, title);
+					return true;
+				}
+			}
+
 		});
 	},
 	methodExportMonsterItems: function() {

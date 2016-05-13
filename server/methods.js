@@ -7,8 +7,5 @@ Meteor.methods({
 	},
 	resetJobStreetItems: function () {
 	  JobStreetItems.remove({});
-	},
-	resetJobStreetSources: function () {
-	  JobStreetSources.remove({});
-	},
+	}
 });

@@ -171,71 +171,88 @@ MonsterItems.allow({
 JobStreetItems.schema = new SimpleSchema({
   title: {
     type: String,
-    optional: true
+    optional: true,
+    defaultValue: null
   },
   titleTags: {
     type: [String],
-    optional: true
+    optional: true,
+    defaultValue: null
   },
   company: {
     type: String,
-    optional: true
+    optional: true,
+    defaultValue: null
   },
   location: {
     type: String,
-    optional: true
+    optional: true,
+    defaultValue: null
   },
   experience: {
     type: String,
-    optional: true
+    optional: true,
+    defaultValue: null
   },  
   description: {
     type: String,
-    optional: true
+    optional: true,
+    defaultValue: null
   },  
   descriptionTags: {
     type: [String],
-    optional: true
+    optional: true,
+    defaultValue: null
   },
   companyRegistrationNumber: {
     type: String,
-    optional: true
+    optional: true,
+    defaultValue: null
   },  
   companySize: {
     type: String,
-    optional: true
+    optional: true,
+    defaultValue: null
   },  
   benefits: {
     type: String,
-    optional: true
+    optional: true,
+    defaultValue: null
   },  
   languagesSpoken: {
     type: String,
-    optional: true
+    optional: true,
+    defaultValue: null
   },  
   companyAddress: {
     type: String,
-    optional: true
+    optional: true,
+    defaultValue: null
   },  
   companySnapIndustry: {
     type: String,
-    optional: true
+    optional: true,
+    defaultValue: null
   },  
   companySnapDressCode: {
     type: String,
-    optional: true
+    optional: true,
+    defaultValue: null
   },   
   companyOverview: {
     type: String,
-    optional: true
+    optional: true,
+    defaultValue: null
   },
   companyOverviewTags: {
     type: [String],
-    optional: true
+    optional: true,
+    defaultValue: null
   },
   companyRecruitBool: {
     type: Number,
-    optional: true
+    optional: true,
+    defaultValue: null
   },
   url: {
     type: String,
@@ -243,36 +260,44 @@ JobStreetItems.schema = new SimpleSchema({
   },
   parentCategory: {
     type: String,
-    optional: true
+    optional: true,
+    defaultValue: null
   },
   subSpecialization: {
     type: String,
-    optional: true
+    optional: true,
+    defaultValue: null
   },
   listedSpec: {
     type: String,
-    optional: true
+    optional: true,
+    defaultValue: null
   },
   listedRole: {
     type: String,
-    optional: true
+    optional: true,
+    defaultValue: null
   },
   listedIndustry: {
     type: String,
-    optional: true
+    optional: true,
+    defaultValue: null
   },
   datePosted: {
-      type: String,
-      optional: true
+    type: String,
+    optional: true,
+    defaultValue: null
   },
   dateClosing: {
-      type: String,
-      optional: true
+    type: String,
+    optional: true,
+    defaultValue: null
   },
   createdAt: {
-      type: Date,
-      optional: true
-    },
+    type: Date,
+    optional: true,
+    defaultValue: null
+  }
 });
 JobStreetItems.attachSchema(JobStreetItems.schema);
 JobStreetItems.allow({
@@ -285,7 +310,8 @@ JobStreetItems.allow({
 UnionItems.schema = new SimpleSchema({
   title: {
     type: String,
-    optional: true
+    optional: true,
+    defaultValue: null
   },
   url: {
     type: String,

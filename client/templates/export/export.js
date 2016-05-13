@@ -15,7 +15,8 @@ Template.export.events({
 	},
 	"click #methodExportJobStreetItems": function() {
 		console.log('clicked methodExporJobStreetItems');
-		MyAppExporter.methodExportJobStreetItems();
+		var res = MyAppExporter.methodExportJobStreetItems();
+		console.log(res);
 	},
 	"click #methodExportCombinedItems": function() {
 		console.log('clicked methodExportCombinedItems');

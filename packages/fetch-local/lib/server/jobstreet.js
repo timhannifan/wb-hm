@@ -65,8 +65,9 @@ function getPageListings (url, parentCategory, subSpecialization) {
     var self = this;
     var groupedItems = [];
     self.items = new Array();
-    if(error)
-      console.log(error);
+    if(error) {
+      console.log('error getting jobStreetPageQuery: ' + url);
+    }
     
     if (result && result.statusCode == 200){
       console.log('Successful JobStreet page listing request!');

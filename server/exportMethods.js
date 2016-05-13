@@ -36,18 +36,24 @@ function exportJobStreetItems () {
 	console.log('exportJobStreetItems called');
 	var jsonData, fullData;
 	
-	fullData = JobStreetItems.find({}).fetch();
+	fullData = JobStreetItems.find({});
 
 	jsonData = [];
 
-	if (fullData) {
-		for (var i = 0; i < fullData.length; i++) {
-			//array of objects
-			jsonData.push(fullData[i]);
-		}
+	fullData.forEach(function (i) {
+		jsonData.push(i);
+	});
+
+	return jsonData;
+
+	// if (fullData) {
+	// 	for (var i = 0; i < fullData.length; i++) {
+	// 		//array of objects
+	// 		jsonData.push(fullData[i]);
+	// 	}
 		
-		return jsonData;		
-	}
+	// 	return jsonData;		
+	// }
 }
 function exportMonsterItems () {
 	console.log('exportMonsterItems called');
@@ -90,19 +96,23 @@ function exportCombinedItems () {
 }
 
 Meteor.methods({
-	exportMonsterSources: function() {
-		return exportMonsterSources();
-	},
-	exportJobStreetSources: function() {
-		return exportJobStreetSources();
-	},
+	// exportMonsterSources: function() {
+	// 	return exportMonsterSources();
+	// },
+	// exportJobStreetSources: function() {
+	// 	return exportJobStreetSources();
+	// },
 	exportJobStreetItems: function() {
-		return exportJobStreetItems();
+		try {
+		  return exportJobStreetItems();
+		} catch ( exception ) {
+		  return exception;
+		}
 	},
-	exportMonsterItems: function() {
-		return exportMonsterItems();
-	},
-	exportCombinedItems: function() {
-		return exportCombinedItems();
-	}
+	// exportMonsterItems: function() {
+	// 	return exportMonsterItems();
+	// },
+	// exportCombinedItems: function() {
+	// 	return exportCombinedItems();
+	// }
 });

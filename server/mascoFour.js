@@ -29,34 +29,56 @@ function findUniques(array){
 function insertMascoFour(data) {
 
   check( data, Object );
+  var newItem = {};
 
-  var title = data.description_4_digit,
-  officialCode = data.id,
-  cleanTitle = cleanUp(data.description_4_digit),
-  tagsOnly = yakiSplitClean(cleanTitle),
-  titleTags = yakiSplitClean(cleanTitle);
-
-  titleTags.push(cleanTitle);
-  
-  var cleanTags = _.uniq(_.reject(titleTags, function(el){
-   return (el == 'and' || el == 'or' || el == 'of'|| el == 'not'|| el == 'elsewhere'|| el == 'other'|| el == ''|| el == '1'|| el == '2'|| el == '3'|| el == '4'|| el == '5'|| el == '6'|| el == 'br');
-  }));
-
-  var cleanTagsOnly = _.uniq(_.reject(tagsOnly, function(el){
-   return (el == 'and' || el == 'or' || el == 'of'|| el == 'not'|| el == 'elsewhere'|| el == 'other'|| el == ''|| el == '1'|| el == '2'|| el == '3'|| el == '4'|| el == '5'|| el == '6'|| el == 'br');
-  }));
-
-  function insertNewFour (id, title, tags, tagsOnly) {
-    MascoFour.insert({
-      id: id,
-      cleanTitle: title,
-      tagsOnly: tagsOnly,
-      titleTags: tags
-    });
+  newItem.id = data.id;
+  newItem.name = data.name;
+  if (typeof newItem.name === 'string'){
+    newItem.titleTags = yakiSplitClean(newItem.name.toLowerCase());
   }
-  insertNewFour( officialCode, cleanTitle, cleanTags, cleanTagsOnly);
 
-  console.log('completed mascoFour insert');
+  newItem.description = data.description;
+  if (typeof newItem.description === 'string'){
+    newItem.descriptionTags = yakiSplitClean(newItem.description.toLowerCase());
+  }
+
+  newItem.tasks = data.tasks;
+  if (typeof newItem.tasks === 'string'){
+    newItem.descriptionTags = yakiSplitClean(newItem.tasks.toLowerCase());
+  }
+
+  MascoFour.insert(newItem);
+
+
+  // var title = data.description_4_digit,
+  // officialCode = data.id,
+  // cleanTitle = cleanUp(data.description_4_digit),
+  // tagsOnly = yakiSplitClean(cleanTitle),
+  // titleTags = yakiSplitClean(cleanTitle);
+
+
+
+  // titleTags.push(cleanTitle);
+  
+  // var cleanTags = _.uniq(_.reject(titleTags, function(el){
+  //  return (el == 'and' || el == 'or' || el == 'of'|| el == 'not'|| el == 'elsewhere'|| el == 'other'|| el == ''|| el == '1'|| el == '2'|| el == '3'|| el == '4'|| el == '5'|| el == '6'|| el == 'br');
+  // }));
+
+  // var cleanTagsOnly = _.uniq(_.reject(tagsOnly, function(el){
+  //  return (el == 'and' || el == 'or' || el == 'of'|| el == 'not'|| el == 'elsewhere'|| el == 'other'|| el == ''|| el == '1'|| el == '2'|| el == '3'|| el == '4'|| el == '5'|| el == '6'|| el == 'br');
+  // }));
+
+  // function insertNewFour (id, title, tags, tagsOnly) {
+  //   MascoFour.insert({
+  //     id: id,
+  //     cleanTitle: title,
+  //     tagsOnly: tagsOnly,
+  //     titleTags: tags
+  //   });
+  // }
+  // insertNewFour( officialCode, cleanTitle, cleanTags, cleanTagsOnly);
+
+  // console.log('completed mascoFour insert');
 }
 function insertMasterFour(data) {
   // check( data, Object );
@@ -117,18 +139,23 @@ Meteor.methods({
 parseUploadMascoFour: function( data) {
   check( data, Array );
 
-  for ( i = 0; i < data.length; i++ ) {
-    item   = data[ i ],
-    exists = MascoFour.findOne( { id: item.id } );
-
-    if ( !exists ) {
-    
-      insertMascoFour(item);
-      insertMasterFour(item);
-    } else {
-      console.warn( 'Rejected. This item already exists in MascoFour.' );  
-    }
+  for (var i = data.length - 1; i >= 0; i--) {
+    console.log(data[i]);
+    // data[i]
   }
+
+  // for ( i = 0; i < data.length; i++ ) {
+  //   var item   = data[ i ],
+  //   exists = MascoFour.findOne( { id: item.id } );
+
+  //   if ( exists ) { 
+  //     console.warn( 'Rejected. This item already exists in MascoFour.' );  
+  //     // insertMasterFour(item);
+  //   } else {
+  //     insertMascoFour(item);
+      
+  //   }
+  // }
 },
 findUniqueMascoKeywords: function () {
   findUniqueMascoKeywords();
