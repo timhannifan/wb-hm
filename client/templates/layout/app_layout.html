@@ -1,12 +1,23 @@
 <template name="app_layout">
+	<style>
+	paper-drawer-panel {
+	  --paper-drawer-panel-main-container: {
+	    background-color: gray;
+	  };
+	  --paper-drawer-panel-scrim: {
+	    background-color: red;
+	  };
+	}
+
+	</style>
   {{#globalLayout}}
-  <paper-drawer-panel id="drawerPanel" responsive-width="991px">
+  <paper-drawer-panel id="drawerPanel" responsive-width="992px">
 
     <paper-header-panel class="nav-drawer" drawer>
       <!-- Nav Content -->
-<!--       <paper-toolbar>
-        <div>Navigation Menu</div>
-      </paper-toolbar> -->
+      <paper-toolbar>
+        <div>Occupational Skills Analysis: Malaysia</div>
+      </paper-toolbar>
       <!-- Home -->
       <div id="label" class="layout vertical center-justified">
 	      <span class="type-black-lighter">About</span>
@@ -101,7 +112,7 @@
     <paper-header-panel class="main" main mode="waterfall">
 
       <!-- Main Toolbar -->
-      <paper-toolbar>
+      <paper-toolbar paper-drawer-toggle>
         <paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
         <span class="type-size-title">Occupational Skills Analysis: Malaysia</span>
       </paper-toolbar>

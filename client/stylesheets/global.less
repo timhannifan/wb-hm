@@ -55,14 +55,20 @@ ul {
 }
 
 .content {
-  font-size: 120%;
+  font-size: 100%;
 
   @media @xs {
-    padding: 0px;
+    padding: 1em;
+  }
+  @media @sm {
+    padding: 1em;
+  }
+  @media @md {
+    padding: 2em;
   }
 
-  @media @md {
-    padding: 20px;
+  @media @lg {
+    padding: 2em;
   }
 
   p {
@@ -108,6 +114,7 @@ html .control {
 
 [drawer] {
   background-color: @color-white;
+  border-right: 1px solid @color-black-lightest;
 }
 
 [main] {
