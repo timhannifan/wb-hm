@@ -32,3 +32,10 @@ fortawesome:fontawesome
 # d3js:d3
 yaki-local
 fetch-local
+
+meteorhacks:npm
+ecmascript
+pfafman:filesaver
+
+npm-container
+themeteorchef:bert

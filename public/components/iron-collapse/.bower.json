@@ -37,6 +37,6 @@
     "commit": "02e659e6ff8c70e6509fd145524e380fce6bcb0b"
   },
   "_source": "git://github.com/PolymerElements/iron-collapse.git",
-  "_target": "^1.0.0",
+  "_target": "^1.0.8",
   "_originalSource": "PolymerElements/iron-collapse"
 }

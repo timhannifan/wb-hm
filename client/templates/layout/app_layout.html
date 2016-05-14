@@ -1,70 +1,118 @@
 <template name="app_layout">
   {{#globalLayout}}
-	<paper-drawer-panel class="flex">
-	  
-		<paper-header-panel drawer>
-			<paper-toolbar>
-			  <span class="type-title">Scraping the Skills Gap: Malaysia</span>
-			</paper-toolbar>
-			<paper-menu class="nav">
-				<paper-item data-action="home">
-				    <iron-icon icon="icons:home" item-icon></iron-icon>Home
-				</paper-item>
-				<paper-submenu class="">
-					<paper-item class="menu-trigger">
-						<iron-icon icon="icons:dns" item-icon></iron-icon>Sources
-					</paper-item>
-					<paper-menu class="menu-content" id="submenu">
-						<paper-item data-action="monster_sources">Monster.com RSS</paper-item>
-						<paper-item data-action="job_street_sources">JobStreet.com Queries</paper-item>
-					</paper-menu>
-				</paper-submenu>
+  <paper-drawer-panel id="drawerPanel" responsive-width="991px">
 
-				<paper-submenu class="">
-					<paper-item class="menu-trigger">
-						<iron-icon icon="icons:view-list" item-icon></iron-icon>Data
-					</paper-item>
-					<paper-menu class="menu-content" id="submenu">
-						<paper-item data-action="data">Monster.com</paper-item>
-						<paper-item data-action="job_street_data">JobStreet.com</paper-item>
-						<paper-item data-action="combined_data">Processed &amp; Combined</paper-item>
-					</paper-menu>
-				</paper-submenu>
+    <paper-header-panel class="nav-drawer" drawer>
+      <!-- Nav Content -->
+<!--       <paper-toolbar>
+        <div>Navigation Menu</div>
+      </paper-toolbar> -->
+      <!-- Home -->
+      <div id="label" class="layout vertical center-justified">
+	      <span class="type-black-lighter">About</span>
+      </div>
+      <div class="nav" role="listbox">
+  	    <a href="{{pathFor 'home'}}" class="nav-menu-item">
+	  	    <paper-icon-item>
+	  	    	<div class="avatar grey layout vertical center-center" item-icon>
+	  	    			<iron-icon icon="icons:home" item-icon></iron-icon>
+	  	    	</div>
+  	    	    Summary
+  	    	  </paper-icon-item>
+  	    </a>
+  	    <a href="{{pathFor 'export'}}" class="nav-menu-item">
+	  	    <paper-icon-item>
+	  	    	<div class="avatar grey layout vertical center-center" item-icon>
+	  	    			<iron-icon icon="icons:file-download" item-icon></iron-icon>
+	  	    	</div>
+  	    	    Downloads
+  	    	  </paper-icon-item>
+  	    </a>
+  	  </div>
 
-				<paper-submenu class="">
-					<paper-item class="menu-trigger">
-						<iron-icon icon="icons:account-balance" item-icon></iron-icon>Masco Classification
+      <!-- Monster -->
+	    <div class="divider-top"></div>
+      <div id="label" class="layout vertical center-justified">
+	      <span class="type-black-lighter">Monster.com</span>
+      </div>
+	    <div class="nav" role="listbox">
+	  	    <a href="{{pathFor 'monster_sources'}}" class="nav-menu-item">
+  	  	    <paper-icon-item>
+  	  	      <div class="avatar primary layout vertical center-center" item-icon>M</div>
+  	  	      Sources
+  	  	    </paper-icon-item>
+	  	    </a>
+	  	    <a href="{{pathFor 'data'}}" class="nav-menu-item">
+  	  	    <paper-icon-item>
+  	  	      <div class="avatar primary layout vertical center-center" item-icon>M</div>
+  	  	      Data
+  	  	    </paper-icon-item>
+	  	    </a>
+	  	</div>
 
-					</paper-item>
-					<paper-menu class="menu-content" id="submenu">
-						<a href="{{pathFor 'mascoFour'}}">
-							<paper-item>Masco Four</paper-item>
-						</a>
-						<a href="{{pathFor 'mascoFive'}}">
-							<paper-item>Masco Five</paper-item>
-						</a>	
-						<a href="{{pathFor 'mascoKey'}}">
-							<paper-item>Combined Master Key</paper-item>
-						</a>
-					</paper-menu>
-				</paper-submenu>
+  	   <!-- JobStreet -->
+	    <div class="divider-top"></div>
+      <div id="label" class="layout vertical center-justified">
+	      <span class="type-black-lighter">JobStreet.com</span>
+      </div>
+	    <div class="nav" role="listbox">
+  	    <a href="{{pathFor 'job_street_sources'}}" class="nav-menu-item">
+    	    <paper-icon-item>
+    	      <div class="avatar secondary layout vertical center-center" item-icon>JS</div>
+    	      Sources
+    	    </paper-icon-item>
+  	    </a>
+  	    <a href="{{pathFor 'job_street_data'}}" class="nav-menu-item">
+    	    <paper-icon-item>
+    	      <div class="avatar secondary layout vertical center-center" item-icon>JS</div>
+    	      Dataset
+    	    </paper-icon-item>
+  	    </a>
+  	  </div>
 
-				<paper-submenu class="">
-					<paper-item class="menu-trigger" data-action="export">
-						<iron-icon icon="icons:build" item-icon></iron-icon>Utilities
-					</paper-item>
-					<paper-menu class="menu-content" id="submenu">
-						<paper-item data-action="export">Export CSV Data</paper-item>
-					</paper-menu>
-				</paper-submenu>
-			</paper-menu>
-		</paper-header-panel>
-		<paper-header-panel main>
-			<div id="content" class="flex">
-			    {{> yield}}		
-			</div>
-		</paper-header-panel>
-	</paper-drawer-panel>
+	    <!-- Masco Classification -->
+	    <div class="divider-top"></div>
+      <div id="label" class="layout vertical center-justified">
+	      <span class="type-black-lighter">Classification</span>
+      </div>
+	    <div class="nav" role="listbox">
+  	    <a href="{{pathFor 'mascoFour'}}" class="nav-menu-item">
+    	    <paper-icon-item>
+	    	    <div class="avatar ternary layout vertical center-center" item-icon>4</div>
+	    	    Masco 4
+	    	  </paper-icon-item>
+  	    </a>
+  	    <a href="{{pathFor 'mascoFive'}}" class="nav-menu-item">
+    	    <paper-icon-item>
+  	    	  <div class="avatar ternary layout vertical center-center" item-icon>5</div>
+  	    	  Masco 5
+  	    	</paper-icon-item>
+  	    </a>	
+  	    <a href="{{pathFor 'mascoKey'}}" class="nav-menu-item">
+  	    	<paper-icon-item>
+	    	    <div class="avatar ternary layout vertical center-center" item-icon>A</div>
+	    	    Aggregate Keywords
+	    	  </paper-icon-item>
+  	    </a>
+  	  </div>
 
+    </paper-header-panel>
+
+    <paper-header-panel class="main" main mode="waterfall">
+
+      <!-- Main Toolbar -->
+      <paper-toolbar>
+        <paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
+        <span class="type-size-title">Occupational Skills Analysis: Malaysia</span>
+      </paper-toolbar>
+
+      <!-- Main Content -->
+      <div class="content">
+	      {{>yield}}
+      </div>
+
+    </paper-header-panel>
+
+  </paper-drawer-panel>
   {{/globalLayout}}
 </template>
