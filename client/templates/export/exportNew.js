@@ -39,25 +39,47 @@ Meteor.startup(function () {
 Template.exportNew.helpers({
   uploadedFiles: function() {
     return Collections.Files.find();
+  }
+});
+
+
+Template.exportNew.events({
+  'click .gen-zip' ( event, template ) {
+    let name        = 'download_',
+      date    = new Date(),
+      fileName    = `${name} ${date}`;
+
+    Meteor.apply( 'generateZip',[],{wait: true}, ( error, response ) => {
+      if ( error ) {
+        Bert.alert( error.reason, 'warning' );
+      } else {
+        if ( response ) {
+          let blob = Modules.client.convertBase64ToBlob( response );
+          
+          var id = Collections.Files.insert(blob);
+
+          
+          saveAs( blob, `${fileName}.zip` );
+        }
+      }
+    });
   },
-  // curl: function () {
-  //   var ins = Template.instance(), filename = '';
-  //   if (ins) {
-  //     filename = ins.filename.get();
-  //   }
+  'click .export-data' ( event, template ) {
+    console.log('clicked');
 
-  //   if (filename.length === 0) {
-  //     filename = 'example.txt';
-  //   }
+    let name        = 'download_',
+      date    = new Date(),
+      fileName    = `${name} ${date}`;
 
-  //   var authObject = {
-  //     authToken: Accounts._storedLoginToken() || '',
-  //   };
-
-  //   // Set the authToken
-  //   var authString = JSON.stringify(authObject);
-  //   var authToken = FS.Utility.btoa(authString);
-
-  //   return 'curl "' + Meteor.absoluteUrl('cfs/files/' + Collections.Files.name) + '?filename=' + filename + '&token=' + authToken + '" -H "Content-Type: text/plain" -T "' + filename + '"';
-  // }
+    Meteor.apply( 'exportData',[],{wait: true}, ( error, response ) => {
+      if ( error ) {
+        Bert.alert( error.reason, 'warning' );
+      } else {
+        if ( response ) {
+          let blob = Modules.client.convertBase64ToBlob( response );
+          saveAs( blob, `${fileName}.zip` );
+        }
+      }
+    });
+  }  
 });

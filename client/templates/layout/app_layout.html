@@ -5,7 +5,7 @@
     <paper-header-panel class="nav-drawer" drawer>
       <!-- Nav Content -->
       <paper-toolbar>
-        <div>Occupational Skills Analysis: Malaysia</div>
+        <span>Occupational Skills Analysis: Malaysia</span>
       </paper-toolbar>
       <!-- Home -->
       <div id="label" class="layout vertical center-justified">
@@ -17,15 +17,23 @@
 	  	    	<div class="avatar grey layout vertical center-center" item-icon>
 	  	    			<iron-icon icon="icons:home" item-icon></iron-icon>
 	  	    	</div>
-  	    	    Summary
+  	    	    Project Summary
   	    	  </paper-icon-item>
   	    </a>
-  	    <a href="{{pathFor 'exportNew'}}" class="nav-menu-item">
+        <a href="{{pathFor 'exportNew'}}" class="nav-menu-item">
+          <paper-icon-item>
+            <div class="avatar grey layout vertical center-center" item-icon>
+                <iron-icon icon="icons:work" item-icon></iron-icon>
+            </div>
+              File Manager
+            </paper-icon-item>
+        </a>
+  	    <a href="{{pathFor 'serverJobs'}}" class="nav-menu-item">
 	  	    <paper-icon-item>
 	  	    	<div class="avatar grey layout vertical center-center" item-icon>
-	  	    			<iron-icon icon="icons:file-download" item-icon></iron-icon>
+	  	    			<iron-icon icon="icons:dns" item-icon></iron-icon>
 	  	    	</div>
-  	    	    Downloads
+  	    	    Server Jobs
   	    	  </paper-icon-item>
   	    </a>
   	  </div>
@@ -38,13 +46,13 @@
 	    <div class="nav" role="listbox">
 	  	    <a href="{{pathFor 'monster_sources'}}" class="nav-menu-item">
   	  	    <paper-icon-item>
-  	  	      <div class="avatar primary layout vertical center-center" item-icon>M</div>
+  	  	      <div class="avatar grey layout vertical center-center" item-icon>M</div>
   	  	      Sources
   	  	    </paper-icon-item>
 	  	    </a>
 	  	    <a href="{{pathFor 'data'}}" class="nav-menu-item">
   	  	    <paper-icon-item>
-  	  	      <div class="avatar primary layout vertical center-center" item-icon>M</div>
+  	  	      <div class="avatar grey layout vertical center-center" item-icon>M</div>
   	  	      Data
   	  	    </paper-icon-item>
 	  	    </a>
@@ -58,14 +66,14 @@
 	    <div class="nav" role="listbox">
   	    <a href="{{pathFor 'job_street_sources'}}" class="nav-menu-item">
     	    <paper-icon-item>
-    	      <div class="avatar secondary layout vertical center-center" item-icon>JS</div>
+    	      <div class="avatar grey layout vertical center-center" item-icon>JS</div>
     	      Sources
     	    </paper-icon-item>
   	    </a>
   	    <a href="{{pathFor 'job_street_data'}}" class="nav-menu-item">
     	    <paper-icon-item>
-    	      <div class="avatar secondary layout vertical center-center" item-icon>JS</div>
-    	      Dataset
+    	      <div class="avatar grey layout vertical center-center" item-icon>JS</div>
+    	      Data
     	    </paper-icon-item>
   	    </a>
   	  </div>
@@ -78,20 +86,20 @@
 	    <div class="nav" role="listbox">
   	    <a href="{{pathFor 'mascoFour'}}" class="nav-menu-item">
     	    <paper-icon-item>
-	    	    <div class="avatar ternary layout vertical center-center" item-icon>4</div>
+	    	    <div class="avatar grey layout vertical center-center" item-icon>4</div>
 	    	    Masco 4
 	    	  </paper-icon-item>
   	    </a>
   	    <a href="{{pathFor 'mascoFive'}}" class="nav-menu-item">
     	    <paper-icon-item>
-  	    	  <div class="avatar ternary layout vertical center-center" item-icon>5</div>
+  	    	  <div class="avatar grey layout vertical center-center" item-icon>5</div>
   	    	  Masco 5
   	    	</paper-icon-item>
   	    </a>	
   	    <a href="{{pathFor 'mascoKey'}}" class="nav-menu-item">
   	    	<paper-icon-item>
-	    	    <div class="avatar ternary layout vertical center-center" item-icon>A</div>
-	    	    Aggregate Keywords
+	    	    <div class="avatar grey layout vertical center-center" item-icon>A</div>
+	    	    Aggregated Keywords
 	    	  </paper-icon-item>
   	    </a>
   	  </div>

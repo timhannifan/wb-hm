@@ -1,24 +1,25 @@
 <template name="monster_sources">
-  <div class="flex page-header">
-    <span class="title">Monster.com RSS</span>
-    <paper-icon-button icon="refresh" class="action-button"></paper-icon-button>
-    <paper-icon-button icon="add" id="js-add-jobstreet-source" class="action-button"></paper-icon-button>  
-  </div>
-  <paper-material>
-    <div class="list-wrapper">
-      <div role="listbox" class="list">
-        <paper-item class="item divider-bottom">
-          <p class="type-size-subhead flex-3"><strong>Specialization</strong></p>
-          <!-- <p class="type-size-subhead flex-3"><strong>Sub-specialization</strong></p> -->
-          <!-- <p class="type-size-subhead flex-3"><strong>Query Depth</strong></p> -->
-          <p class="type-size-subhead flex-3"><strong>URL</strong></p>
-        </paper-item>
-        {{#each sources}}
-          <div class="list list-item">
-            {{> monster_source_item}}
-          </div>
-        {{/each}}
-      </div>
-    </div>  
-  </paper-material>
+  <section class="layout vertical">
+    <div class="page-header">
+      <h1 class="title">Monster.com Sources</h1>
+    </div>
+
+    <paper-material>
+      <div class="list-wrapper">
+        <div role="listbox" class="list">
+          <paper-item class="item divider-bottom">
+            <p class="type-size-subhead flex-3"><strong>Specialization</strong></p>
+            <!-- <p class="type-size-subhead flex-3"><strong>Sub-specialization</strong></p> -->
+            <!-- <p class="type-size-subhead flex-3"><strong>Query Depth</strong></p> -->
+            <p class="type-size-subhead flex-3"><strong>URL</strong></p>
+          </paper-item>
+          {{#each sources}}
+            <div class="list list-item">
+              {{> monster_source_item}}
+            </div>
+          {{/each}}
+        </div>
+      </div>  
+    </paper-material>
+  </section>
 </template>

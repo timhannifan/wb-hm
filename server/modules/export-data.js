@@ -3,20 +3,20 @@ let json2xml = Meteor.npmRequire( 'json2xml' ),
 
 let exportData = ( options ) => {
   let archive = _initializeZipArchive();
-  _compileZip( archive, options.collection );
+  _compileZip( archive );
+
+  return _generateZipArchive( archive );
+};
+
+let generateZip = ( options ) => {
+  let archive = _initializeZipArchive();
+  _compileZip( archive );
+
   return _generateZipArchive( archive );
 };
 
 let _compileZip = ( archive) => {
-  let collectionSize = JobStreetItems.find().count();
-  _prepareDataForArchive( archive, JobStreetItems, 'csv', 'jobstreetitems_0_5000.csv', 5000, 0 );
-  _prepareDataForArchive( archive, JobStreetItems, 'csv', 'jobstreetitems_5k_10k.csv', 5000, 5000 );
-  _prepareDataForArchive( archive, JobStreetItems, 'csv', 'jobstreetitems_10k_15k.csv', 5000, 10000 );
-  _prepareDataForArchive( archive, JobStreetItems, 'csv', 'jobstreetitems_15k_20k.csv', 5000, 15000 );
-  _prepareDataForArchive( archive, JobStreetItems, 'csv', 'jobstreetitems_20k_25k.csv', 5000, 20000 );
-  _prepareDataForArchive( archive, JobStreetItems, 'csv', 'jobstreetitems_25k_30k.csv', 5000, 25000 );
-  _prepareDataForArchive( archive, JobStreetItems, 'csv', 'jobstreetitems_30k_35k.csv', 5000, 30000 );
-
+  _prepareDataForArchive( archive, JobStreetItems, 'csv', 'jobstreetitems_0_5000.csv', 500, 0 );
 };
 
 let _prepareDataForArchive = ( archive, collection, type, fileName, limit, skip ) => {
@@ -33,9 +33,7 @@ let _getDataFromCollection = ( collection, limit, skip ) => {
 };
 
 let _formatData = {
-  csv( data )  { return Papa.unparse( data ); },
-  // xml( data )  { return json2xml( data, { header: true } ); }
-  // json( data ) { return JSON.stringify( data, null, 2 ); }
+  csv( data )  { return Papa.unparse( data ); }
 };
 
 let _initializeZipArchive = () => {
@@ -51,3 +49,4 @@ let _generateZipArchive = ( archive ) => {
 };
 
 Modules.server.exportData = exportData;
+Modules.server.generateZip = generateZip;

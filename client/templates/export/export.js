@@ -38,7 +38,7 @@ Template.export.events({
 
     let name        = 'download_',
     	date 		= new Date(),
-        fileName    = `${name} ${date}`;
+      fileName    = `${name} ${date}`;
 
     Meteor.apply( 'exportData',[],{wait: true}, ( error, response ) => {
       if ( error ) {

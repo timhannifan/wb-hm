@@ -32,3 +32,4 @@ let _createBlob = ( byteArray ) => {
 };
 
 Modules.client.convertBase64ToBlob = convert;
+// Modules.client.convertBase64ToBlob = convert;

@@ -1,20 +1,18 @@
 <template name="data">
+  <section class="layout vertical">
+    <div class="page-header">
+      <h1 class="title">Monster.com Data</h1>
+    </div>
 
-<div class="flex page-header">
-  <span class="title">Data:  Monster.com</span>
-  <paper-icon-button icon="refresh" class="action-button"></paper-icon-button>
-  <!-- <paper-icon-button icon="add" id="js-add-jobstreet-source" class="action-button">+</paper-icon-button>   -->
-</div>
-
-  <div class="vertical-section">
     <paper-card class="card">
       <div class="card-content">
-      		<div class="data-table">
-      			{{> tabular table=TabularTables.MonsterItems class="mytable flex"}}
-      		</div>
+          <div class="data-table">
+            {{> tabular table=TabularTables.MonsterItems class="mytable flex"}}
+          </div>
       </div>
     </paper-card>
-	</div>
+
+  </section>
 </template>
 
 <template name="data_item">
