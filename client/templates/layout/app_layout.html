@@ -1,15 +1,4 @@
 <template name="app_layout">
-	<style>
-	paper-drawer-panel {
-	  --paper-drawer-panel-main-container: {
-	    background-color: gray;
-	  };
-	  --paper-drawer-panel-scrim: {
-	    background-color: red;
-	  };
-	}
-
-	</style>
   {{#globalLayout}}
   <paper-drawer-panel id="drawerPanel" responsive-width="992px">
 
@@ -31,7 +20,7 @@
   	    	    Summary
   	    	  </paper-icon-item>
   	    </a>
-  	    <a href="{{pathFor 'export'}}" class="nav-menu-item">
+  	    <a href="{{pathFor 'exportNew'}}" class="nav-menu-item">
 	  	    <paper-icon-item>
 	  	    	<div class="avatar grey layout vertical center-center" item-icon>
 	  	    			<iron-icon icon="icons:file-download" item-icon></iron-icon>

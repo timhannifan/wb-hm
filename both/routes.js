@@ -97,9 +97,9 @@ Meteor.startup(function () {
       path: '/about',
       template:'about'
     });
-    this.route('export', {
+    this.route('exportNew', {
       path: '/export',
-      template:'export'
+      template:'exportNew'
     });
     this.route('new_monster_source', {
       path: '/new-monster-source',
@@ -135,4 +135,24 @@ Meteor.startup(function () {
       }
     });
   });
+
+  if (Meteor.isClient) {
+
+    // Route-related helpers
+    Template.registerHelper("absoluteUrl", function(path) {
+      return Meteor.absoluteUrl(path);
+    });
+
+    Template.registerHelper("currentRouteIs", function(name) {
+      var current = Router.current();
+      return current && current.route && current.route.name === name || false;
+    });
+
+    Template.registerHelper("activeRoute", function(name) {
+      var current = Router.current();
+      return current && current.route && current.route.name === name && "active" || "";
+    });
+
+  }
+
 });

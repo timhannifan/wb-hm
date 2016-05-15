@@ -10,6 +10,7 @@ session
 http
 coffeescript
 less
+ecmascript
 
 iron:router
 # reywood:publish-composite
@@ -34,8 +35,15 @@ yaki-local
 fetch-local
 
 meteorhacks:npm
-ecmascript
-pfafman:filesaver
-
 npm-container
+
+pfafman:filesaver
 themeteorchef:bert
+
+cfs:standard-packages
+cfs:gridfs
+cfs:filesystem
+cfs:s3
+cfs:ui
+cfs:autoform
+# cfs:graphicsmagick
