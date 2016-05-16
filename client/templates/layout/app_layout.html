@@ -1,5 +1,5 @@
 <template name="app_layout">
-  {{#globalLayout}}
+  {{#globalLayout}}  
   <paper-drawer-panel id="drawerPanel" responsive-width="992px">
 
     <paper-header-panel class="nav-drawer" drawer>
@@ -116,7 +116,13 @@
 
       <!-- Main Content -->
       <div class="content">
-	      {{>yield}}
+        {{#if currentUser}}
+          <div class="loginTemp">
+            {{> loginButtons align="right"}}
+          </div>
+
+  	      {{>yield}}
+        {{/if}}
       </div>
 
     </paper-header-panel>

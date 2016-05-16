@@ -24,7 +24,25 @@ this.GlobalUI = (function() {
     })(this));
   };
 
+  GlobalUI.showModal = function(opts) {
+    this.dialog = $("#globalModal")[0];
+    this.dialog.heading = opts.heading;
+    Session.set("global.ui.dialogHeading", opts.heading);
+    Session.set("global.ui.dialogData", opts.data);
+    Session.set("global.ui.dialogTemplate", opts.template);
+    Session.set("global.ui.dialogFullOnMobile", opts.fullOnMobile != null);
+    return Tracker.afterFlush((function(_this) {
+      return function() {
+        return _this.dialog.open();
+      };
+    })(this));
+  };
+
   GlobalUI.closeDialog = function() {
+    Session.set("global.ui.dialogHeading", null);
+    Session.set("global.ui.dialogTemplate", null);
+    Session.set("global.ui.dialogData", null);
+    Session.set("global.ui.dialogFullOnMobile", null);
     return this.dialog.close();
   };
 
@@ -48,7 +66,7 @@ Template.globalLayout.helpers({
 });
 
 Template.globalLayout.events({
-  "iron-overlay-closed [global-dialog]": function(e) {
+  "iron-overlay-closed [paper-dialog]": function(e) {
     Session.set("global.ui.dialogHeading", null);
     Session.set("global.ui.dialogTemplate", null);
     Session.set("global.ui.dialogData", null);

@@ -12,7 +12,15 @@ coffeescript
 less
 ecmascript
 
+accounts-ui
+accounts-password
+
+useraccounts:core
+useraccounts:polymer
+useraccounts:iron-routing
+
 iron:router
+momentjs:moment
 # reywood:publish-composite
 aldeed:simple-schema
 aldeed:collection2
@@ -25,7 +33,6 @@ anti:fake
 
 meteorhacks:inject-initial
 differential:vulcanize
-momentjs:moment
 aldeed:tabular
 rclai89:cheerio
 harrison:papa-parse
@@ -47,3 +54,5 @@ cfs:s3
 cfs:ui
 cfs:autoform
 # cfs:graphicsmagick
+
+twbs:bootstrap

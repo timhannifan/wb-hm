@@ -17,7 +17,7 @@ html body {
   margin: 0;
   color: @color-black;
   background: @color-white;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -25,6 +25,11 @@ a {
   .transition(all 0.2s ease);
   text-decoration: none;
   color: inherit;
+}
+a:hover,
+a:focus {
+  color: @color-black-light;
+  text-decoration: none;
 }
 h1, h2, h3, h4, h5 {
   margin: 0;

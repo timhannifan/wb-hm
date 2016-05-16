@@ -12,6 +12,18 @@ Meteor.startup(function () {
       } else {
         this.render('loading');
       }
+    },
+    onBeforeAction: function () {
+      if (!Meteor.userId()) {
+        // if the user is not logged in, render the Login template
+        // 
+        GlobalUI.showModal({template: "atForm", dialogFullOnMobile: true});
+        this.render('accessDenied');
+      } else {
+        // otherwise don't hold up the rest of hooks or our route/action function
+        // from running
+        this.next();
+      }
     }
   });
 
