@@ -28,7 +28,7 @@ aldeed:autoform
 aldeed:template-extension
 dburles:collection-helpers
 matb33:collection-hooks
-percolatestudio:synced-cron@1.1.0
+percolatestudio:synced-cron
 anti:fake
 
 meteorhacks:inject-initial
@@ -55,4 +55,8 @@ cfs:ui
 cfs:autoform
 # cfs:graphicsmagick
 
+numeral:numeral
+benjaminrh:jquery-cookie
+
 twbs:bootstrap
+

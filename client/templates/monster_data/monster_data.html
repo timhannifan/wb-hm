@@ -4,14 +4,9 @@
       <h1 class="title">Monster.com Data</h1>
     </div>
 
-    <paper-card class="card">
-      <div class="card-content">
-          <div class="data-table">
-            {{> tabular table=TabularTables.MonsterItems class="mytable flex"}}
-          </div>
-      </div>
-    </paper-card>
-
+    <paper-material class="table-container">
+      {{> tabular table=TabularTables.MonsterItems class="table table-striped table-hover table-condensed flex"}}        
+    </paper-material>
   </section>
 </template>
 
@@ -19,24 +14,49 @@
   <div class="vertical-section">
     <paper-card heading="{{title}}" class="card">
       <div class="card-content">
-      <p class="flex"><strong>Posted:</strong>
+      <p class="flex"><strong>URL:</strong>
+       {{this.url}}
+      </p>
+      <p class="flex"><strong>Comany:</strong>
+       {{this.company}}
+      </p>
+      <p class="flex"><strong>Sector/Category:</strong>
+       {{this.sourceCategory}}
+      </p>
+      <p class="flex"><strong>Qualification:</strong>
+       {{this.qualification}}
+      </p>
+      <p class="flex"><strong>Experience:</strong>
+       {{this.experience}}
+      </p>
+      <p class="flex"><strong>Location:</strong>
+       {{this.location}}
+      </p>
+      <p class="flex"><strong>Created:</strong>
+       {{this.createdAt}}
+      </p>
+
+
+<!--       <p class="flex"><strong>Posted:</strong>
        {{this.pubDate}}
        </p>
       <p class="flex"><strong>Imported:</strong>
        {{this.postedAt}}
+       </p> -->
+
+       <p class="flex"><strong>Title Tags:</strong>
+         <div class="flex-6">
+           {{#each this.titleTags}}
+             '{{this}}' 
+           {{/each}}
+         </div>
        </p>
-        <p class="flex"><strong>URL:</strong>
-         {{this.url}}
-         </p>
-        <p class="flex"><strong>Description:</strong>
-         {{{this.htmlDescription}}}
-         </p>
-        <p class="flex"><strong>Parsed Keywords:</strong>
-        <div class="flex-6">
-          {{#each this.parsedKeywords}}
-            {{this}}<br>
-          {{/each}}
-        </div>
+        <p class="flex"><strong>Description Tags:</strong>
+          <div class="flex-6">
+            {{#each this.descriptionTags}}
+              '{{this}}' 
+            {{/each}}
+          </div>
         </p>
 
 

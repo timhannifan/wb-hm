@@ -4,28 +4,36 @@ TabularTables = {};
 
 Meteor.isClient && Template.registerHelper('TabularTables', TabularTables);
 
-TabularTables.MonsterItems = new Tabular.Table({
-name: "Monster Data",
-collection: MonsterItems,
-responsive: true,
-autoWidth: false,
-columns: [
-  {
-    tmpl: Meteor.isClient && Template.tabTitle,
-    data: "title",
-    title: "Title", 
-    class: "flex-2"
+  TabularTables.MonsterItems = new Tabular.Table({
+  name: "Monster Data",
+  collection: MonsterItems,
+  responsive: true,
+  autoWidth: false,
+  scrollX: true,
+  // select: true,
+  dom: 'Blfrtip',
+  "tableTools": {
+      "sSwfPath": "/swf/copy_csv_xls_pdf.swf"
   },
-  {
-    data: "sourceCategory", 
-    title: "Industry", 
-    class: "flex-1"
-  },
-  {data: "company", title: "Company", class: "flex-1"},
-  {data: "qualification", title: "Qualifications", class: "flex-1"},
-  {data: "experience", title: "Experience", class: "flex-1"},
-  {data: "location", title: "Location", class: "flex-1"},
-],
+  buttons: [ 'csv', 'excel', 'pdf' ],
+  columns: [
+    {
+      // tmpl: Meteor.isClient && Template.tabTitle,
+      data: "title",
+      title: "Title", 
+      class: ""
+    },
+    {
+      data: "sourceCategory", 
+      title: "Sector/Category", 
+      class: ""
+    },
+    {data: "company", title: "Company", class: ""},
+    {data: "qualification", title: "Qualifications", class: ""},
+    {data: "experience", title: "Experience", class: ""},
+    {data: "location", title: "Location", class: ""},
+    {data: "createdAt", title: "Created", class: ""}
+  ],
 
 });
 
@@ -36,15 +44,23 @@ name: "JobStreet Data",
 collection: JobStreetItems,
 responsive: true,
 autoWidth: false,
-columns: [
-  {data: "title", title: "Title", class: "flex-1"},
-  {data: "company", title: "Company", class: "flex-1"},
-  {data: "experience", title: "Experience", class: "flex-1"},
-  {data: "location", title: "Location", class: "flex-1"},
-  {data: "sourceCategory", title: "Category", class: "flex-1"},
-  {data: "sourceSpecialization", title: "Specialization", class: "flex-1"}
-  // {data: "url", title: "URL", class: "flex-1"},
-],
+scrollX: true,
+  columns: [
+    {data: "title", title: "Title", class: ""},
+    {data: "company", title: "Company", class: ""},
+    {data: "experience", title: "Experience", class: ""},
+    {data: "location", title: "Location", class: ""},
+    {data: "location", title: "Location", class: ""},
+    {data: "parentCategory", title: "JS Sector", class: ""},
+    {data: "subSpecialization", title: "JS Specialization", class: ""},
+    {data: "listedIndustry", title: "Alt Industry", class: ""},
+    {data: "listedSpec", title: "Alt Specialization", class: ""},
+    {data: "listedRole", title: "Role", class: ""},
+    {data: "url", title: "URL", class: ""},
+    {data: "datePosted", title: "Posted", class: ""},
+    {data: "dateClosing", title: "Closing", class: ""},
+    {data: "createdAt", title: "Created", class: ""}
+  ],
 
 });
 

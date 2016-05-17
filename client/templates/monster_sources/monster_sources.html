@@ -4,22 +4,13 @@
       <h1 class="title">Monster.com Sources</h1>
     </div>
 
-    <paper-material>
-      <div class="list-wrapper">
-        <div role="listbox" class="list">
-          <paper-item class="item divider-bottom">
-            <p class="type-size-subhead flex-3"><strong>Specialization</strong></p>
-            <!-- <p class="type-size-subhead flex-3"><strong>Sub-specialization</strong></p> -->
-            <!-- <p class="type-size-subhead flex-3"><strong>Query Depth</strong></p> -->
-            <p class="type-size-subhead flex-3"><strong>URL</strong></p>
-          </paper-item>
-          {{#each sources}}
-            <div class="list list-item">
-              {{> monster_source_item}}
-            </div>
-          {{/each}}
+    <paper-material class="content-container">
+      {{#each sources}}
+        <div class="list list-item">
+          {{> monster_source_item}}
         </div>
-      </div>  
+      {{/each}}
     </paper-material>
+    
   </section>
 </template>

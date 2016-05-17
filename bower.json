@@ -56,6 +56,12 @@
     "iron-list": "PolymerElements/iron-list#^1.2.6",
     "neon-animation": "PolymerElements/neon-animation#^1.2.0",
     "google-map": "GoogleWebComponents/google-map#^1.1.10",
-    "iron-collapse": "PolymerElements/iron-collapse#^1.0.8"
+    "iron-collapse": "PolymerElements/iron-collapse#^1.0.8",
+    "datatables.net": "^1.10.11",
+    "datatables.net-bs": "^1.10.11",
+    "datatables.net-buttons": "^1.1.2",
+    "datatables.net-buttons-bs": "^1.1.2",
+    "datatables.net-select": "^1.1.2",
+    "datatables.net-select-bs": "^1.1.2"
   }
 }

@@ -1,17 +1,19 @@
-// Template.data.rendered = function () {
-// 	$('.mytable').DataTable({
-// 		dom: 'Bfrtip',
-// 		buttons: [
-// 		    'colvis',
-// 		    'excel',
-// 		    'print'
-// 		]
-// 	});
-// };
+
+Template.data.rendered = function(){
+    Session.set("tabular-filter", {schema: "MonsterItems", label: ""});
+}
+
+Template.data.helpers({
+  selector: function (){
+    var select = Session.get("filter_selector");
+    return select;
+  }
+});
+
 Template.tabTitle.helpers({
 	getPost: function () {
 		return this._id;
-	}
+	},
 });
 
 

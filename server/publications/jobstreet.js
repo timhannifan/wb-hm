@@ -1,8 +1,6 @@
 
 Meteor.publish( 'jobstreet', function() {
-  // let userId = this.userId;
-
   return [
-  	JobStreetItems.find( {} )
+  	JobStreetItems.find( {title: {$ne: null} } )
   ];
 });

@@ -2,6 +2,9 @@ Meteor.startup(function () {
   Template.monster_source_item.helpers({
     formId: function () {
       return 'updateSource-'+ this._id;
+    },
+    formatDate: function (date) {
+      return moment(date).format("dddd, MMMM Do YYYY, h:mm:ss a");
     }
   });
 

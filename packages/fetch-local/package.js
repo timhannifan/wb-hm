@@ -20,7 +20,8 @@ Package.onUse(function (api) {
   var packages = [
     'meteor-platform',  
     'yaki-local',
-    'http'
+    'http',
+    'percolatestudio:synced-cron'
   ];
   api.use(packages);
   api.imply(packages);

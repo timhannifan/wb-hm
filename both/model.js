@@ -28,7 +28,11 @@ MonsterSources.schema = new SimpleSchema({
     type: String,
     optional: true,
     defaultValue: null
-  }
+  },
+  lastUpdate: {
+    type: Date,
+    optional: true
+  }  
 });
 MonsterSources.attachSchema(MonsterSources.schema);
 MonsterSources.allow({
@@ -64,7 +68,11 @@ JobStreetSources.schema = new SimpleSchema({
   sourceSpecializationCode: {
     type: Number,
     optional: true
-  }
+  },
+  lastUpdate: {
+    type: Date,
+    optional: true
+    }
 });
 JobStreetSources.attachSchema(JobStreetSources.schema);
 JobStreetSources.allow({
@@ -73,34 +81,27 @@ JobStreetSources.allow({
   }
 });
 
-
 // MonsterItems Schema and Permissions
 MonsterItems.schema = new SimpleSchema({
   title: {
     type: String,
     optional: true
-  },  
+  }, 
+  titleTags: {
+    type: [String],
+    optional: true,
+    defaultValue: null
+  }, 
   description: {
     type: String,
     optional: true
   },  
-  companyRegistrationNumber: {
-    type: String,
-    optional: true
-  },  
-  companySize: {
-    type: String,
-    optional: true
-  },  
-  benefits: {
-    type: String,
-    optional: true
-  },  
-  languagesSpoken: {
-    type: String,
-    optional: true
-  },  
-  companyAddress: {
+  descriptionTags: {
+    type: [String],
+    optional: true,
+    defaultValue: null
+  }, 
+  cleanDescription: {
     type: String,
     optional: true
   },
@@ -119,19 +120,10 @@ MonsterItems.schema = new SimpleSchema({
   sourceCategory: {
     type: String,
     optional: true,
+    label: "Sector"
   },
   htmlDescription: {
     type: String,
-    optional: true
-  },
-  description: {
-    type: String,
-    label: 'Raw Description',
-    optional: true
-  },
-  parsedKeywords: {
-    type: [String],
-    label: 'parsedKeywords keywords',
     optional: true
   },
   company: {

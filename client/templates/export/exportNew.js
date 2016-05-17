@@ -71,15 +71,25 @@ Template.exportNew.events({
       date    = new Date(),
       fileName    = `${name} ${date}`;
 
-    Meteor.apply( 'exportData',[],{wait: true}, ( error, response ) => {
-      if ( error ) {
-        Bert.alert( error.reason, 'warning' );
-      } else {
-        if ( response ) {
-          let blob = Modules.client.convertBase64ToBlob( response );
-          saveAs( blob, `${fileName}.zip` );
+      Meteor.call( 'exportData',10,2, ( error, response ) => {
+        if ( error ) {
+          Bert.alert( error.reason, 'warning' );
+        } else {
+          if ( response ) {
+            let blob = Modules.client.convertBase64ToBlob( response );
+            saveAs( blob, `${fileName}.zip` );
+          }
         }
-      }
-    });
+      });
+    // Meteor.apply( 'exportData',[{limit: 10, skip: 1}],{wait: true}, ( error, response ) => {
+    //   if ( error ) {
+    //     Bert.alert( error.reason, 'warning' );
+    //   } else {
+    //     if ( response ) {
+    //       let blob = Modules.client.convertBase64ToBlob( response );
+    //       saveAs( blob, `${fileName}.zip` );
+    //     }
+    //   }
+    // });
   }  
 });

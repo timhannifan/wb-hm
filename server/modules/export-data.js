@@ -3,7 +3,7 @@ let json2xml = Meteor.npmRequire( 'json2xml' ),
 
 let exportData = ( options ) => {
   let archive = _initializeZipArchive();
-  _compileZip( archive );
+  _compileZip( archive, options.limit, options.skip );
 
   return _generateZipArchive( archive );
 };
@@ -15,8 +15,8 @@ let generateZip = ( options ) => {
   return _generateZipArchive( archive );
 };
 
-let _compileZip = ( archive) => {
-  _prepareDataForArchive( archive, JobStreetItems, 'csv', 'jobstreetitems_0_5000.csv', 500, 0 );
+let _compileZip = ( archive, limit, skip) => {
+  _prepareDataForArchive( archive, JobStreetItems, 'csv', 'download.csv', limit, skip );
 };
 
 let _prepareDataForArchive = ( archive, collection, type, fileName, limit, skip ) => {
@@ -26,7 +26,7 @@ let _prepareDataForArchive = ( archive, collection, type, fileName, limit, skip 
 };
 
 let _getDataFromCollection = ( collection, limit, skip ) => {
-  let data = collection.find( {}, { limit: limit, skip: skip} ).fetch();
+  let data = collection.find( {}, { sort: {createdAt: -1}, limit: limit, skip: skip} ).fetch();
   if ( data ) {
     return data;
   }

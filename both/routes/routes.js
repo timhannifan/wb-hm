@@ -146,11 +146,6 @@ Meteor.startup(function () {
         return Meteor.subscribe('MascoKey');
       }
     });
-
-    this.route('serverJobs', {
-      path: '/serverJobs',
-      template:'serverJobs'
-    });
   });
 
   if (Meteor.isClient) {

@@ -245,6 +245,41 @@ Meteor.methods({
         });
       }
     }
+  },
+  testJSRefresh: function () {
+    var existingSources = JobStreetSources.find({});
+
+    existingSources.forEach(function(obj){
+      var targets = [];
+      var upperLimit = obj.sourceSearchDepth;
+      i = 1;
+
+      // create url query with page numbers based on search depth
+      while (i <= upperLimit) {
+        var targetItem = {};
+        targetItem.url = obj.sourceUrl + '&pg=' + i;
+        targetItem.sourceCategory = obj.sourceCategory;
+        targetItem.sourceSpecialization = obj.sourceSpecialization;
+        targets.push(targetItem);
+        i++;
+      }
+
+      // for each page URL, callback HTTP get on it
+      for (var i = targets.length - 1; i >= 0; i--) {
+        var parentCategory = targets[i].sourceCategory;
+        var subSpecialization = targets[i].sourceSpecialization;
+
+        try {
+          getPageListings(targets[i].url, parentCategory, subSpecialization);
+        } catch (error) {
+          console.log('Error retrieving jobstreet page listings on :' + targets[i].url, error);
+        }
+      }
+
+      JobStreetSources.update({_id: obj._id}, {$set: {lastUpdate: new Date()}});
+      return true;     
+    });
+    
   }
 });
 
@@ -276,4 +311,56 @@ Meteor.startup(function() {
       }
   	}
   });
+});
+
+function jobStreetAutoRun () {
+  var existingSources = JobStreetSources.find({});
+
+  existingSources.forEach(function(obj){
+    var targets = [];
+    var upperLimit = obj.sourceSearchDepth;
+    i = 1;
+
+    // create url query with page numbers based on search depth
+    while (i <= upperLimit) {
+      var targetItem = {};
+      targetItem.url = obj.sourceUrl + '&pg=' + i;
+      targetItem.sourceCategory = obj.sourceCategory;
+      targetItem.sourceSpecialization = obj.sourceSpecialization;
+      targets.push(targetItem);
+      i++;
+    }
+
+    // for each page URL, callback HTTP get on it
+    for (var i = targets.length - 1; i >= 0; i--) {
+      var parentCategory = targets[i].sourceCategory;
+      var subSpecialization = targets[i].sourceSpecialization;
+
+      try {
+        getPageListings(targets[i].url, parentCategory, subSpecialization);
+      } catch (error) {
+        console.log('Error retrieving jobstreet page listings on :' + targets[i].url, error);
+      }
+    }
+
+    JobStreetSources.update({_id: obj._id}, {$set: {lastUpdate: new Date()}});
+    return true;     
+  });
+  
+}
+
+
+SyncedCron.add({
+  name: 'Jobstreet batch autorun',
+  schedule: function(parser) {
+    // parser is a later.parse object
+    return parser.text('every 8 hours');
+  }, 
+  job: function(intendedAt) {
+
+    console.log('running Jobstreet batch autorun');
+    console.log('job should be running at:');
+    console.log(intendedAt);
+    jobStreetAutoRun();
+  }
 });
