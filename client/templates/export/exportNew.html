@@ -1,33 +1,137 @@
 <template name="exportNew">
 	<div class="page-header">
-	  <h1 class="title">File Manager</h1>
+	  <h1 class="title">Downloads</h1>
 	</div>
 
-	<div class="well">
-	  <input type="file" multiple class="any">
+
+	<div id="page-sub-heading">
+		<div class="description">
+			Monster.com Data: Sorted by Ascending Date
+		</div>
 	</div>
 
-	<div>
-	  <button class="gen-zip btn btn-success">gen and save</button>
+	<paper-material id="content-container">
+	    <div class="list list-item">
+	      <paper-item id="methodExportMonsterItems">
+	        <paper-item-body two-line>
+	          <div><strong>Part 1</strong></div>
+	          <div secondary>Records 0-5k</div>
+	        </paper-item-body>
+	        <paper-icon-button icon="file-download" alt="Download">
+	        </paper-icon-button>
+	      </paper-item>
+	    </div>
+	</paper-material>
+
+	<div id="page-sub-heading">
+		<div class="description">
+			Jobstreet.com Data: Sorted by Ascending Date
+		</div>
+		
 	</div>
-	<div>
-	  <button class="export-data btn btn-success">download</button>
-	</div>
-	<div class="fileArea">
-		{{#each uploadedFiles}}
-			{{> uploadedFile}}
-		{{/each}}
-	</div>
+
+	<paper-material id="content-container">
+	    <div class="list list-item">
+	      <paper-item class="export-data-1">
+	        <paper-item-body two-line>
+	          <div><strong>Part 1</strong></div>
+	          <div secondary>Records 0-5k</div>
+	        </paper-item-body>
+	        <paper-icon-button icon="file-download" alt="Download">
+	        </paper-icon-button>
+	      </paper-item>
+	    </div>
+	</paper-material>
+
+	<paper-material id="content-container">
+	    <div class="list list-item">
+	      <paper-item class="export-data-2">
+	        <paper-item-body two-line>
+		        <div><strong>Part 2</strong></div>
+		        <div secondary>Records 5k-10k</div>
+	        </paper-item-body>
+	        <paper-icon-button icon="file-download" alt="Download">
+	        </paper-icon-button>
+	      </paper-item>
+	    </div>
+	</paper-material>
+
+	<paper-material id="content-container">
+	    <div class="list list-item">
+	      <paper-item class="export-data-3">
+	        <paper-item-body two-line>
+	          <div><strong>Part 3</strong></div>
+	          <div secondary>Records 10k-15k</div>
+	        </paper-item-body>
+	        <paper-icon-button icon="file-download" alt="Download">
+	        </paper-icon-button>
+	      </paper-item>
+	    </div>
+	</paper-material>
+
+	<paper-material id="content-container">
+	    <div class="list list-item">
+	      <paper-item class="export-data-4">
+	        <paper-item-body two-line>
+		        <div><strong>Part 4</strong></div>
+		        <div secondary>Records 15k-20k</div>
+	        </paper-item-body>
+	        <paper-icon-button icon="file-download" alt="Download">
+	        </paper-icon-button>
+	      </paper-item>
+	    </div>
+	</paper-material>
+
+	<paper-material id="content-container">
+	    <div class="list list-item">
+	      <paper-item class="export-data-5">
+	        <paper-item-body two-line>
+		        <div><strong>Part 5</strong></div>
+		        <div secondary>Records 20k-25k</div>
+	        </paper-item-body>
+	        <paper-icon-button icon="file-download" alt="Download">
+	        </paper-icon-button>
+	      </paper-item>
+	    </div>
+	</paper-material>
+
+	<paper-material id="content-container">
+	    <div class="list list-item">
+	      <paper-item class="export-data-6">
+	        <paper-item-body two-line>
+		        <div><strong>Part 6</strong></div>
+		        <div secondary>Records 25k-30k</div>
+	        </paper-item-body>
+	        <paper-icon-button icon="file-download" alt="Download">
+	        </paper-icon-button>
+	      </paper-item>
+	    </div>
+	</paper-material>
+
+	<paper-material id="content-container">
+	    <div class="list list-item">
+	      <paper-item class="export-data-7">
+	        <paper-item-body two-line>
+		        <div><strong>Part 6</strong></div>
+		        <div secondary>Records 25k-30k</div>
+	        </paper-item-body>
+	        <paper-icon-button icon="file-download" alt="Download">
+	        </paper-icon-button>
+	      </paper-item>
+	    </div>
+	</paper-material>	
+
+
 </template>
 
 <template name="uploadedFile">
-  <h4>{{#with this.url}}<a href="{{this}}" target="_blank">{{../name}}</a>{{else}}{{this.name}}{{/with}} ({{this.size}} bytes)</h4>
-  {{#if this.isUploaded}}
-  {{#with this.url download=true}}
-  <a href="{{this}}" class="btn btn-default btn-xs" role="button">Download</a>
-  {{/with}}
-  {{> FS.DeleteButton class="btn btn-danger btn-xs"}}
-  {{else}}
-  <p>{{> FS.UploadProgressBar semantic=true}} Uploading...</p>
-  {{/if}}
+<h4>{{#with this.url}}<a href="{{this}}" target="_blank">{{../name}}</a>{{else}}{{this.name}}{{/with}} ({{this.size}} bytes)</h4>
+{{#if this.isUploaded}}
+{{#with this.url download=true}}
+<a href="{{this}}" class="btn btn-default btn-xs" role="button">Download</a>
+{{/with}}
+{{> FS.DeleteButton class="btn btn-danger btn-xs"}}
+{{else}}
+<p>{{> FS.UploadProgressBar semantic=true}} Uploading...</p>
+{{/if}}
 </template>

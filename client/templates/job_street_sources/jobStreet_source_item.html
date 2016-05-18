@@ -2,9 +2,15 @@
 	<a href="{{this.sourceUrl}}" target="_blank" class="flex">
 		<paper-item>
 		  <paper-item-body two-line>
-		    <div><strong>{{this.sourceCategory}} > {{this.sourceSpecialization}} ({{this.sourceSpecializationCode}})</strong></div>
-		    <!-- <div>Quer</div> -->
-		    <div secondary>Last updated: {{formatDate this.lastUpdated}}</div>
+		    <div>
+			    <strong>{{this.sourceCategory}} > {{this.sourceSpecialization}}</strong>
+			    <!-- <div>JobStreet Specialization Code: {{this.sourceSpecializationCode}}</div> -->
+
+		    </div>
+
+		    <!-- <div>JobStreet Specialization Code: {{this.sourceSpecializationCode}}</div> -->
+		    <!-- <div>Search Page Depth: {{this.sourceSearchDepth}}</div> -->
+		    <div secondary>Last updated: {{formatDate this.lastUpdate}}</div>
 		  </paper-item-body>
 		  <paper-icon-button icon="link" alt="View Source">
 		  </paper-icon-button>

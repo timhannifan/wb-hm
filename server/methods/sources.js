@@ -1,16 +1,12 @@
 Meteor.methods({
 	updateAllSourceDepth: function (newDepth) {
-		return JobStreetSources.update({},{
-			$set: {
-				sourceSearchDepth: newDepth
-			}
-		});
+		JobStreetSources.update( { },
+							    { $set: {sourceSearchDepth: newDepth }},
+							    { multi: true});
 	},
 	updateOneSourceDepthById: function (id, newDepth) {
-		return JobStreetSources.update({_id: id},{
-			$set: {
-				sourceSearchDepth: newDepth
-			}
-		});
+		JobStreetSources.update({_id: id},
+							    { $set: {sourceSearchDepth: newDepth }},
+							    { multi: true});
 	},
 });

@@ -11,7 +11,9 @@ Meteor.isClient && Template.registerHelper('TabularTables', TabularTables);
   autoWidth: false,
   scrollX: true,
   // select: true,
-  dom: 'Blfrtip',
+  // dom: 'Blfrtip',
+  rowsPerPage: 50,
+  showFilter: true,
   "tableTools": {
       "sSwfPath": "/swf/copy_csv_xls_pdf.swf"
   },
@@ -23,6 +25,12 @@ Meteor.isClient && Template.registerHelper('TabularTables', TabularTables);
       title: "Title", 
       class: ""
     },
+    // {
+    //   // tmpl: Meteor.isClient && Template.tabTitle,
+    //   data: "Description",
+    //   title: "Description", 
+    //   class: ""
+    // },
     {
       data: "sourceCategory", 
       title: "Sector/Category", 
@@ -50,7 +58,6 @@ scrollX: true,
     {data: "company", title: "Company", class: ""},
     {data: "experience", title: "Experience", class: ""},
     {data: "location", title: "Location", class: ""},
-    {data: "location", title: "Location", class: ""},
     {data: "parentCategory", title: "JS Sector", class: ""},
     {data: "subSpecialization", title: "JS Specialization", class: ""},
     {data: "listedIndustry", title: "Alt Industry", class: ""},
@@ -61,7 +68,6 @@ scrollX: true,
     {data: "dateClosing", title: "Closing", class: ""},
     {data: "createdAt", title: "Created", class: ""}
   ],
-
 });
 
 TabularTables.MascoFive = new Tabular.Table({

@@ -16,7 +16,16 @@ let generateZip = ( options ) => {
 };
 
 let _compileZip = ( archive, limit, skip) => {
-  _prepareDataForArchive( archive, JobStreetItems, 'csv', 'download.csv', limit, skip );
+  _prepareDataForArchive( archive, JobStreetItems, 'csv', 'data.csv', limit, skip );
+  // _prepareDataForArchive( archive, JobStreetItems, 'csv', 'download_1.csv', 500, limit );
+  // _prepareDataForArchive( archive, JobStreetItems, 'csv', 'download_2.csv', 500, limit + 1000 );
+  // _prepareDataForArchive( archive, JobStreetItems, 'csv', 'download_3.csv', 500, limit + 1500 );
+  // _prepareDataForArchive( archive, JobStreetItems, 'csv', 'download_4.csv', 500, limit + 2000 );
+  // _prepareDataForArchive( archive, JobStreetItems, 'csv', 'download_5.csv', 500, limit + 2500 );
+  // _prepareDataForArchive( archive, JobStreetItems, 'csv', 'download_6.csv', 500, limit + 3000 );
+  // _prepareDataForArchive( archive, JobStreetItems, 'csv', 'download_7.csv', 500, limit + 3500 );
+  // _prepareDataForArchive( archive, JobStreetItems, 'csv', 'download_8.csv', 500, limit + 4000 );
+  // _prepareDataForArchive( archive, JobStreetItems, 'csv', 'download_9.csv', 500, limit + 4500 );
 };
 
 let _prepareDataForArchive = ( archive, collection, type, fileName, limit, skip ) => {
@@ -26,7 +35,7 @@ let _prepareDataForArchive = ( archive, collection, type, fileName, limit, skip 
 };
 
 let _getDataFromCollection = ( collection, limit, skip ) => {
-  let data = collection.find( {}, { sort: {createdAt: -1}, limit: limit, skip: skip} ).fetch();
+  let data = collection.find( {}, { sort: {createdAt: 1}, limit: limit, skip: skip} ).fetch();
   if ( data ) {
     return data;
   }

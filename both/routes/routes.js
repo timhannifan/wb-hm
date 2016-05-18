@@ -40,7 +40,7 @@ Meteor.startup(function () {
         Meteor.subscribe('MonsterSources');
       },
       data: function () {
-        return MonsterSources.find().fetch();
+        return MonsterSources.find({},{sort: {sourceCategory: -1}}).fetch();
       }
     });
     
@@ -51,7 +51,7 @@ Meteor.startup(function () {
         Meteor.subscribe('JobStreetSources');
       },
       data: function () {
-        return JobStreetSources.find().fetch();
+        return JobStreetSources.find({},{sort: {sourceCategory: -1}}).fetch();
       }
     });
 
@@ -62,7 +62,7 @@ Meteor.startup(function () {
         Meteor.subscribe('MonsterItems');
       },
       data: function () {
-        return MonsterItems.find().fetch();
+        return MonsterItems.find({},{sort: {createdAt: -1}}).fetch();
       }
     });
     this.route('data_item', {
