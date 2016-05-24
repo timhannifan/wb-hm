@@ -350,17 +350,17 @@ function jobStreetAutoRun () {
 }
 
 
-// SyncedCron.add({
-//   name: 'Jobstreet batch autorun',
-//   schedule: function(parser) {
-//     // parser is a later.parse object
-//     return parser.text('every 8 hours');
-//   }, 
-//   job: function(intendedAt) {
+SyncedCron.add({
+  name: 'Jobstreet batch autorun',
+  schedule: function(parser) {
+    // parser is a later.parse object
+    return parser.text('every 8 hours');
+  }, 
+  job: function(intendedAt) {
 
-//     console.log('running Jobstreet batch autorun');
-//     console.log('job should be running at:');
-//     console.log(intendedAt);
-//     jobStreetAutoRun();
-//   }
-// });
+    console.log('running Jobstreet batch autorun');
+    console.log('job should be running at:');
+    console.log(intendedAt);
+    jobStreetAutoRun();
+  }
+});

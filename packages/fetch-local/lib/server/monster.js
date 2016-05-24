@@ -277,17 +277,17 @@ Meteor.methods({
 });
 
 
-// SyncedCron.add({
-//   name: 'Monster batch autorun',
-//   schedule: function(parser) {
-//     // parser is a later.parse object
-//     return parser.text('every 2 hours');
-//   }, 
-//   job: function(intendedAt) {
+SyncedCron.add({
+  name: 'Monster batch autorun',
+  schedule: function(parser) {
+    // parser is a later.parse object
+    return parser.text('every 2 hours');
+  }, 
+  job: function(intendedAt) {
 
-//     console.log('running Monster XML job');
-//     console.log('job should be running at:');
-//     console.log(intendedAt);
-//     fetchSources();
-//   }
-// });
+    console.log('running Monster XML job');
+    console.log('job should be running at:');
+    console.log(intendedAt);
+    fetchSources();
+  }
+});
