@@ -33,7 +33,7 @@ anti:fake
 
 meteorhacks:inject-initial
 differential:vulcanize
-aldeed:tabular
+#aldeed:tabular
 rclai89:cheerio
 harrison:papa-parse
 fortawesome:fontawesome
@@ -59,4 +59,7 @@ numeral:numeral
 benjaminrh:jquery-cookie
 
 twbs:bootstrap
+linto:jquery-ui
+#mizzao:autocomplete
 
+aslagle:reactive-table

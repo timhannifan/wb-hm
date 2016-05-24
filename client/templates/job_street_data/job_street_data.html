@@ -1,46 +1,197 @@
 <template name="job_street_data">
-  <div class="page-header">
-    <h1 class="title">JobStreet.com Data</h1>
-  </div>
+  <section class="layout vertical">
+    <div class="page-header">
+      <h1 class="title">JobStreet.com Data</h1>
+    </div>
 
-  <paper-material class="table-container">
-    {{> tabular table=TabularTables.JobStreetItems class="table table-striped table-hover table-condensed flex"}}        
-  </paper-material>
+    <paper-material class="table-container">
+      <div class="form-group clearfix">
+        
+        <div class="col-md-6 col-xs-12">
+          {{> reactiveTableFilter 
+          id="js-text-search" 
+          label="Search for text:" 
+          fields=fields }}  
+        </div>
+        
+        <div class="col-md-6 col-xs-12">
+          {{> jssourceSelectFilter }}
+          <!-- {{> jsSourceFilter }} -->
+          {{> jsSpecializationFilter }}
+        </div>
+      </div>
+
+      <div class="form-group clearfix">
+        <div class="flex">
+          {{> reactiveTable 
+          collection=collection
+          settings=tableSettings}}  
+        </div>
+      </div>
+
+    </paper-material>
+  </section>
 </template>
+
+<template name="jsTitleTmpl">
+  <a href="{{pathFor route='job_street_data_item' _id=this._id}}" title="">{{this.title}}</a>
+</template>
+
+<template name="jssourceSelectFilter">
+  <div class="input-group">
+    <span class="input-group-addon">
+      <span>Filter by Category:</span>
+    </span>
+    <select class="form-control jobstreet-category-select-filter">
+      <option value="">Any</option>
+      {{#each sources}}
+        <option value={{this.sourceCategory}}>{{this.sourceCategory}}</option>
+      {{/each}}
+    </select>
+  </div>
+</template>
+
+
+<template name="jsSourceFilter">
+  <div class="input-group">
+    <span class="input-group-addon">
+      <span>Filter by Category:</span>
+    </span>
+    <select class="form-control js-source-filter">
+      <option value="">Any</option>
+      {{#each sources}}
+        <option value={{this.sourceCategory}}>{{this.sourceCategory}}</option>
+      {{/each}}
+    </select>
+  </div>
+</template>
+<template name="jsSpecializationFilter">
+  <div class="input-group">
+    <span class="input-group-addon">
+      <span>Filter by Specialization:</span>
+    </span>
+    <select class="form-control js-specialization-filter">
+      <option value="">Any</option>
+      {{#each sources}}
+        <option value={{this.sourceSpecialization}}>{{this.sourceSpecialization}}</option>
+      {{/each}}
+    </select>
+  </div>
+</template>
+
 
 <template name="job_street_data_item">
-  <div class="vertical-section">
-    <paper-card heading="{{this.title}}" class="card">
-      <div class="card-content">
-      <p class="flex"><strong>Posted:</strong>
-       <!-- {{this.pubDate}} -->
-       </p>
-      <p class="flex"><strong>Imported:</strong>
-       <!-- {{this.postedAt}} -->
-       </p>
-        <p class="flex"><strong>URL:</strong>
-         {{this.url}}
-         </p>
-         <p class="flex"><strong>Company:</strong>
-          {{this.company}}
+
+  <section class="layout vertical">
+    <div class="page-header">
+      <h1 class="title">Job Listing Details</h1>
+    </div>
+
+    <paper-material class="table-container">
+      <div class="row">
+        <div class="col-xs-6">
+          <h4>Listing Information</h4>
+          <p class="flex">
+            <strong>Title:</strong><br>
+           {{this.title}}
           </p>
-        <p class="flex"><strong>Description:</strong>
-         <!-- {{{this.htmlDescription}}} -->
-         </p>
-        <p class="flex"><strong>Parsed Keywords:</strong>
-        <div class="flex-6">
-          <!-- {{#each this.parsedKeywords}} -->
-            <!-- {{this}}<br> -->
-          <!-- {{/each}} -->
+
+          <p class="flex">
+            <strong>Description:</strong><br>
+           {{this.description}}
+          </p>
+          <p class="flex">
+            <strong>URL:</strong><br>
+           <a href="{{this.url}}" target="_blank" title="">{{this.url}}</a>
+          </p>
+
+          <p class="flex">
+            <strong>Experience:</strong><br>
+           {{this.experience}}
+          </p>
+          <p class="flex">
+            <strong>Listed Specialization:</strong><br>
+           {{this.listedSpec}}
+          </p>
+          <p class="flex">
+            <strong>Listed Industry:</strong><br>
+           {{this.listedIndustry}}
+          </p>
+          <p class="flex">
+            <strong>Listed Role</strong><br>
+           {{this.listedRole}}
+          </p>
+
+          <p class="flex">
+            <strong>Created:</strong><br>
+           {{this.createdAt}}
+          </p>
+          <p class="flex">
+            <strong>Date Posted:</strong><br>
+           {{this.datePosted}}
+          </p>
+          <p class="flex">
+            <strong>Date Closing:</strong><br>
+           {{this.dateClosing}}
+          </p>
+
+           <p class="flex">
+            <strong>Title Tags:</strong><br>
+             <div class="flex-6">
+               {{#each this.titleTags}}
+                 '{{this}}' 
+               {{/each}}
+             </div>
+           </p>
+          <p class="flex">
+            <strong>Description Tags:</strong><br>
+            <div class="flex-6">
+              {{#each this.descriptionTags}}
+                '{{this}}' 
+              {{/each}}
+            </div>
+          </p>        
         </div>
-        </p>
+        <div class="col-xs-6">
+          <h4>Company Information</h4> 
+          <p class="flex"><strong>Comany:</strong>
+           {{this.company}}
+          </p>
+          <p class="flex"><strong>Location:</strong>
+           {{this.location}}
+          </p>
 
-
+          <p class="flex"><strong>Company Registration #:</strong>
+           {{this.companyRegistrationNumber}}
+          </p>          
+          <p class="flex"><strong>Company Size:</strong>
+           {{this.companySize}}
+          </p>          
+          <p class="flex"><strong>Languages Spoken:</strong>
+           {{this.languagesSpoken}}
+          </p>  
+          <p class="flex">
+            <strong>Benefits:</strong><br>
+           {{this.benefits}}
+          </p>          
+          <p class="flex"><strong>Company Address:</strong>
+           {{this.companyAddress}}
+          </p>            
+          <p class="flex"><strong>Company Overview:</strong>
+           {{this.companyOverview}}
+          </p>             
+          <p class="flex"><strong>Company Industry:</strong>
+           {{this.companySnapIndustry}}
+          </p>             
+          <p class="flex"><strong>Company Dress Code:</strong>
+           {{this.companySnapDressCode}}
+          </p>                
+          <p class="flex"><strong>Company Size:</strong>
+           {{this.companySize}}
+          </p>
+        </div>
       </div>
-    </paper-card>
-  </div>
-</template>
+    </paper-material>
+  </section>
 
-<template name="jobStreetTabTitle">
-  <a href="{{pathFor route='job_street_data_item' _id=getPost}}">{{this.title}}</a>
 </template>

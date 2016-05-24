@@ -58,9 +58,9 @@ Meteor.startup(function () {
     this.route('data', {
       path: '/data/monster',
       template:'data',
-      waitOn: function() {
-        Meteor.subscribe('MonsterItems');
-      },
+      // waitOn: function() {
+      //   Meteor.subscribe('MonsterItems');
+      // },
       data: function () {
         return MonsterItems.find({},{sort: {createdAt: -1}}).fetch();
       }
@@ -78,31 +78,21 @@ Meteor.startup(function () {
     this.route('job_street_data', {
       path: '/data/jobstreet',
       template:'job_street_data',
-      waitOn: function() {
-        Meteor.subscribe('JobSteetItems');
-      },
-      data: function () {
-        return JobStreetItems.find().fetch();
-      }
-    });
-    this.route('combined_data', {
-      path: '/data/combined',
-      template:'combined_data'
       // waitOn: function() {
       //   Meteor.subscribe('JobSteetItems');
       // },
-      // data: function () {
-      //   return JobStreetItems.find().fetch();
-      // }
+      data: function () {
+        return JobStreetItems.find().fetch();
+      }
     });
     this.route('job_street_data_item', {
       path: '/data/jobstreet/:_id',
       template:'job_street_data_item',
       waitOn: function() {
-        Meteor.subscribe('JobSteetItems');
+        Meteor.subscribe('JobStreetItemsById', this.params._id);
       },
       data: function () {
-        return JobSteetItems.findOne({_id: this.params._id});
+        return JobStreetItems.findOne({_id: this.params._id});
       }
     });
     this.route('about', {

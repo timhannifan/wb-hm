@@ -109,9 +109,9 @@ Meteor.methods({
 		  return exception;
 		}
 	},
-	// exportMonsterItems: function() {
-	// 	return exportMonsterItems();
-	// },
+	exportMonsterItems: function() {
+		return exportMonsterItems();
+	},
 	// exportCombinedItems: function() {
 	// 	return exportCombinedItems();
 	// }
