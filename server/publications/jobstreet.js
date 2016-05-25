@@ -10,9 +10,8 @@ Meteor.publish('JobStreetItemsLimited', function() {
   return JobStreetItems.find( {
     title: {$ne: null} 
   }, {
-    limit: 1000,
     sort: {
-      createdAt: 1
+      createdAt: -1
     },
     fields: {
       title: 1,

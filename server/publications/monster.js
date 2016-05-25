@@ -3,7 +3,7 @@ Meteor.publish('MonsterSources', function() {
 });
 
 Meteor.publish('MonsterItems', function() {
-  return MonsterItems.find({});
+  return MonsterItems.find({}, {sort: {createdAt: -1}});
 });
 
 Meteor.publish( 'monsterItemIds', function() {
