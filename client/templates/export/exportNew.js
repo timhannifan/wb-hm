@@ -1,244 +1,176 @@
-Template.registerHelper('log', function () {
-  console.log(this, arguments);
-});
+Template.exportNew.events({
+  'click #methodExportMonsterItems': function () {
+    console.log('Exporting Monster data...');
+    MyAppExporter.methodExportMonsterItems();    
+  },
+  'click .export-data': function ( event, template ) {
+    // $( event.target ).button( 'loading' );
 
-Meteor.subscribe("files");
+    // let data = Modules.client.getCollectionData();
+    let options = {};
+    options.limit = 1000;
+    options.skip = 0;
 
-Template.exportNew.created = function () {
-  this.filename = new ReactiveVar('');
-};
-
-// Can't call getHandler until startup so that Collections object is available
-Meteor.startup(function () {
-
-  Template.exportNew.events({
-    'change input.any': FS.EventHandlers.insertFiles(Collections.Files, {
-      metadata: function (fileObj) {
-        return {
-          // owner: Meteor.userId(),
-          foo: "bar",
-          dropped: false
-        };
-      },
-      after: function (error, fileObj) {
-        if (!error) {
-          console.log("Inserted", fileObj.name());
+    Meteor.call( 'exportData', options , ( error, response ) => {
+      if ( error ) {
+        Bert.alert( error.reason, 'warning' );
+      } else {
+        if ( response ) {
+          let blob = Modules.client.convertBase64ToBlob( response );
+          saveAs( blob, 'archive.zip' );
+          // $( event.target ).button( 'reset' );
         }
       }
-    }),
-    'keyup .filename': function () {
-      var ins = Template.instance();
-      if (ins) {
-        ins.filename.set($('.filename').val());
-      }
-    }
-  });
+    });
+  },
+  'click .export-data-query': function ( event, template ) {
+    let query = {
+                  title:{
+                    $ne: null
+                  }
+                };
 
+    let filter = {
+      // fields: {},
+      // sort: {}
+    };
+
+    Meteor.call( 'exportDataQuery', query, filter , ( error, response ) => {
+      if ( error ) {
+        Bert.alert( error.reason, 'warning' );
+      } else {
+        if ( response ) {
+          console.log('received a resonse');
+          let blob = Modules.client.convertBase64ToBlob( response );
+          saveAs( blob, 'dataQuery.zip' );
+        }
+      }
+    });
+  },
+  'click .export-data-sync': function ( event, template ) {
+    let options = {};
+    options.limit = 10000;
+    options.skip = 0;
+
+    Meteor.call( 'exportDataSync', options , ( error, response ) => {
+      if ( error ) {
+        Bert.alert( error.reason, 'warning' );
+      } else {
+        if ( response ) {
+          console.log('received a resonse');
+          let blob = Modules.client.convertBase64ToBlob( response );
+          saveAs( blob, 'archiveSynch.zip' );
+        }
+      }
+    });
+  },
+  'click .export-data-sync-limit': function ( event, template ) {
+    var el = $(event.target);
+    console.log(el);
+    // console.log(el[0].attributes['data-start'].value);
+    // console.log(el[0].attributes['data-end'].value);
+
+    var start = el[0].attributes['data-start'].value;
+    var end = el[0].attributes['data-end'].value;
+
+    // console.log(event.target);
+    let options = {
+      limit: 5000,
+      skip: Number(start)
+    };
+
+
+    Meteor.call( 'exportDataSync', options , ( error, response ) => {
+      if ( error ) {
+        Bert.alert( error.reason, 'warning' );
+      } else {
+        if ( response ) {
+          console.log('received a resonse');
+          let blob = Modules.client.convertBase64ToBlob( response );
+          saveAs( blob, 'archiveSynch.zip' );
+        }
+      }
+    });
+  },
+  'click .export-data-zip': function ( event, template ) {
+
+    Meteor.call( 'exportBigZip', ( error, response ) => {
+      if ( error ) {
+        Bert.alert( error.reason, 'warning' );
+      } else {
+        if ( response ) {
+          console.log('received a resonse');
+          let blob = Modules.client.convertBase64ToBlob( response );
+          saveAs( blob, 'exportBigZip.zip' );
+        }
+      }
+    });
+  }  
+});
+
+Template.exportNew.onCreated( () => {
+  let template = Template.instance();
+  
+  template.subscribe('jobstreetItemIds');
+  template.subscribe('monsterItemIds');
+});
+
+Template.exportNew.onRendered( () => {
+  $( '.datetimepicker' ).datetimepicker({
+    timeZone: 'America/Chicago',
+    useCurrent: true
+  });
 });
 
 Template.exportNew.helpers({
-  uploadedFiles: function() {
-    return Collections.Files.find();
+  items: function () {
+    return JobStreetItems.find().fetch();
+  },
+  numberOfItems: function (){
+    return JobStreetItems.find().count();
+  },
+  numberMonsterItems: function (){
+    return MonsterItems.find().count();
+  },
+  sets: function(){
+    var count = JobStreetItems.find().count();
+    var res = [],
+    counter = 0,
+    listCount = 1;
+
+    while (counter <= count) {
+      res.push({start: counter, end: counter + 5000, listCount: listCount});
+      listCount += 1;
+      counter += 5000;
+      // console.log(counter);
+    }
+
+    return res;
   }
 });
 
-
 Template.exportNew.events({
-   "click #methodExportMonsterItems": function() {
-     console.log('clicked methodExportMonsterItems');
-     MyAppExporter.methodExportMonsterItems();
-   },
-  'click .export-data-1' ( event, template ) {
-    console.log('clicked');
+  'submit form': function ( event, template ) {
+    event.preventDefault();
 
-    let name        = 'download_',
-      date    = new Date(),
-      counter = 0,
-      start = 0,
-      limit = 500,
-      fileName    = name + counter;
+    let picker   = $( '.datetimepicker' ),
+        dateTime = picker.data( 'DateTimePicker' ).date();
 
-      Meteor.apply( 'exportData',[limit, start],{wait: true}, ( error, response ) => {
-        if ( error ) {
-          Bert.alert( error.reason, 'warning' );
-        } else {
-          if ( response ) {
-            console.log('response received.');
-            // console.log(response);
-            
-            saveAs( Modules.client.convertBase64ToBlob( response ), `${fileName}.zip` );  
-            
-          }
-        }
-      });
-      counter+=1;
-      start+=limit;
-      Meteor.apply( 'exportData',[limit, start],{wait: true}, ( error, response ) => {
-        if ( error ) {
-          Bert.alert( error.reason, 'warning' );
-        } else {
-          if ( response ) {
-            console.log('response received.');
-            // console.log(response);
-            
-            saveAs( Modules.client.convertBase64ToBlob( response ), `${fileName}.zip` );  
-            
-          }
-        }
-      });
-      start+=limit;
-      Meteor.apply( 'exportData',[limit, start],{wait: true}, ( error, response ) => {
-        if ( error ) {
-          Bert.alert( error.reason, 'warning' );
-        } else {
-          if ( response ) {
-            console.log('response received.');
-            // console.log(response);
-            
-            saveAs( Modules.client.convertBase64ToBlob( response ), `${fileName}.zip` );  
-            
-          }
-        }
-      });
-      start+=limit;
-      Meteor.apply( 'exportData',[limit, start],{wait: true}, ( error, response ) => {
-        if ( error ) {
-          Bert.alert( error.reason, 'warning' );
-        } else {
-          if ( response ) {
-            console.log('response received.');
-            // console.log(response);
-            
-            saveAs( Modules.client.convertBase64ToBlob( response ), `${fileName}.zip` );  
-            
-          }
-        }
-      });
-  },
-  'click .export-data-2' ( event, template ) {
-    console.log('clicked');
+    if ( dateTime ) {
+      let appointment = dateTime.format();
 
-    let name        = 'download_',
-      date    = new Date(),
-      fileName    = `${name} ${date}`;
+      console.log(appointment);
 
-      Meteor.apply( 'exportData',[500, 5000],{wait: true}, ( error, response ) => {
-        if ( error ) {
-          Bert.alert( error.reason, 'warning' );
-        } else {
-          if ( response ) {
-            console.log('response received.');
-            // console.log(response);
-            
-            saveAs( Modules.client.convertBase64ToBlob( response ), `${fileName}.zip` );  
-            
-          }
-        }
-      });
-  },
-  'click .export-data-3' ( event, template ) {
-    console.log('clicked');
-
-    let name        = 'download_',
-      date    = new Date(),
-      fileName    = `${name} ${date}`;
-
-      Meteor.apply( 'exportData',[500, 10000],{wait: true}, ( error, response ) => {
-        if ( error ) {
-          Bert.alert( error.reason, 'warning' );
-        } else {
-          if ( response ) {
-            console.log('response received.');
-            // console.log(response);
-            
-            saveAs( Modules.client.convertBase64ToBlob( response ), `${fileName}.zip` );  
-            
-          }
-        }
-      });
-  },
-  'click .export-data-4' ( event, template ) {
-    console.log('clicked');
-
-    let name        = 'download_',
-      date    = new Date(),
-      fileName    = `${name} ${date}`;
-
-      Meteor.apply( 'exportData',[500, 15000],{wait: true}, ( error, response ) => {
-        if ( error ) {
-          Bert.alert( error.reason, 'warning' );
-        } else {
-          if ( response ) {
-            console.log('response received.');
-            // console.log(response);
-            
-            saveAs( Modules.client.convertBase64ToBlob( response ), `${fileName}.zip` );  
-            
-          }
-        }
-      });
-  },
-  'click .export-data-5' ( event, template ) {
-    console.log('clicked');
-
-    let name        = 'download_',
-      date    = new Date(),
-      fileName    = `${name} ${date}`;
-
-      Meteor.apply( 'exportData',[500, 20000],{wait: true}, ( error, response ) => {
-        if ( error ) {
-          Bert.alert( error.reason, 'warning' );
-        } else {
-          if ( response ) {
-            console.log('response received.');
-            // console.log(response);
-            
-            saveAs( Modules.client.convertBase64ToBlob( response ), `${fileName}.zip` );  
-            
-          }
-        }
-      });
-  },
-  'click .export-data-6' ( event, template ) {
-    console.log('clicked');
-
-    let name        = 'download_',
-      date    = new Date(),
-      fileName    = `${name} ${date}`;
-
-      Meteor.apply( 'exportData',[500, 25000],{wait: true}, ( error, response ) => {
-        if ( error ) {
-          Bert.alert( error.reason, 'warning' );
-        } else {
-          if ( response ) {
-            console.log('response received.');
-            // console.log(response);
-            
-            saveAs( Modules.client.convertBase64ToBlob( response ), `${fileName}.zip` );  
-            
-          }
-        }
-      });
-  },
-  'click .export-data-7' ( event, template ) {
-    console.log('clicked');
-
-    let name        = 'download_',
-      date    = new Date(),
-      fileName    = `${name} ${date}`;
-
-      Meteor.apply( 'exportData',[500, 30000],{wait: true}, ( error, response ) => {
-        if ( error ) {
-          Bert.alert( error.reason, 'warning' );
-        } else {
-          if ( response ) {
-            console.log('response received.');
-            // console.log(response);
-            
-            saveAs( Modules.client.convertBase64ToBlob( response ), `${fileName}.zip` );  
-            
-          }
-        }
-      });
-  },        
+      // Meteor.call( 'addAppointment', appointment, ( error, response ) => {
+      //   if ( error ) {
+      //     Bert.alert( error.reason, 'danger' );
+      //   } else {
+      //     picker.val( '' );
+      //     Bert.alert( 'Appointment added!', 'success' );
+      //   }
+      // });
+    } else {
+      Bert.alert( 'Make sure to pick an appointment time!', 'danger' );
+    }
+  }
 });

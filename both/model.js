@@ -153,12 +153,22 @@ MonsterItems.schema = new SimpleSchema({
 });
 
 MonsterItems.attachSchema(MonsterItems.schema);
+
+
+if ( Meteor.isServer ) {
+  MonsterItems._ensureIndex( { createdAt: -1 } );
+  // JobStreetItems._ensureIndex( { createdAt: -1, title: 1, parentCategory: 1, subSpecialization } );
+}
+
 MonsterItems.allow({
   insert: function (userId, doc) {
     return true;
   }
 });
 
+// if ( Meteor.isServer ) {
+//   Albums._ensureIndex( { title: 1 } );
+// }
 // JobStreetItems Schema and Permissions
 JobStreetItems.schema = new SimpleSchema({
   title: {
@@ -292,60 +302,16 @@ JobStreetItems.schema = new SimpleSchema({
   }
 });
 JobStreetItems.attachSchema(JobStreetItems.schema);
+
+
+
+if ( Meteor.isServer ) {
+  JobStreetItems._ensureIndex( { createdAt: -1 } );
+  // JobStreetItems._ensureIndex( { createdAt: -1, title: 1, parentCategory: 1, subSpecialization } );
+}
+
+
 JobStreetItems.allow({
-  insert: function (userId, doc) {
-    return true;
-  }
-});
-
-// UnionItems Schema and Permissions
-UnionItems.schema = new SimpleSchema({
-  title: {
-    type: String,
-    optional: true,
-    defaultValue: null
-  },
-  url: {
-    type: String,
-    regEx: SimpleSchema.RegEx.Url
-  },
-  sourceId: {
-    type: String,
-    optional: true
-  },
-  description: {
-    type: String,
-    optional: true
-  },
-  parsedKeywords: {
-    type: [String],
-    label: 'parsedKeywords keywords',
-    optional: true
-  },
-  company: {
-    type: String,
-    optional: true
-  },
-  experience: {
-    type: String,
-    optional: true
-  },
-
-  location: {
-    type: String,
-    optional: true
-  },
-  sourceCategory: {
-    type: String,
-    optional: true
-  },
-  sourceSpecialization: {
-    type: String,
-    optional: true
-  },
-});
-UnionItems.attachSchema(UnionItems.schema);
-UnionItems.allow({
   insert: function (userId, doc) {
     return true;
   }

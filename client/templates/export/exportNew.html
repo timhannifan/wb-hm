@@ -6,7 +6,7 @@
 
 	<div id="page-sub-heading">
 		<div class="description">
-			Monster.com Data: Sorted by Ascending Date
+			Monster.com Data: <strong> {{numberMonsterItems}} </strong> total records
 		</div>
 	</div>
 
@@ -25,14 +25,31 @@
 
 	<div id="page-sub-heading">
 		<div class="description">
-			Jobstreet.com Data: Sorted by Ascending Date
+			Jobstreet.com Data:  <strong> {{numberOfItems}} </strong> total records
 		</div>
 		
 	</div>
+	{{#each sets}}
+	 
 
-	<paper-material id="content-container">
+	  <!-- <paper-material id="content-container"> -->
+		   <button class="export-data-sync-limit btn btn-success" data-loading-text="Exporting..." data-start="{{this.start}}" data-end="{{this.end}}">JobStreet {{this.start}} - {{this.end}}</button>
+<!-- 	      <div class="list list-item">
+	        <paper-item>
+	          <paper-item-body two-line>
+	            <div><strong>JobStreet Data {{this.listCount}}</strong></div>
+	            <div secondary>{{this.start}} - {{this.end}}</div>
+	          </paper-item-body>
+	          <paper-icon-button icon="file-download" alt="Download" class="export-data-sync-limit" data-start="{{this.start}}" data-end="{{this.end}}">
+	          </paper-icon-button>
+	        </paper-item>
+	      </div> -->
+	  <!-- </paper-material> -->
+	{{/each}}
+
+<!-- 	<paper-material id="content-container">
 	    <div class="list list-item">
-	      <paper-item class="export-data-1">
+	      <paper-item id="methodExportMonsterItems">
 	        <paper-item-body two-line>
 	          <div><strong>Part 1</strong></div>
 	          <div secondary>Records 0-5k</div>
@@ -41,89 +58,37 @@
 	        </paper-icon-button>
 	      </paper-item>
 	    </div>
-	</paper-material>
+	</paper-material> -->
 
-	<paper-material id="content-container">
-	    <div class="list list-item">
-	      <paper-item class="export-data-2">
-	        <paper-item-body two-line>
-		        <div><strong>Part 2</strong></div>
-		        <div secondary>Records 5k-10k</div>
-	        </paper-item-body>
-	        <paper-icon-button icon="file-download" alt="Download">
-	        </paper-icon-button>
-	      </paper-item>
-	    </div>
-	</paper-material>
+	<!-- <paper-material id="content-container">
+		<form id="js-dates">
+		    <div class="row">
+		      <div class="col-xs-8">
+		        <div class="form-group">
+		          <input type="text" class="form-control datetimepicker" data-DateTimePicker name="start" placeholder="Start">
+		        </div>
+		      </div>
+		      <div class="col-xs-4">
+		        <div class="form-group">
+		          <button class="btn btn-success btn-block">Add Appointment</button>
+		        </div>
+		      </div>
+		    </div>
+	  </form>
+	</paper-material> -->
 
-	<paper-material id="content-container">
-	    <div class="list list-item">
-	      <paper-item class="export-data-3">
-	        <paper-item-body two-line>
-	          <div><strong>Part 3</strong></div>
-	          <div secondary>Records 10k-15k</div>
-	        </paper-item-body>
-	        <paper-icon-button icon="file-download" alt="Download">
-	        </paper-icon-button>
-	      </paper-item>
-	    </div>
-	</paper-material>
-
-	<paper-material id="content-container">
-	    <div class="list list-item">
-	      <paper-item class="export-data-4">
-	        <paper-item-body two-line>
-		        <div><strong>Part 4</strong></div>
-		        <div secondary>Records 15k-20k</div>
-	        </paper-item-body>
-	        <paper-icon-button icon="file-download" alt="Download">
-	        </paper-icon-button>
-	      </paper-item>
-	    </div>
-	</paper-material>
-
-	<paper-material id="content-container">
-	    <div class="list list-item">
-	      <paper-item class="export-data-5">
-	        <paper-item-body two-line>
-		        <div><strong>Part 5</strong></div>
-		        <div secondary>Records 20k-25k</div>
-	        </paper-item-body>
-	        <paper-icon-button icon="file-download" alt="Download">
-	        </paper-icon-button>
-	      </paper-item>
-	    </div>
-	</paper-material>
-
-	<paper-material id="content-container">
-	    <div class="list list-item">
-	      <paper-item class="export-data-6">
-	        <paper-item-body two-line>
-		        <div><strong>Part 6</strong></div>
-		        <div secondary>Records 25k-30k</div>
-	        </paper-item-body>
-	        <paper-icon-button icon="file-download" alt="Download">
-	        </paper-icon-button>
-	      </paper-item>
-	    </div>
-	</paper-material>
-
-	<paper-material id="content-container">
-	    <div class="list list-item">
-	      <paper-item class="export-data-7">
-	        <paper-item-body two-line>
-		        <div><strong>Part 6</strong></div>
-		        <div secondary>Records 25k-30k</div>
-	        </paper-item-body>
-	        <paper-icon-button icon="file-download" alt="Download">
-	        </paper-icon-button>
-	      </paper-item>
-	    </div>
-	</paper-material>	
-
+	<!-- <button class="export-data btn btn-success" data-loading-text="Exporting...">Export Data</button>
+	<button class="export-data-sync btn btn-success" data-loading-text="Exporting...">Export Sync</button>
+	<button class="export-data-zip btn btn-success" data-loading-text="Exporting...">Export Zip</button>
+	<button class="export-data-query btn btn-success" data-loading-text="Exporting...">Export query</button>
+	<button class="export-data-sync-limit btn btn-success" data-loading-text="Exporting..." data-start="0" data-end="5000">Export Sync2</button> -->
+<!-- 
+	{{#each sets}}
+		<button class="export-data-sync btn btn-success" data-loading-text="Exporting..." data-start="{{this.start}}">Export Sync</button>
+	{{/each}} -->
 
 </template>
-
+<!-- 
 <template name="uploadedFile">
 <h4>{{#with this.url}}<a href="{{this}}" target="_blank">{{../name}}</a>{{else}}{{this.name}}{{/with}} ({{this.size}} bytes)</h4>
 {{#if this.isUploaded}}
@@ -135,3 +100,4 @@
 <p>{{> FS.UploadProgressBar semantic=true}} Uploading...</p>
 {{/if}}
 </template>
+ -->

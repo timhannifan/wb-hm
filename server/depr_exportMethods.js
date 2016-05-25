@@ -110,7 +110,11 @@ Meteor.methods({
 		}
 	},
 	exportMonsterItems: function() {
-		return exportMonsterItems();
+		try {
+		  return exportMonsterItems();
+		} catch ( exception ) {
+		  return exception;
+		}
 	},
 	// exportCombinedItems: function() {
 	// 	return exportCombinedItems();
