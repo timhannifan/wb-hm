@@ -82,7 +82,7 @@ Meteor.startup(function () {
       //   Meteor.subscribe('JobSteetItems');
       // },
       data: function () {
-        return JobStreetItems.find().fetch();
+        return JobStreetItems.find();
       }
     });
     this.route('job_street_data_item', {
@@ -134,6 +134,16 @@ Meteor.startup(function () {
       template:'mascoKey',
       waitOn: function() {
         return Meteor.subscribe('MascoKey');
+      }
+    });
+    this.route('skills', {
+      path: '/skills',
+      template:'skills',
+      waitOn: function() {
+        return Meteor.subscribe('skills');
+      },
+      data: function() {
+        return Skills.find();
       }
     });
   });

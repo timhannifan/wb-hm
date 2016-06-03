@@ -27,6 +27,25 @@ Meteor.methods({
   return result;
 
   }, 
+  exportDummyVars(query, modifier) {
+
+    check( query, Object );
+    check( modifier, Object );
+
+    var exportDummyVars = Meteor.wrapAsync(Modules.server.exportDummyVars),
+      result = exportDummyVars(query, modifier, function( error, response ) {
+      if ( error ) {
+        // Handle error.
+        console.log(error)
+      } else {
+        // Handle response.
+        return result;
+
+      }
+    });
+    
+    return result;
+  }, 
   exportDataQuery(query,filter) {
     console.log('query', query);
     console.log('filter', filter);

@@ -11,36 +11,6 @@
         }
       }
     },
-    "gm": {
-      "version": "1.18.1",
-      "dependencies": {
-        "debug": {
-          "version": "2.2.0",
-          "dependencies": {
-            "ms": {
-              "version": "0.7.1"
-            }
-          }
-        },
-        "array-series": {
-          "version": "0.1.5"
-        },
-        "array-parallel": {
-          "version": "0.1.3"
-        }
-      }
-    },
-    "json2xml": {
-      "version": "0.1.2"
-    },
-    "jszip": {
-      "version": "2.5.0",
-      "dependencies": {
-        "pako": {
-          "version": "0.2.8"
-        }
-      }
-    },
     "mimir": {
       "version": "0.0.1"
     },

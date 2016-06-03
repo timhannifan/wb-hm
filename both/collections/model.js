@@ -299,6 +299,16 @@ JobStreetItems.schema = new SimpleSchema({
     type: Date,
     optional: true,
     defaultValue: null
+  },
+  dummyVars: {
+    type: Object,
+    optional: true,
+    blackbox: true
+  },
+  classificationComplete: {
+    type: Boolean,
+    optional: true,
+    defaultValue: false
   }
 });
 JobStreetItems.attachSchema(JobStreetItems.schema);

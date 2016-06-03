@@ -10,10 +10,15 @@ session
 http
 coffeescript
 less
+es5-shim
 ecmascript
+blaze-html-templates
 
 accounts-ui
 accounts-password
+
+# autopublish
+# insecure
 
 useraccounts:core
 useraccounts:polymer
@@ -33,11 +38,9 @@ anti:fake
 
 meteorhacks:inject-initial
 differential:vulcanize
-#aldeed:tabular
 rclai89:cheerio
 harrison:papa-parse
 fortawesome:fontawesome
-# d3js:d3
 yaki-local
 fetch-local
 
@@ -63,3 +66,5 @@ linto:jquery-ui
 #mizzao:autocomplete
 
 aslagle:reactive-table
+
+# machine

@@ -1,0 +1,11 @@
+<template name="skills">
+	<div>
+		<input type="file" name="upload">		
+	</div>	
+		<button id="exportDummyVars">Export Dummy Data</button>
+	<ul>
+		{{#each skills}}
+			<li>{{skill_keyword}}</li>
+		{{/each}}
+	</ul>
+</template>

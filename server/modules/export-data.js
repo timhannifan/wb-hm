@@ -16,6 +16,14 @@ var exportDataSync = function (options,callback) {
   return _generateZipArchive( archive );
 }
 
+var exportDummyVars = function (query, modifier, callback) {
+
+  let archive = _initializeZipArchive();
+  _compileDummyZip( archive, query, modifier );
+
+  return _generateZipArchive( archive );
+}
+
 var exportDataQuery = function (query, filters,callback) {
 
   let archive = _initializeZipArchive();
@@ -34,6 +42,9 @@ var exportBigZip = function (callback) {
 
 let _compileZip = ( archive, limit, skip) => {
   _prepareDataForArchive( archive, JobStreetItems, 'csv', 'data.csv', limit, skip );
+};
+let _compileDummyZip = ( archive, query, modifier) => {
+  _prepareDummyDataForArchive( archive, Skills, 'csv', 'dummyVariables.csv', query, modifier );
 };
 let _compileQueryZip = ( archive, query, filters) => {
   _prepareQueryForArchive( archive, JobStreetItems, 'csv', 'query.csv', query, filters );
@@ -69,6 +80,12 @@ let _prepareDataForArchive = ( archive, collection, type, fileName, limit, skip 
   _addFileToZipArchive( archive, fileName, formattedData );
 };
 
+let _prepareDummyDataForArchive = ( archive, collection, type, fileName, query, modifier ) => {
+  let data          = collection instanceof Mongo.Collection ? _getDummyDataFromCollection( collection, query, modifier ) : collection,
+      formattedData = _formatData[ type ]( data );
+  _addFileToZipArchive( archive, fileName, formattedData );
+};
+
 let _getDataCountFromCollection = ( collection) => {
   // let data = collection.find( {}, { sort: {createdAt: 1}, limit: limit, skip: skip} ).fetch();
   let data = collection.find( {}, { sort: {createdAt: -1}, fields: {createdAt: 1}} ).count();
@@ -84,10 +101,19 @@ let _getQueryFromCollection = ( collection,  query, filters  ) => {
     return data;
   }
 };
+
 let _getDataFromCollection = ( collection, limit, skip ) => {
   // let data = collection.find( {}, { sort: {createdAt: 1}, limit: limit, skip: skip} ).fetch();
   let data = collection.find( {}, { sort: {createdAt: -1}, limit: limit, skip: skip} ).fetch();
   if ( data ) {
+    return data;
+  }
+};
+
+let _getDummyDataFromCollection = ( collection, query, modifier ) => {
+  let data = collection.find( query, modifier ).fetch();
+  if ( data ) {
+    console.log(data);
     return data;
   }
 };
@@ -112,3 +138,4 @@ Modules.server.exportData = exportData;
 Modules.server.exportDataSync = exportDataSync;
 Modules.server.exportBigZip = exportBigZip;
 Modules.server.exportDataQuery = exportDataQuery;
+Modules.server.exportDummyVars = exportDummyVars;
