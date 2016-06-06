@@ -51,7 +51,7 @@
   	  	      Sources
   	  	    </paper-icon-item>
 	  	    </a>
-	  	    <a href="{{pathFor 'data'}}" class="nav-menu-item">
+	  	    <a href="{{pathFor 'monsterData'}}" class="nav-menu-item">
   	  	    <paper-icon-item>
   	  	      <div class="avatar grey layout vertical center-center" item-icon>M</div>
   	  	      Data
@@ -83,13 +83,19 @@
        <!-- Skills Analysis -->
       <div class="divider-top"></div>
       <div id="label" class="layout vertical center-justified">
-        <span class="type-black-lighter">Classification</span>
+        <span class="type-black-lighter">Skills Classification</span>
       </div>
       <div class="nav" role="listbox">
+        <a href="{{pathFor 'skillsList'}}" class="nav-menu-item">
+          <paper-icon-item>
+            <div class="avatar grey layout vertical center-center" item-icon>S</div>
+            Skills DB
+          </paper-icon-item>
+        </a>
         <a href="{{pathFor 'skills'}}" class="nav-menu-item">
           <paper-icon-item>
-            <div class="avatar grey layout vertical center-center" item-icon>C</div>
-            Skills
+            <div class="avatar grey layout vertical center-center" item-icon>S</div>
+            Aggregate Summary
           </paper-icon-item>
         </a>
       </div>      

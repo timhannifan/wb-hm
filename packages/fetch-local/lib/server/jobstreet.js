@@ -60,7 +60,7 @@ function findIntersection(arg1,arg2) {
 function getUniq(array) {
 	return _.uniq(array);
 }
-function getPageListings (url, parentCategory, subSpecialization) {
+function getPageListings (url, parentCategory, subSpecialization, parentId) {
   HTTP.call("GET", url, function (error, result) {
     var self = this;
     var groupedItems = [];
@@ -112,16 +112,17 @@ function getPageListings (url, parentCategory, subSpecialization) {
           console.log('Listing URL already exists');
         } else {
           console.log('NEW Listing URL');
-          getJobListing(uniques[i], parentCategory, subSpecialization);          
+          getJobListing(uniques[i], parentCategory, subSpecialization, parentId);
         }
         
       }
     }
   });  
 }
-function getJobListing (obj, category, subspec) {
+function getJobListing (obj, category, subspec, parentId) {
   var parentCategory = category,
-  subSpecialization = subspec;
+  subSpecialization = subspec,
+  parentId = parentId;
 
   HTTP.call("GET", obj.jobUrl, function (error, result) {
     var self = this;
@@ -159,6 +160,7 @@ function getJobListing (obj, category, subspec) {
       
       newItem.parentCategory = parentCategory;
       newItem.subSpecialization = subSpecialization;
+      newItem.parentId = parentId;
       newItem.listedSpec = obj.listedSpec;
       newItem.listedRole = cleanUpRole(obj.listedRole);
       newItem.listedIndustry = cleanUpIndustry(obj.listedIndustry);
@@ -209,6 +211,7 @@ function getJobListing (obj, category, subspec) {
 
       newItem.parentCategory = parentCategory;
       newItem.subSpecialization = subSpecialization;
+      newItem.parentId = parentId;
       newItem.listedSpec = obj.listedSpec;
       newItem.listedRole = cleanUpRole(obj.listedRole);
       newItem.listedIndustry = cleanUpIndustry(obj.listedIndustry)
@@ -298,6 +301,7 @@ Meteor.startup(function() {
         targetItem.url = newDoc.sourceUrl + '&pg=' + i;
         targetItem.sourceCategory = newDoc.sourceCategory;
         targetItem.sourceSpecialization = newDoc.sourceSpecialization;
+        targetItem.parentId = newDoc._id;
         targets.push(targetItem);
         i++;
       }
@@ -306,8 +310,9 @@ Meteor.startup(function() {
       for (var i = targets.length - 1; i >= 0; i--) {
         var parentCategory = targets[i].sourceCategory;
         var subSpecialization = targets[i].sourceSpecialization;
+        var parentId = targets[i].parentId;
 
-        getPageListings(targets[i].url, parentCategory, subSpecialization);
+        getPageListings(targets[i].url, parentCategory, subSpecialization, parentId);
       }
   	}
   });
@@ -327,6 +332,7 @@ function jobStreetAutoRun () {
       targetItem.url = obj.sourceUrl + '&pg=' + i;
       targetItem.sourceCategory = obj.sourceCategory;
       targetItem.sourceSpecialization = obj.sourceSpecialization;
+      targetItem.parentId = obj._id;
       targets.push(targetItem);
       i++;
     }
@@ -335,9 +341,10 @@ function jobStreetAutoRun () {
     for (var i = targets.length - 1; i >= 0; i--) {
       var parentCategory = targets[i].sourceCategory;
       var subSpecialization = targets[i].sourceSpecialization;
+      var parentId = targets[i].parentId;
 
       try {
-        getPageListings(targets[i].url, parentCategory, subSpecialization);
+        getPageListings(targets[i].url, parentCategory, subSpecialization, parentId);
       } catch (error) {
         console.log('Error retrieving jobstreet page listings on :' + targets[i].url, error);
       }
@@ -349,6 +356,12 @@ function jobStreetAutoRun () {
   
 }
 
+function runParentIds () {
+  var items = JobStreetItems.find({parentId: null});
+  items.forEach(function (item) {
+    var parent = JobStreetSources.findOne({})
+  });
+}
 
 // SyncedCron.add({
 //   name: 'Jobstreet batch autorun',

@@ -12,7 +12,7 @@ this.GlobalUI = (function() {
 
   GlobalUI.showDialog = function(opts) {
     this.dialog = $("[global-dialog]")[0];
-    this.dialog.heading = opts.heading;
+    this.dialog.heading = opts.heading != null ? opts.heading : "";
     Session.set("global.ui.dialogHeading", opts.heading);
     Session.set("global.ui.dialogData", opts.data);
     Session.set("global.ui.dialogTemplate", opts.template);

@@ -1,0 +1,67 @@
+<template name="skillsList">
+	<section class="layout vertical">
+	  <div class="page-header">
+	    <h1 class="title">Skills DB</h1>
+	  </div>
+
+	  <div id="page-sub-heading">
+	    <div class="description">About</div>
+	    <p>The skills database contains a list of keywords that represent desirable behavioral and technical skills. All existing JobStreet listings have been searched for lowercase instances within the description tags.  Future listings will be classified as they are added to the JobStreet DB. High-level results are available in the 'Aggregate Summary' section within the main menu bar.</p>
+
+	    <div class="description">Creating new keywords</div>
+	    <p>To add a new keyword, use the plus icon in the lower right corner of the page. Once added, all existing and future listings will be automatically be searched for the new keyword.</p>
+
+	    <div class="description">Delete an existing keyword </div>
+	    <p>To delete a keyword, tap the trash icon next to a keyword in the table below. This action cannot be undone. Future listings will not be searched for the deleted keyword, and current records will be removed from the Skills DB.</p>
+	    
+	  </div>
+
+	  <paper-material class="table-container">
+		<div class="layout vertical scroll" style="max-height: 600px;">
+			<paper-item>
+
+				<div class="flex">
+					<strong>Skill Type</strong>
+				</div>
+	  			<div class="flex">
+	  				<strong>Keyword</strong>
+	  			</div>
+	  			<div class="flex">
+	  				<strong>Search Term</strong>
+	  			</div>
+	  			<div class="flex">
+	  				<strong>Count</strong>
+	  			</div>
+	  			<div class="">
+	  				<strong>Delete</strong>
+	  			</div>
+			</paper-item>
+			{{#each rankedSkills}}
+  			<paper-item>
+	  			<div class="flex">
+		  			{{type}}
+	  			</div>
+	  			<div class="flex">
+		  			{{skill_keyword}}
+	  			</div>
+	  			<div class="flex">
+		  			{{parsed_keyword}}
+	  			</div>
+	  			<div class="flex">
+	  				{{count}}
+	  			</div>
+	  			<div class="">
+	  				<iron-icon id="js-delete-skill" icon="delete"></iron-icon>
+	  			</div>
+  			</paper-item>
+			{{/each}}
+		</div>
+
+	  </paper-material>
+	</section>
+
+	<div class="fab-container">
+		<paper-fab id="js-add-skill" icon="add" title="add" class="green"></paper-fab>	
+	</div>
+	
+</template>

@@ -36,33 +36,57 @@ Meteor.startup(function () {
     this.route('monster_sources', {
       path: '/sources/monster',
       template:'monster_sources',
-      waitOn: function() {
-        Meteor.subscribe('MonsterSources');
+      subscriptions: function() {
+        // returning a subscription handle or an array of subscription handles
+        // adds them to the wait list.
+        return [
+          Meteor.subscribe('MonsterSources')
+        ];
       },
-      data: function () {
-        return MonsterSources.find({},{sort: {sourceCategory: -1}}).fetch();
-      }
+      // action: function (){
+      //   if (this.ready()) {
+      //     this.render();
+      //   } else {
+      //     this.render('Loading');
+      //   }
+      // } 
     });
     
     this.route('job_street_sources', {
       path: '/sources/jobstreet',
       template:'job_street_sources',
-      waitOn: function() {
-        Meteor.subscribe('JobStreetSources');
+      subscriptions: function() {
+        // returning a subscription handle or an array of subscription handles
+        // adds them to the wait list.
+        return [
+          Meteor.subscribe('JobStreetSources')
+        ];
       },
-      data: function () {
-        return JobStreetSources.find({},{sort: {sourceCategory: -1}}).fetch();
-      }
+      // action: function (){
+      //   if (this.ready()) {
+      //     this.render();
+      //   } else {
+      //     this.render('Loading');
+      //   }
+      // }      
     });
 
-    this.route('data', {
+    this.route('monsterData', {
       path: '/data/monster',
-      template:'data',
-      // waitOn: function() {
-      //   Meteor.subscribe('MonsterItems');
-      // },
-      data: function () {
-        return MonsterItems.find({},{sort: {createdAt: -1}}).fetch();
+      template:'monsterData',
+      subscriptions: function() {
+        // returning a subscription handle or an array of subscription handles
+        // adds them to the wait list.
+        return [
+          Meteor.subscribe('MonsterItems')
+        ];
+      },
+      action: function (){
+        if (this.ready()) {
+          this.render();
+        } else {
+          this.render('Loading');
+        }
       }
     });
     this.route('data_item', {
@@ -78,18 +102,39 @@ Meteor.startup(function () {
     this.route('job_street_data', {
       path: '/data/jobstreet',
       template:'job_street_data',
-      // waitOn: function() {
-      //   Meteor.subscribe('JobSteetItems');
-      // },
-      data: function () {
-        return JobStreetItems.find();
+      subscriptions: function() {
+        // returning a subscription handle or an array of subscription handles
+        // adds them to the wait list.
+        return [
+          Meteor.subscribe('JobStreetSources'),
+          Meteor.subscribe('JobStreetItemsLimited')
+        ];
+      },
+      action: function (){
+        if (this.ready()) {
+          this.render();
+        } else {
+          this.render('Loading');
+        }
       }
     });
+    
     this.route('job_street_data_item', {
       path: '/data/jobstreet/:_id',
       template:'job_street_data_item',
-      waitOn: function() {
-        Meteor.subscribe('JobStreetItemsById', this.params._id);
+      subscriptions: function() {
+        // returning a subscription handle or an array of subscription handles
+        // adds them to the wait list.
+        return [
+          Meteor.subscribe('JobStreetItemsById', this.params._id)
+        ];
+      },
+      action: function (){
+        if (this.ready()) {
+          this.render();
+        } else {
+          this.render('Loading');
+        }
       },
       data: function () {
         return JobStreetItems.findOne({_id: this.params._id});
@@ -136,14 +181,41 @@ Meteor.startup(function () {
         return Meteor.subscribe('MascoKey');
       }
     });
+    this.route('skillsList', {
+      path: '/skills/list',
+      template:'skillsList',
+      subscriptions: function() {
+        // returning a subscription handle or an array of subscription handles
+        // adds them to the wait list.
+        return [
+          Meteor.subscribe('skillsList')
+        ];
+      },
+      action: function (){
+        if (this.ready()) {
+          this.render();
+        } else {
+          this.render('Loading');
+        }
+      }
+    });
+
     this.route('skills', {
       path: '/skills',
       template:'skills',
-      waitOn: function() {
-        return Meteor.subscribe('skills');
+      subscriptions: function() {
+        // returning a subscription handle or an array of subscription handles
+        // adds them to the wait list.
+        return [
+          Meteor.subscribe('skills')
+        ];
       },
-      data: function() {
-        return Skills.find();
+      action: function (){
+        if (this.ready()) {
+          this.render();
+        } else {
+          this.render('Loading');
+        }
       }
     });
   });

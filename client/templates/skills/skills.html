@@ -1,11 +1,53 @@
 <template name="skills">
+	<section class="layout vertical">
+	  <div class="page-header">
+	    <h1 class="title">Aggregate Summary</h1>
+	  </div>
+
+	  
+
+	  <paper-material class="table-container">
+
+		<div class="card-header">Skills in Demand: ranked by overall frequency</div>
+		<div class="layout vertical scroll" style="max-height: 285px;">
+			<paper-item>
+				<div class="flex">
+					<strong>Rank</strong>
+				</div>
+	  			<div class="flex">
+	  				<strong>Keyword</strong>
+	  			</div>
+	  			<div class="flex">
+	  				<strong>Skill Type</strong>
+	  			</div>
+	  			<div class="flex">
+	  				<strong>Count</strong>
+	  			</div>
+			</paper-item>
+			{{#each rankedSkills}}
+  			<paper-item>
+  				<div class="flex">
+  					{{rank}}.
+  				</div>
+	  			<div class="flex">
+		  			{{keyword}}
+	  			</div>
+	  			<div class="flex">
+		  			{{type}}
+	  			</div>
+	  			<div class="flex">
+	  				{{count}}
+	  			</div>
+  			</paper-item>
+			{{/each}}
+		</div>
+
+	  </paper-material>
+	</section>
+
+
 	<div>
 		<input type="file" name="upload">		
-	</div>	
 		<button id="exportDummyVars">Export Dummy Data</button>
-	<ul>
-		{{#each skills}}
-			<li>{{skill_keyword}}</li>
-		{{/each}}
-	</ul>
+	</div>
 </template>

@@ -4,32 +4,32 @@
       <h1 class="title">JobStreet.com Data</h1>
     </div>
 
-    <paper-material class="table-container">
-      <div class="form-group clearfix">
-        
-        <div class="col-md-6 col-xs-12">
-          {{> reactiveTableFilter 
-          id="js-text-search" 
-          label="Search for text:" 
-          fields=fields }}  
+      <paper-material class="table-container">
+        <div class="form-group clearfix">
+          
+          <div class="col-md-6 col-xs-12">
+            {{> reactiveTableFilter 
+            id="js-text-search" 
+            label="Search for text:" 
+            fields=fields }}  
+          </div>
+          
+          <div class="col-md-6 col-xs-12">
+            {{> jssourceSelectFilter }}
+            <!-- {{> jsSourceFilter }} -->
+            {{> jsSpecializationFilter }}
+          </div>
         </div>
-        
-        <div class="col-md-6 col-xs-12">
-          {{> jssourceSelectFilter }}
-          <!-- {{> jsSourceFilter }} -->
-          {{> jsSpecializationFilter }}
-        </div>
-      </div>
 
-      <div class="form-group clearfix">
-        <div class="flex">
-          {{> reactiveTable 
-          collection=collection
-          settings=tableSettings}}  
+        <div class="form-group clearfix">
+          <div class="flex">
+            {{> reactiveTable 
+            collection=collection
+            settings=tableSettings}}  
+          </div>
         </div>
-      </div>
+      </paper-material>
 
-    </paper-material>
   </section>
 </template>
 

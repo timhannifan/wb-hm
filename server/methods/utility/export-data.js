@@ -34,15 +34,15 @@ Meteor.methods({
 
     var exportDummyVars = Meteor.wrapAsync(Modules.server.exportDummyVars),
       result = exportDummyVars(query, modifier, function( error, response ) {
-      if ( error ) {
-        // Handle error.
-        console.log(error)
-      } else {
-        // Handle response.
-        return result;
+        if ( error ) {
+          // Handle error.
+          console.log(error)
+        } else {
+          // Handle response.
+          return result;
 
-      }
-    });
+        }
+      });
     
     return result;
   }, 
@@ -54,16 +54,16 @@ Meteor.methods({
 
     var exportDataSync = Meteor.wrapAsync(Modules.server.exportDataQuery),
     result = exportDataSync(query,filter, function( error, response ) {
-    if ( error ) {
-      // Handle error.
-      console.log(error)
-    } else {
-      return result;
-      // Handle response.
-    }
-  });
+      if ( error ) {
+        // Handle error.
+        console.log(error)
+      } else {
+        return result;
+        // Handle response.
+      }
+    });
 
-  return result;
+    return result;
 
   }, 
   exportBigZip() {

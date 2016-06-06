@@ -1,6 +1,9 @@
 Template.job_street_data.helpers({
+	// ready: function () {
+	// 	return this.ready();
+	// },
 	collection: function () {
-		return JobStreetItems.find({}, {sort: {createdAt: -1}});
+		return JobStreetItems.find({});
 	},
 
 	tableSettings : function () {
@@ -9,7 +12,9 @@ Template.job_street_data.helpers({
 	        { 
 	        	key: 'createdAt', 
 	        	label: 'Created',
-	        	fn: function (date) { return moment(date).format("dddd, MMMM Do YYYY"); }
+	        	fn: function (date) { return moment(date).format("dddd, MMMM Do YYYY"); },
+	        	// sortOrder: 0, 
+	        	sortDirection: 'descending'
 	        },
 	        { 
 	        	key: 'title', 
@@ -19,7 +24,7 @@ Template.job_street_data.helpers({
 	        { key: 'parentCategory', label: 'Category' },
 	        { key: 'subSpecialization', label: 'Specialization' },
 	        { key: 'company', label: 'Company' },
-	        { key: 'location', label: 'Location' }
+	        { key: 'location', label: 'Location', sortable: false  }
 	      ],
 	      filters: [
 	      	'js-text-search',
@@ -63,7 +68,7 @@ Template.job_street_data.helpers({
 Template.job_street_data.onCreated( () => {
   let template = Template.instance();
   // template.subscribe('jobstreet-items');
-  template.subscribe('JobStreetItemsLimited');
+  // template.subscribe('JobStreetItemsLimited');
 });
 
 Template.jssourceSelectFilter.onCreated( () => {

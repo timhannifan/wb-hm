@@ -270,6 +270,11 @@ JobStreetItems.schema = new SimpleSchema({
     optional: true,
     defaultValue: null
   },
+  parentId: {
+    type: String,
+    optional: true,
+    defaultValue: null
+  },
   listedSpec: {
     type: String,
     optional: true,

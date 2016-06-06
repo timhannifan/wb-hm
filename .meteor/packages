@@ -68,3 +68,9 @@ linto:jquery-ui
 aslagle:reactive-table
 
 # machine
+stevezhu:lodash
+d3js:d3
+
+materialize:materialize
+poetic:materialize-scss
+gildaspk:autoform-materialize

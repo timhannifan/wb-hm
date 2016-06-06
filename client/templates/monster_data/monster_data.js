@@ -1,6 +1,6 @@
-Template.data.helpers({
+Template.monsterData.helpers({
 	monsteritems: function () {
-		return MonsterItems.find({}, {sort: {createdAt: -1, sourceCategory: 1}});
+		return MonsterItems.find({});
 	},
 
 	tableSettings : function () {
@@ -10,7 +10,8 @@ Template.data.helpers({
 	        	key: 'createdAt', 
 	        	label: 'Created', 
 	        	sortByValue: true, 
-	        	fn: function (date) { return moment(date).format("dddd, MMMM Do YYYY"); }
+	        	fn: function (date) { return moment(date).format("dddd, MMMM Do YYYY"); },
+	        	sortDirection: 'descending'
 	        },
 	        { 
 	        	key: 'title', 
@@ -45,7 +46,7 @@ Template.data.helpers({
 	}
 });
 
-Template.data.onCreated( () => {
+Template.monsterData.onCreated( () => {
   let template = Template.instance();
 
   template.subscribe('MonsterItems');

@@ -1,0 +1,18 @@
+<template name="insertSkillForm">
+
+<!--     {{#autoForm collection="Skills" schema=SkillSchema id="insertSkillForm" type="insert"}}
+
+        {{> afQuickField name='skills_keyword'}}
+        {{> afQuickField name='type'}}
+
+
+      <button type="submit" class="btn btn-primary">Insert</button>
+    {{/autoForm}} -->
+    {{#autoForm  schema="SkillSchema" id="insertSkillForm" type="method" meteormethod="insertSkill"}}
+	    {{#each afFieldNames}}
+	      {{> afQuickField name=this.name options=afOptionsFromSchema}}
+	    {{/each}}
+	    <button type="submit" class="btn btn-primary">Insert</button>
+    {{/autoForm}}
+
+</template>

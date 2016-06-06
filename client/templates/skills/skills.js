@@ -1,7 +1,22 @@
 Template.skills.helpers({
-	skills: function () {
-		return Skills.find();
+	rankedSkills: function () {
+		var data = Skills.find({},{sort: {count: -1}});
+
+		var reformattedArray = data.map(function(obj, index, cursor){ 
+		   var rObj = {};
+		   rObj.rank = index + 1;
+		   rObj.keyword = obj.skill_keyword;
+		   rObj.type = obj.type;
+		   rObj.count = obj.count;
+		   return rObj;
+		});
+
+		return reformattedArray;
 	}
+});
+
+Template.skills.onRendered( () => {
+
 });
 
 Template.skills.events({
