@@ -1,13 +1,5 @@
 Skills = new Mongo.Collection('skills');
-
-// Skills.schema = new SimpleSchema({
-//   skill_keyword: {
-//     type: String,
-//     optional: false
-//   }
-// });
-
-// Skills.attachSchema(Skills.schema);
+Counts = new Mongo.Collection('counts');
 
 function trueFunc(userId) {
   if (!userId) {

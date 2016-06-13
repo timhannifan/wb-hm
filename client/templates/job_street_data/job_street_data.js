@@ -80,7 +80,12 @@ Template.jssourceSelectFilter.onCreated( () => {
 
 Template.jssourceSelectFilter.helpers({
 	sources: function() {
-		return JobStreetSources.find().fetch();
+		let data = JobStreetSources.find( {}, { fields: { sourceCategory: 1 }, sort: { sourceCategory: 1 }, limit: 1000 } );
+		if ( data ) {
+		  return _.uniq( data.map( ( item ) => {
+		    return item.sourceCategory;
+		  }), true );
+		}
 	}
 });
 
@@ -100,7 +105,12 @@ Template.jsSpecializationFilter.onCreated( () => {
 
 Template.jsSpecializationFilter.helpers({
 	sources: function() {
-		return JobStreetSources.find().fetch();
+		let data = JobStreetSources.find( {}, { fields: { sourceSpecialization: 1 }, sort: { sourceSpecialization: 1 } } );
+		if ( data ) {
+		  return _.uniq( data.map( ( item ) => {
+		    return item.sourceSpecialization;
+		  }), true );
+		}
 	}
 });
 

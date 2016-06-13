@@ -1,0 +1,37 @@
+		  	<div style="margin-bottom: 30px;"><paper-material class="table-container">
+		  		<div class="description">Top Skills: keywords ranked by frequency across all industries</div>
+		  		<paper-item  class="paper-table">
+		  			<div class="flex">
+		  				<p><strong>Rank</strong></p>
+		  			</div>
+		  			<div class="flex">
+		  				<p><strong>Keyword</strong></p>
+		  			</div>
+		  			<div class="flex">
+		  				<p><strong>Skill Type</strong></p>
+		  			</div>
+		  			<div class="flex">
+		  				<p><strong>Count</strong></p>
+		  			</div>
+		  		</paper-item>
+		  		<div class="layout vertical scroll" style="max-height: 500px;">
+
+		  			{{#each rankedSkills}}
+		  			<paper-item class="paper-table">
+		  				<div class="flex">
+		  					<p>{{rank}}.</p>
+		  				</div>
+		  				<div class="flex">
+		  		  			<p>{{keyword}}</p>
+		  				</div>
+		  				<div class="flex">
+		  		  			<p>{{type}}</p>
+		  				</div>
+		  				<div class="flex">
+		  					<p>{{count}}</p>
+		  				</div>
+		  			</paper-item>
+		  			{{/each}}
+		  		</div>	
+	  		</paper-material></div>
+		  

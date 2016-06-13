@@ -15,7 +15,6 @@ Meteor.methods({
 			nObj.type = item.type;
 			nObj.skill_keyword = item.skill_keyword;
 			nObj.parsed_keyword = item.skill_keyword.toLowerCase();
-			nObj.associatedItems = [];
 			nObj.createdAt = new Date();
 		  
 		  Skills.insert(nObj);
@@ -45,57 +44,96 @@ Meteor.methods({
 		}
 		
 	},
+	mongoTextSearch: function () {
+		var data = JobStreetItems.find({
+		  $text:
+		    {
+		      	
+		      	$search: 'power point',
+		      	$language: 'en'
+		    }
+		}).fetch();
+
+		if (data){
+			console.log(data[0]);
+		}
+	},
 	runSkillClassification: function () {
 		var skills = Skills.find({});
+		
+		skills.forEach(function (skillsItem) {
 
-		skills.forEach(function (item) {
-			// console.log(skill);
-			console.log(item.skill_keyword);
-			
-			var data = JobStreetItems.find({
-					descriptionTags: { $in:[ item.skill_keyword ] }
-				},{
+			var keyword = skillsItem.skill_keyword;
+
+			var data = JobStreetItems.find(
+				{ descriptionTags: { $in:[ skillsItem.skill_keyword ] }	}
+				,{
 					fields: {
-						descriptionTags: 1,
-						parentId: 1,
-						companySnapIndustry: 1,
+						parentCategory: 1,
+						subSpecialization: 1,
 						listedSpec: 1,
 						listedRole: 1,
-						listedIndustry: 1
+						listedIndustry: 1,
+						companySnapIndustry: 1
 					}
 				}
-			);
+			);			
 
 			if (data){
-				var resultarray = [];
+				
 				data.forEach(function (jsItem) {
-					resultarray.push({
-						jobStreetParentId: jsItem.parentId,
-						itemId: jsItem._id,
+
+					JobStreetItems.update({_id: jsItem._id}, {
+						$push: {
+							trackedSkills: {skillId: skillsItem._id, dummyvar: 1}
+						}
+					});
+
+
+					// parentCategory: 1,
+					// subSpecialization: 1,
+					// listedSpec: 1,
+					// listedRole: 1,
+					// listedIndustry: 1,
+					// companySnapIndustry: 1
+
+					Counts.upsert({
+						parentCategory:  jsItem.parentCategory,
+						subSpecialization: jsItem.subSpecialization,
+						skillId: skillsItem._id,
+						skillName: skillsItem.parsed_keyword,
 						industry: jsItem.listedIndustry,
 						specialization: jsItem.listedSpec,
 						role: jsItem.listedRole,
-						industryAlt: jsItem.companySnapIndustry
+						companySnapIndustry: jsItem.companySnapIndustry
+						},{
+							$inc: {
+							count: 1
+						},
 					});
 				});
 
-				Skills.update({
-					_id: item._id
-				}, { 
-					$push: {
-						associatedItems: { $each: resultarray } 
-					},
-					$inc: {
-						count: resultarray.length
-					},
-					$set: {
-						lastUpdated: new Date()
+				Skills.update({_id: skillsItem._id},
+					{
+						$inc: {
+							count: data.count()
+						},
+						$set: {
+							lastUpdated: new Date()
+						}						
 					}
-				});
+				);
+
+				JobStreetItems.update({},
+					{
+						$addToSet: {
+							skillsClassified: skillsItem._id
+						}
+					}
+				);
 			}
 
 		});	
-
 	},
 	deleteSkill: function (_id) {
 		check( _id, String );
@@ -124,45 +162,65 @@ let _runClassificationOnNewSkill = ( id, keyword, callback ) => {
 					descriptionTags: { $in:[ keyword ] }
 				},{
 					fields: {
-						descriptionTags: 1,
-						parentId: 1,
-						companySnapIndustry: 1,
+						parentCategory: 1,
+						subSpecialization: 1,
 						listedSpec: 1,
 						listedRole: 1,
-						listedIndustry: 1
+						listedIndustry: 1,
+						companySnapIndustry: 1
 					}
 				}
 	);
 
-	return _classifyThis(data, id);
+	return _classifyThis(data, id, keyword);
 };
 
-let _classifyThis = (data, id) => {
-	var resultarray = [];
-	data.forEach(function (jsItem) {
-		resultarray.push({
-			jobStreetParentId: jsItem.parentId,
-			itemId: jsItem._id,
-			industry: jsItem.listedIndustry,
-			specialization: jsItem.listedSpec,
-			role: jsItem.listedRole,
-			industryAlt: jsItem.companySnapIndustry
+let _classifyThis = (data, id, keyword) => {
+
+	
+	data.forEach(function (data) {
+		JobStreetItems.update({_id: data._id}, {
+			$push: {
+				trackedSkills: {skillId: id, dummyvar: 1}
+			}
+		});
+
+
+		Counts.upsert({
+			parentCategory:  data.parentCategory,
+			subSpecialization: data.subSpecialization,
+			skillId: id,
+			skillName: keyword,
+			industry: data.listedIndustry,
+			specialization: data.listedSpec,
+			role: data.listedRole,
+			companySnapIndustry: data.companySnapIndustry
+			},{
+				$inc: {
+				count: 1
+			},
 		});
 	});
 
-	return Skills.update({
-		_id: id
-	}, { 
-		$push: {
-			associatedItems: { $each: resultarray } 
-		},
-		$inc: {
-			count: resultarray.length
-		},
-		$set: {
-			lastUpdated: new Date()
+
+	Skills.update({_id: id},
+		{
+			$inc: {
+				count: data.count()
+			},
+			$set: {
+				lastUpdated: new Date()
+			}			
 		}
-	});
+	);
+
+	JobStreetItems.update({},
+		{
+			$addToSet: {
+				skillsClassified: id
+			}
+		}
+	);
 }
 
 

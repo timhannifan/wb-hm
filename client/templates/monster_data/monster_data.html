@@ -113,8 +113,8 @@
     </span>
     <select class="form-control select-filter">
       <option value="">Any</option>
-      {{#each monsterSources}}
-        <option value={{this.sourceCategory}}>{{this.sourceCategory}}</option>
+      {{#each sources}}
+        <option value={{this.sourceCategory}}>{{this}}</option>
       {{/each}}
     </select>
   </div>

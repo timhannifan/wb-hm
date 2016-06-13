@@ -6,8 +6,8 @@ this.GlobalUI = (function() {
   GlobalUI.toast = function(text, className) {
     var toast;
     toast = $("[global-toast]")[0];
-    toast.text = text;
-    return toast.show();
+    // toast.text = text;
+    return toast.show({text: text, duration: 3000});
   };
 
   GlobalUI.showDialog = function(opts) {
@@ -81,5 +81,8 @@ Template.globalLayout.events({
       data: node.data("useContext") != null ? this : void 0,
       fullOnMobile: node.data("fullOnMobile")
     });
+  },
+  'click [data-action=back]' : function () {
+    history.back();
   }
 });

@@ -22,7 +22,8 @@ AutoForm.hooks({
   insertSkillForm: {
     onSuccess: function(formType, post) {
 		GlobalUI.closeDialog();
-		GlobalUI.toast('Skill added successfully to the DB');
+    console.log(post); 
+		GlobalUI.toast('Skill created successfully!');
     },
     onError: function(formType, error) {
 		console.log(error);

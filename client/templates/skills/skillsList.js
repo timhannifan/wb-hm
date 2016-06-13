@@ -1,6 +1,6 @@
 Template.skillsList.helpers({
 	rankedSkills: function () {
-		var data = Skills.find({},{sort: {type: 1}});
+		var data = Skills.find({},{sort: {parsed_keyword: 1}});
 
 		var reformattedArray = data.map(function(obj, index, cursor){ 
 		   var rObj = {};

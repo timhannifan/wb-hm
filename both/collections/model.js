@@ -157,7 +157,6 @@ MonsterItems.attachSchema(MonsterItems.schema);
 
 if ( Meteor.isServer ) {
   MonsterItems._ensureIndex( { createdAt: -1 } );
-  // JobStreetItems._ensureIndex( { createdAt: -1, title: 1, parentCategory: 1, subSpecialization } );
 }
 
 MonsterItems.allow({
@@ -314,6 +313,23 @@ JobStreetItems.schema = new SimpleSchema({
     type: Boolean,
     optional: true,
     defaultValue: false
+  },
+  trackedSkills: {
+    type: [Object],
+    optional: true,
+    defaultValue: []
+  },
+  "trackedSkills.$.skillId": {
+    type: String,
+    optional: true
+  },
+  "trackedSkills.$.dummyvar": {
+    type: Number,
+    optional: true
+  },
+  skillsClassified:{
+    type: [String],
+    optional: true
   }
 });
 JobStreetItems.attachSchema(JobStreetItems.schema);
@@ -322,7 +338,7 @@ JobStreetItems.attachSchema(JobStreetItems.schema);
 
 if ( Meteor.isServer ) {
   JobStreetItems._ensureIndex( { createdAt: -1 } );
-  // JobStreetItems._ensureIndex( { createdAt: -1, title: 1, parentCategory: 1, subSpecialization } );
+  JobStreetItems._ensureIndex( { description: "text" } );
 }
 
 

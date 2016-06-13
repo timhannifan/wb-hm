@@ -60,8 +60,13 @@ Template.sourceSelectFilter.onCreated( () => {
 });
 
 Template.sourceSelectFilter.helpers({
-	monsterSources: function() {
-		return MonsterSources.find().fetch();
+	sources: function() {
+		let data = MonsterSources.find( {}, { fields: { sourceCategory: 1 }, sort: { sourceCategory: 1 } } );
+		if ( data ) {
+		  return _.uniq( data.map( ( item ) => {
+		    return item.sourceCategory;
+		  }), true );
+		}
 	}
 });
 

@@ -36,7 +36,9 @@ matb33:collection-hooks
 percolatestudio:synced-cron
 anti:fake
 
+meteorhacks:aggregate
 meteorhacks:inject-initial
+meteorhacks:subs-manager
 differential:vulcanize
 rclai89:cheerio
 harrison:papa-parse

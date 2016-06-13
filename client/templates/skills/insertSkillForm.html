@@ -8,7 +8,7 @@
 
       <button type="submit" class="btn btn-primary">Insert</button>
     {{/autoForm}} -->
-    {{#autoForm  schema="SkillSchema" id="insertSkillForm" type="method" meteormethod="insertSkill"}}
+    {{#autoForm  schema="SkillSchema" id="insertSkillForm" type="method" meteormethod="insertSkill" class="flex"}}
 	    {{#each afFieldNames}}
 	      {{> afQuickField name=this.name options=afOptionsFromSchema}}
 	    {{/each}}

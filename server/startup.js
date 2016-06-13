@@ -5,9 +5,5 @@ Meteor.startup(function(){
 	  return html = html.replace('<body>', '<body unresolved>');
 	});
 
-	// SyncedCron.config({
-	//   collectionName: 'scheduledJobs'
-	// });
-
 	SyncedCron.start();
 });

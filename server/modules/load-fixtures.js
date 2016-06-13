@@ -1,8 +1,5 @@
 let load = () => {
   let owner = _getOwner( 'hannifan@gmail.com' );
-  _insertContent( Friends, owner._id, Modules.server.fixtures.friends );
-  _insertContent( Posts, owner._id, Modules.server.fixtures.posts );
-  _insertContent( Comments, owner._id, Modules.server.fixtures.comments );
 };
 
 let _getOwner = ( emailAddress ) => {

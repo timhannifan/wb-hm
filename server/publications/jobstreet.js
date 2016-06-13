@@ -35,6 +35,31 @@ Meteor.publish('JobStreetItemsLimited', function() {
   });
 });
 
+Meteor.publish('JobStreetTitlesAndDates', function() {
+  return JobStreetItems.find({}, {
+    fields: {
+      title: 1,
+      createdAt: 1  
+    }
+  });
+});
+
+Meteor.publish('JobStreetTrackedSkills', function(id) {
+  
+  return JobStreetItems.find({"trackedSkills.skillId": {$eq: id}}, {
+    fields: {
+      title: 1,
+      parentCategory: 1,
+      subSpecialization: 1,
+      listedSpec: 1,
+      listedRole: 1,
+      listedIndustry: 1,
+      createdAt: 1
+    },
+    limit: 100
+  });
+});
+
 Meteor.publish('JobStreetItemsById', function(_id) {
   return JobStreetItems.find({_id:_id}, {
     fields: {

@@ -1,0 +1,74 @@
+<template name="keywordMatchList">
+
+	<section id="keywordMatchList">
+	  <div class="page-header">
+		  <paper-icon-button icon="arrow-back" data-action="back"></paper-icon-button>
+		    <span class="title">Keyword Matches: {{skill.parsed_keyword}}</span>
+	  </div>
+	  {{#if resultSetEmpty}}
+		  <div class="layout vertical">
+			  <div class="flex layout horizontal">
+			  	<div class="flex layout center">
+			  		<h6>No results found!</h6>
+			  	</div>
+			  	
+			  </div>	  	
+		  </div>
+	  {{else}}
+		  <paper-material class="paper-table">
+				<div class="layout vertical scroll" style="max-height: 600px;">
+					<paper-item>
+						<div class="flex">
+							<p><strong>Title</strong></p>
+						</div>
+		  			<div class="flex">
+		  				<p><strong>Industry</strong></p>
+		  			</div>
+		  			<div class="flex">
+		  				<p><strong>Industry Alt</strong></p>
+		  			</div>	  			
+		  			<div class="flex">
+		  				<p><strong>Specialization</strong></p>
+		  			</div>	  			
+		  			<div class="flex">
+		  				<p><strong>Alt Specialization</strong></p>
+		  			</div>
+		  			<div class="flex">
+		  				<p><strong>Role</strong></p>
+		  			</div>
+		  			<div class="flex">
+		  				<p><strong>Created</strong></p>
+		  			</div>
+					</paper-item>
+					{{#each matches}}
+		  			<paper-item>
+			  			<div class="flex">
+				  			<a href="{{pathFor 'itemViewByKeyword' _id=_id}}" title="">
+					  			<p>{{ truncateText title}}</p>
+				  			</a>
+			  			</div>
+			  			<div class="flex">
+				  			<p>{{truncateText parentCategory}}</p>
+			  			</div>
+			  			<div class="flex">
+			  				<p>{{truncateText listedIndustry}}</p>
+			  			</div>		  			
+			  			<div class="flex">
+			  				<p>{{truncateText subSpecialization}}</p>
+			  			</div>
+			  			<div class="flex">
+			  				<p>{{truncateText listedSpec}}</p>
+			  			</div>
+							<div class="flex">
+								<p>{{truncateText listedRole}}</p>
+							</div>
+			  			<div class="flex">
+				  			<p>{{formatShortDate this.createdAt}}</p>
+			  			</div>
+		  			</paper-item>
+					{{/each}}
+				</div>
+		  </paper-material>
+	{{/if}}
+	</section>
+</template>

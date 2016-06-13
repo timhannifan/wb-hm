@@ -1,13 +1,9 @@
 let administrators = [
   {
     email: 'hannifan@gmail.com',
-    password: 'timkong',
+    password: 'adminpassword',
     profile: {
-      name: { first: 'Tim', last: 'Hannifan' },
-      // photo: 'https://tmc-post-content.s3.amazonaws.com/peter-venkman.jpg',
-      // location: 'New York, NY',
-      // career: 'Scientist, Ghostbuster',
-      // biography: 'I was born in Brooklyn, New York. I\'m one of three doctors of parapsychology on the Ghostbusters team. I hold PhDs in both parapsychology and psychology.'
+      name: { first: 'Tim', last: 'Hannifan' }
     }
   }
 ];

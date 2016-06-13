@@ -1,55 +1,1 @@
-Template.skills.helpers({
-	rankedSkills: function () {
-		var data = Skills.find({},{sort: {count: -1}});
-
-		var reformattedArray = data.map(function(obj, index, cursor){ 
-		   var rObj = {};
-		   rObj.rank = index + 1;
-		   rObj.keyword = obj.skill_keyword;
-		   rObj.type = obj.type;
-		   rObj.count = obj.count;
-		   return rObj;
-		});
-
-		return reformattedArray;
-	}
-});
-
-Template.skills.onRendered( () => {
-
-});
-
-Template.skills.events({
-	'change [name=upload]': function( event, template ) {
-
-	  Papa.parse( event.target.files[0], {
-	    header: true,
-	    complete: function( results, file ) {
-	    	console.log(results.data);
-	      Meteor.call( 'uploadSkills', results.data, function( error, response ) {
-	        if ( error ) {
-	          console.log( error.reason );
-	        } else {
-	          console.log('completed upload');
-	        }
-	      });
-	    }
-	  });
-
-	},
-	'click #exportDummyVars': function(event, template){
-		event.preventDefault();
-		
-		Meteor.call('exportDummyVars', {},{}, function(error, response) {
-			if (error) {
-				console.log(error.reason);
-			} else {
-				console.log('received a resonse');
-				let blob = Modules.client.convertBase64ToBlob( response );
-				let filename = 'skills-download.zip';
-				saveAs( blob, filename );
-			}
-		});
-
-	}
-});
+Session.set('tabIndex', 0);let fetchSkillData = ( filters, template ) => {  Meteor.call( 'fetchSkillData', filters, ( error, response ) => {    if ( error ) {      Bert.alert( error.reason );    } else {        console.log('method response', response);      template.totalCount.set( response );    }  });};Template.skills.onRendered( () => {      fetchSkillData( { parentCategory: 'all', subSpecialization: 'all'}, Template.instance() );});Template.skills.onCreated( () => {    var self = this;    self.ready = new ReactiveVar();    var template = Template.instance();    template.currentIndustry = new ReactiveVar( 'all' );    template.currentSpecialization  = new ReactiveVar( 'all' );    template.totalCount  = new ReactiveVar();    template.filters = new ReactiveVar({ parentCategory: 'all', subSpecialization: 'all'});        Tracker.autorun(function() {        Meteor.call( 'fetchSkillData', template.filters, ( error, response ) => {          if ( error ) {            Bert.alert( error.reason );          } else {              console.log('method response', response);            template.totalCount.set( response );            var skills = SubManager.subscribe('skills');            var jss = SubManager.subscribe( 'JobStreetSources' );            var stats = SubManager.subscribe( 'stats' );            self.ready.set(skills.ready() && jss.ready() && stats.ready());          }        });            });});Template.skills.helpers({  rankedSkills: function () {      var data = Skills.find({},{sort: {count: -1}});      var reformattedArray = data.map(function(obj, index, cursor){          var rObj = {};         rObj._id = obj._id;         rObj.rank = index + 1;         rObj.keyword = obj.parsed_keyword;         rObj.type = obj.type;         rObj.count = obj.count;         return rObj;      });      return reformattedArray;  },  tabIndex: function () {      return Session.get('tabIndex');  },  industries: function() {      let data = JobStreetSources.find( {}, { fields: { _id: 1, sourceCategory: 1}} );      if ( data ) {        return _.uniq( data.map( ( item ) => {          return item.sourceCategory;        }), true );      }  },  lookupId: function (name) {      var item = JobStreetSources.findOne({name: name});      if(item) {          return item._id;          }        },  child: function( name ) {        let query  = name ? { sourceCategory: name } : {},        children = JobStreetSources.find( query, { fields: { sourceSpecialization: 1 } } );    if ( children ) {      return children.map( ( child ) => {        return child.sourceSpecialization;      });    }  },  currentIndustry: function() {    let name = Template.instance().currentIndustry.get();    return name === 'all' ? '' : name;  },  totalCount: function() {    let counts = Template.instance().totalCount.get(),        total    = 0;    if ( counts ) {      counts.map( ( instance ) => total += instance.total );    }    return `${ total  }`;  },  tableItems() {  let tableItems = Template.instance().totalCount.get();  if ( tableItems ) {    var mapped = tableItems.map( ( item, index, cursor ) => {      return {        index: index,        item: { skill: item._id.skill},        total: +`${ item.total }`      };    });          return mapped.sort(function(a, b) {      console.log(a);      return b.total-a.total;    });    }   }});Template.skills.events({    'change [name=upload]': function( event, template ) {      Papa.parse( event.target.files[0], {        header: true,        complete: function( results, file ) {            console.log(results.data);          Meteor.call( 'uploadSkills', results.data, function( error, response ) {            if ( error ) {              console.log( error.reason );            } else {              console.log('completed upload');            }          });        }      });    },    'click #exportDummyVars': function(event, template){        event.preventDefault();                Meteor.call('exportDummyVars', {},{}, function(error, response) {            if (error) {                console.log(error.reason);            } else {                console.log('received a resonse');                let blob = Modules.client.convertBase64ToBlob( response );                let filename = 'skills-download.zip';                saveAs( blob, filename );            }        });    },    "iron-select": function(e) {      console.log(e.target.selected);      Session.set('tabIndex', e.target.selected);      document.querySelector('iron-pages').select(e.target.selected);    },    'change [name="industry"]': function(event, template) {        let industry = event.target.value;        console.log('industry handler' + industry);        template.currentIndustry.set( industry );        if (template.find( '[name="specialization"]' ).value != 'all') {            console.log('found a specialization loop on industry change');            let specialization   = template.find( '[name="specialization"]' ),                isMatch = JobStreetSources.findOne( { _id: industry, sourceSpecialization: specialization.value } );                            if ( !isMatch ) {                  specialization.querySelector( 'option[value="all"]' ).setAttribute( 'selected', true );                  template.currentSpecialization.set( 'all' );                }        }        // console.dir(specialization);        // console.log(isMatch);    },    'change [name="specialization"]': function(event, template) {        template.currentSpecialization.set( event.target.value );    },    'change [data-filter]': function(event, template) {            console.log({                parentCategory: template.currentIndustry.get(),                subSpecialization: template.currentSpecialization.get()          });          var data = fetchSkillData({            parentCategory: template.currentIndustry.get(),            subSpecialization: template.currentSpecialization.get()          }, template );          console.log(data);    }});

@@ -1,6 +1,7 @@
 Meteor.startup(function () {
 
-  console.log('/////configuring router/////');
+  SubManager = new SubsManager();
+
 
   Router.configure({
     layoutTemplate: 'app_layout',
@@ -14,14 +15,10 @@ Meteor.startup(function () {
       }
     },
     onBeforeAction: function () {
-      if (!Meteor.userId()) {
-        // if the user is not logged in, render the Login template
-        // 
+      if (!Meteor.userId()) { 
         GlobalUI.showModal({template: "atForm", dialogFullOnMobile: true});
         this.render('accessDenied');
       } else {
-        // otherwise don't hold up the rest of hooks or our route/action function
-        // from running
         this.next();
       }
     }
@@ -37,46 +34,26 @@ Meteor.startup(function () {
       path: '/sources/monster',
       template:'monster_sources',
       subscriptions: function() {
-        // returning a subscription handle or an array of subscription handles
-        // adds them to the wait list.
         return [
           Meteor.subscribe('MonsterSources')
         ];
       },
-      // action: function (){
-      //   if (this.ready()) {
-      //     this.render();
-      //   } else {
-      //     this.render('Loading');
-      //   }
-      // } 
     });
     
     this.route('job_street_sources', {
       path: '/sources/jobstreet',
       template:'job_street_sources',
       subscriptions: function() {
-        // returning a subscription handle or an array of subscription handles
-        // adds them to the wait list.
         return [
           Meteor.subscribe('JobStreetSources')
         ];
-      },
-      // action: function (){
-      //   if (this.ready()) {
-      //     this.render();
-      //   } else {
-      //     this.render('Loading');
-      //   }
-      // }      
+      }     
     });
 
     this.route('monsterData', {
       path: '/data/monster',
       template:'monsterData',
       subscriptions: function() {
-        // returning a subscription handle or an array of subscription handles
-        // adds them to the wait list.
         return [
           Meteor.subscribe('MonsterItems')
         ];
@@ -103,8 +80,6 @@ Meteor.startup(function () {
       path: '/data/jobstreet',
       template:'job_street_data',
       subscriptions: function() {
-        // returning a subscription handle or an array of subscription handles
-        // adds them to the wait list.
         return [
           Meteor.subscribe('JobStreetSources'),
           Meteor.subscribe('JobStreetItemsLimited')
@@ -123,18 +98,9 @@ Meteor.startup(function () {
       path: '/data/jobstreet/:_id',
       template:'job_street_data_item',
       subscriptions: function() {
-        // returning a subscription handle or an array of subscription handles
-        // adds them to the wait list.
         return [
           Meteor.subscribe('JobStreetItemsById', this.params._id)
         ];
-      },
-      action: function (){
-        if (this.ready()) {
-          this.render();
-        } else {
-          this.render('Loading');
-        }
       },
       data: function () {
         return JobStreetItems.findOne({_id: this.params._id});
@@ -181,62 +147,68 @@ Meteor.startup(function () {
         return Meteor.subscribe('MascoKey');
       }
     });
-    this.route('skillsList', {
-      path: '/skills/list',
-      template:'skillsList',
-      subscriptions: function() {
-        // returning a subscription handle or an array of subscription handles
-        // adds them to the wait list.
-        return [
-          Meteor.subscribe('skillsList')
-        ];
-      },
-      action: function (){
-        if (this.ready()) {
-          this.render();
-        } else {
-          this.render('Loading');
-        }
-      }
-    });
-
-    this.route('skills', {
-      path: '/skills',
-      template:'skills',
-      subscriptions: function() {
-        // returning a subscription handle or an array of subscription handles
-        // adds them to the wait list.
-        return [
-          Meteor.subscribe('skills')
-        ];
-      },
-      action: function (){
-        if (this.ready()) {
-          this.render();
-        } else {
-          this.render('Loading');
-        }
-      }
-    });
   });
 
-  if (Meteor.isClient) {
+  Router.route('skillsList', {
+    path: '/skills/list',
+    template:'skillsList',
+    subscriptions: function() {
+      return [
+        Meteor.subscribe('skillsList')
+      ];
+    }
+  });
+  Router.route('keywordMatchList', {
+    path: '/skills/keyword-matches/:_id',
+    template:'keywordMatchList',
+    action: function (){
+      if (this.ready()) {
+        this.render();
+      } else {
+        this.render('Loading');
+      }
+    },
+    subscriptions: function () {
+      return [
+        Meteor.subscribe('keywordMatchList', this.params._id),
+        Meteor.subscribe( 'JobStreetTrackedSkills',this.params._id)
+      ];
+    },
+    data: function () {
+      return [
+        Skills.findOne({_id: this.params._id})
+        , JobStreetItems.find()
+      ];
+    }
+  });
 
-    // Route-related helpers
-    Template.registerHelper("absoluteUrl", function(path) {
-      return Meteor.absoluteUrl(path);
-    });
+  Router.route('itemViewByKeyword', {
+    path: '/skills/list/view/:_id',
+    template:'itemViewByKeyword',
+    subscriptions: function() {
+      return [
+        Meteor.subscribe('JobStreetItemsById', this.params._id)
+      ];
+    },
+    data: function () {
+      return JobStreetItems.findOne({_id: this.params._id});
+    },
+    action: function () {
+      if (this.ready()) {
+        this.render();
+      } else {
+        this.render('loading');
+      }
+    },
+  });
 
-    Template.registerHelper("currentRouteIs", function(name) {
-      var current = Router.current();
-      return current && current.route && current.route.name === name || false;
-    });
+  Router.route('skills', {
+    path: '/skills/summary',
+    template:'skills'
+  });
 
-    Template.registerHelper("activeRoute", function(name) {
-      var current = Router.current();
-      return current && current.route && current.route.name === name && "active" || "";
-    });
-
-  }
-
+  Router.route('loading', {
+    path: '/loading',
+    template:'loading'
+  });
 });
