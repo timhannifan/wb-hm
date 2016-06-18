@@ -31,3 +31,4 @@ packages_update.py
 public/components/*
 settings.json
 *.sh
+app.json

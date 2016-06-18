@@ -45,5 +45,19 @@ Template.skillsList.events({
 			template: "insertSkillForm",
 			fullOnMobile: true
 		})
+	},
+	'click #js-download-skills': function () {
+		event.preventDefault();
+
+		Meteor.call('exportDummyVars',{},{}, function(error, response) {
+		    if (error) {
+		        console.log(error);
+		    } else {
+		        console.log('received a resonse');
+		        let blob = Modules.client.convertBase64ToBlob( response );
+		        let filename = 'skills-download.zip';
+		        saveAs( blob, filename );
+		    }
+		});
 	}
 });

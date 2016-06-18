@@ -5,5 +5,5 @@ Meteor.startup(function(){
 	  return html = html.replace('<body>', '<body unresolved>');
 	});
 
-	SyncedCron.start();
+	// SyncedCron.start();
 });

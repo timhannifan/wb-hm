@@ -1,10 +1,3 @@
-{
-  "name": "wb-hm",
-  "version": "1.0.0",
-  "description": "Worldbank skills analysis",
-  "scripts": {
-    "start": "meteor run --settings settings-development.json -p 4000",
-    "staging": "meteor deploy thisUrl.com --settings settings-development.json",
-    "production": "meteor deploy thisUrl.com --settings settings-production.json"
-  }
-}
+{}
+
+

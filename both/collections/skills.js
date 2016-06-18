@@ -19,5 +19,24 @@ Skills.allow({
     }
 
     return true;
+  },
+  update: function (userId, doec) {
+    if (!userId) {
+      // must be logged in
+      return false;
+    }
+
+    return true;    
+  }
+});
+
+Counts.allow({
+  remove: function (userId, doc) {
+    if (!userId) {
+      // must be logged in
+      return false;
+    }
+
+    return true;
   }
 });

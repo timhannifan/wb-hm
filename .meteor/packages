@@ -52,12 +52,12 @@ npm-container
 pfafman:filesaver
 themeteorchef:bert
 
-cfs:standard-packages
-cfs:gridfs
-cfs:filesystem
-cfs:s3
-cfs:ui
-cfs:autoform
+#cfs:standard-packages
+#cfs:gridfs
+#cfs:filesystem
+#cfs:s3
+#cfs:ui
+#cfs:autoform
 # cfs:graphicsmagick
 
 numeral:numeral

@@ -323,7 +323,11 @@ JobStreetItems.schema = new SimpleSchema({
     type: String,
     optional: true
   },
-  "trackedSkills.$.dummyvar": {
+  "trackedSkills.$.skillKeyword": {
+    type: String,
+    optional: true
+  },
+  "trackedSkills.$.dummyVar": {
     type: Number,
     optional: true
   },
