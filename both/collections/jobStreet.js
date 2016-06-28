@@ -1,3 +1,5 @@
+
+
 JobStreetSources = new Mongo.Collection('JobStreetSources');
 JobStreetItems = new Mongo.Collection('JobStreetItems');
 
@@ -35,6 +37,9 @@ JobStreetSources.schema = new SimpleSchema({
     }
 });
 JobStreetSources.attachSchema(JobStreetSources.schema);
+
+
+
 JobStreetSources.allow({
   insert: function (userId, doc) {
     return true;
@@ -212,6 +217,35 @@ JobStreetItems.schema = new SimpleSchema({
 });
 JobStreetItems.attachSchema(JobStreetItems.schema);
 
+
+JobStreetItems.publicFields = {
+  title: 1,
+  titleTags: 1,
+  company: 1,
+  location: 1,
+  experience: 1,
+  description: 1,
+  descriptionTags: 1,
+  companyRegistrationNumber: 1,
+  companySize: 1,
+  benefits: 1,
+  languagesSpoken: 1,
+  companyAddress: 1,
+  companySnapIndustry: 1,
+  companySnapDressCode: 1,
+  companyOverview: 1,
+  companyOverviewTags: 1,
+  url: 1,
+  parentCategory: 1,
+  subSpecialization: 1,
+  parentId: 1,
+  listedSpec: 1,
+  listedRole: 1,
+  listedIndustry: 1,
+  datePosted: 1,
+  dateClosing: 1,
+  createdAt: 1
+};
 
 
 if ( Meteor.isServer ) {

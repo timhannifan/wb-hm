@@ -2,7 +2,7 @@ ExportSchema = new SimpleSchema({
   collection: {
   	type: String,
   	optional: false,
-  	label: 'Collection',
+  	label: 'Select a collection',
   	autoform: {
   	  type: "select",
   	  options: function () {
@@ -20,22 +20,28 @@ ExportSchema = new SimpleSchema({
   jobStreetFields: {
   	type: [String],
   	optional: true,
-  	label: 'Collection fields',
+  	label: 'Select available fields',
   	autoform: {
   	  type: "select-checkbox",
   	  options: function () {
-  	    return [
-  	      {label: "field1", value: "field1"},
-  	      {label: "field2", value: "field2"},
-  	      {label: "field3", value: "field3"}
-  	    ];
+        var fieldsArray = Object.keys(JobStreetItems.publicFields);
+        console.log(fieldsArray);
+
+        var result = fieldsArray.map(function(el){ 
+           var rObj = {};
+           rObj['label'] = el;
+           rObj['value'] = el;
+           return rObj;
+        });
+
+  	    return result;
   	  }
   	}
   },
   monsterFields: {
   	type: [String],
   	optional: true,
-  	label: 'Collection fields',
+  	label: 'Select available fields',
   	autoform: {
   	  type: "select-checkbox",
   	  options: function () {
@@ -50,7 +56,7 @@ ExportSchema = new SimpleSchema({
   startDate: {
     type: Date,
     optional: false,
-    label: 'Start Date',
+    label: 'Select a start and end date',
     autoform: {
       afFieldInput: {
         type: "date"
@@ -65,7 +71,7 @@ ExportSchema = new SimpleSchema({
   endDate: {
     type: Date,
     optional: false,
-    label: 'End Date',
+    label: '',
     defaultValue: function(){
     	return new Date();
     },
@@ -74,9 +80,9 @@ ExportSchema = new SimpleSchema({
         type: "date"
       }
     },
-    // max: function(){
-    // 	return new Date();
-    // },
+    max: function(){
+    	return new Date();
+    },
   }
 });
 

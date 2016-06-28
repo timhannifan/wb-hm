@@ -224,7 +224,7 @@ Meteor.startup(function () {
   });
 
   Router.route('export', {
-    path: 'data-exporter',
+    path: 'exports',
     template: 'export'
   });
 

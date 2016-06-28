@@ -1,32 +1,37 @@
 <template name="export">
   <div class="page-header">
-    <h1 class="title">Data Exporter</h1>
+    <h1 class="title">Exports</h1>
   </div>
 
   <section class="flex">
     <!-- <span class="section-header">About</span> -->
     <p>Use the form below to build a data query for JobStreet and Monster data. Exports are limited to 19MB, which is roughly 5,000 job listings. A CSV fill be will automatically downloaded to your browser window.</p>
 
-    <paper-material class="content-container">
-      {{#autoForm schema="ExportSchema" type="method" meteormethod="exportOptionsQuery" id="exportOptionsForm"}}
+    {{#autoForm schema="ExportSchema" type="method" meteormethod="exportOptionsQuery" id="exportOptionsForm"}}
+      <div class="layout vertical">
 
-      {{> afQuickField name="collection"}}
-      {{#if afFieldValueIs name="collection" value="JobStreetItems"}}
-        {{> afQuickField name="jobStreetFields"}}
-      {{/if}}
-      {{#if afFieldValueIs name="collection" value="MonsterItems"}}
-        {{> afQuickField name="monsterFields"}}
-      {{/if}}    
-      <!-- <div class="layout horizontal"> -->
-        {{> afFormGroup name="startDate"}}
-        {{> afFormGroup name="endDate"}}
-      <!-- </div> -->
+        <div class="layout horizontal start-justified">
+          {{> afQuickField name="collection"}}
+        </div>
 
-      <div class="layout horizontal end-justified">
-        <paper-button raised id="js-download-query">Download</paper-button>
+        <div class="layout horizontal start-justified">
+        {{#if afFieldValueIs name="collection" value="JobStreetItems"}}
+          {{> afQuickField name="jobStreetFields"}}
+        {{/if}}
+        </div>
+        <div class="layout horizontal start-justified">
+          {{#if afFieldValueIs name="collection" value="MonsterItems"}}
+            {{> afQuickField name="monsterFields"}}
+          {{/if}}
+        </div>
+        <div class="layout horizontal start-justified">
+          <div>{{> afFormGroup name="startDate"}}</div>
+          <div style="margin-left: 15px;">{{> afFormGroup name="endDate"}}</div>
+        </div>
+        <div class="layout horizontal end-justified">
+          <paper-button raised id="js-download-query">Download</paper-button>
+        </div>
       </div>
-      {{/autoForm}}
-
-    </paper-material>
+    {{/autoForm}}
   </section>
 </template>
