@@ -41,7 +41,7 @@ ExportSchema = new SimpleSchema({
   monsterFields: {
   	type: [String],
   	optional: true,
-  	label: 'Select available fields',
+  	label: 'Select fields to be exported',
   	autoform: {
   	  type: "select-checkbox",
   	  options: function () {
@@ -56,14 +56,14 @@ ExportSchema = new SimpleSchema({
   startDate: {
     type: Date,
     optional: false,
-    label: 'Select a start and end date',
+    label: 'Start Date',
     autoform: {
       afFieldInput: {
         type: "date"
       }
     },
     custom: function () {
-      if (this.value >= this.field('endDate').value) {
+      if (this.value > this.field('endDate').value) {
         return "daterangeMismatch";
       }
     }
@@ -71,17 +71,11 @@ ExportSchema = new SimpleSchema({
   endDate: {
     type: Date,
     optional: false,
-    label: '',
-    defaultValue: function(){
-    	return new Date();
-    },
+    label: 'End Date',
     autoform: {
       afFieldInput: {
         type: "date"
       }
-    },
-    max: function(){
-    	return new Date();
     },
   }
 });
@@ -122,10 +116,28 @@ Template.export.events({
       GlobalUI.toast( 'Your request could not be processed. Please check for missing fields.', 'danger' );
     } else {
   		var form = AutoForm.getFormValues('exportOptionsForm'),
-  		query = form.insertDoc,
+  		doc = form.insertDoc,
+      query = {},
       modifier = {};
 
-  		console.log(query);
+      query.collection = doc.collection;
+      if (doc.startDate){
+        query.startDate = doc.startDate;
+      }
+      if (doc.endDate){
+        query.endDate = doc.endDate;
+      }
+      if (doc.jobStreetFields){
+        modifier.fields = doc.jobStreetFields.map(function(el){
+          var rObj = {};
+          rObj[el] = 1;
+
+          return rObj;
+        });
+      }
+
+      console.log(query);
+  		console.log(modifier);
   		Meteor.call('exportOptionsQuery',query,modifier, function(error, response) {
   		    if (error) {
   		        GlobalUI.toast( 'Error: ' + error.reason, 'danger' );
@@ -134,7 +146,7 @@ Template.export.events({
               GlobalUI.toast( 'Success! Downloading your query...', 'success' );
 
   		        let blob = Modules.client.convertBase64ToBlob( response );
-  		        let filename = 'skills-download.zip';
+  		        let filename = 'exports.zip';
   		        saveAs( blob, filename );
 
   		    }

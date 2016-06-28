@@ -22,14 +22,18 @@ let extend = ( obj, src ) => {
 };
 
 // ----- Export Query Module
-let syncExportQuery = ( query, modifier, callback ) => {
+let syncExportQuery = ( collection, query, modifier, callback ) => {
   let archive = _initializeZipArchive();
-  _compileQueryZip( archive, query, modifier );
+  _compileQueryZip( archive, collection, query, modifier );
 
   return _generateZipArchive( archive );
 };
-let _compileQueryZip = ( archive, query, modifier) => {
-  _prepareQueryData( archive, JobStreetItems, 'csv', 'custom-query.csv');
+let _compileQueryZip = ( archive, collection, query, modifier) => {
+  let collectionFinder = {
+    'JobStreetItems': JobStreetItems,
+    'MonsterItems': MonsterItems
+  };
+  _prepareQueryData( archive, collectionFinder[collection], 'csv', collection+'-custom-query.csv');
 };
 let _prepareQueryData = ( archive, collection, type, fileName ) => {
   let data          = collection instanceof Mongo.Collection ? _getDataFromCollection( collection ) : collection,
