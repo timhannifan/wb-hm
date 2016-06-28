@@ -112,27 +112,28 @@ Template.export.helpers({
 
 Template.export.events({
 	'click #js-download-query': function () {
-		// var form =  $('#exportOptionsForm');
+    if (!AutoForm.validateForm('exportOptionsForm')) {
+      GlobalUI.toast( 'Your request could not be processed. Please check for missing fields.', 'danger' );
+    } else {
+  		var form = AutoForm.getFormValues('exportOptionsForm'),
+  		query = form.insertDoc,
+      modifier = {};
 
-		// form.submit();
-		event.preventDefault();
-		
-		var form = AutoForm.getFormValues('exportOptionsForm'),
-		query = form.insertDoc,
-    modifier = {};
+  		console.log(query);
+  		Meteor.call('exportOptionsQuery',query,modifier, function(error, response) {
+  		    if (error) {
+  		        GlobalUI.toast( 'Error: ' + error.reason, 'danger' );
+  		    } else {
+              AutoForm.resetForm('exportOptionsForm');
+              GlobalUI.toast( 'Success! Downloading your query...', 'success' );
 
-		console.log(query);
-		Meteor.call('exportOptionsQuery',query,modifier, function(error, response) {
-		    if (error) {
-		        console.log(error);
-		    } else {
-		        console.log('received a resonse');
-		        let blob = Modules.client.convertBase64ToBlob( response );
-		        let filename = 'skills-download.zip';
-		        saveAs( blob, filename );
-		    }
-		});
+  		        let blob = Modules.client.convertBase64ToBlob( response );
+  		        let filename = 'skills-download.zip';
+  		        saveAs( blob, filename );
 
+  		    }
+  		});
+    }
 	}
 	// 'click .export-data-sync-limit': function ( event, template ) {
 	//   var el = $(event.target);

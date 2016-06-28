@@ -150,27 +150,19 @@ Template.exportNew.helpers({
 });
 
 Template.exportNew.events({
-  'submit form': function ( event, template ) {
-    event.preventDefault();
+  // 'submit form': function ( event, template ) {
+  //   event.preventDefault();
 
-    let picker   = $( '.datetimepicker' ),
-        dateTime = picker.data( 'DateTimePicker' ).date();
+  //   let picker   = $( '.datetimepicker' ),
+  //       dateTime = picker.data( 'DateTimePicker' ).date();
 
-    if ( dateTime ) {
-      let appointment = dateTime.format();
+  //   if ( dateTime ) {
+  //     let appointment = dateTime.format();
 
-      console.log(appointment);
+  //     console.log(appointment);
 
-      // Meteor.call( 'addAppointment', appointment, ( error, response ) => {
-      //   if ( error ) {
-      //     GlobalUI.toast.alert( error.reason, 'danger' );
-      //   } else {
-      //     picker.val( '' );
-      //     GlobalUI.toast.alert( 'Appointment added!', 'success' );
-      //   }
-      // });
-    } else {
-      GlobalUI.toast.alert( 'Make sure to pick an appointment time!', 'danger' );
-    }
-  }
+  //   } else {
+  //     GlobalUI.toast.alert( 'Make sure to pick an appointment time!', 'danger' );
+  //   }
+  // }
 });
