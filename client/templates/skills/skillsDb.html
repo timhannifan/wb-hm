@@ -1,0 +1,51 @@
+<template name="skillsDb">
+	<section class="layout vertical">
+	    <div class="page-header">
+		    <h1 class="title">Skills DB</h1>
+		</div>
+		<div id="page-sub-heading">
+		    <div class="description">About</div>
+		    <p>The skills database contains a list of keywords that represent desirable behavioral and technical skills. All existing JobStreet listings have been searched for lowercase instances within the description tags.  Future listings will be classified as they are added to the JobStreet DB. High-level results are available in the 'Skills Summary' section within the main menu bar.</p>
+
+		    <div class="description">Creating new keywords</div>
+		    <p>To add a new keyword, use the plus icon in the lower right corner of the page. Once added, all existing and future listings will be automatically be searched for the new keyword.</p>
+
+		    <div class="description">Delete an existing keyword </div>
+		    <p>To delete a keyword, tap the trash icon next to a keyword in the table below. This action cannot be undone. Future listings will not be searched for the deleted keyword, and current records will be removed from the Skills DB.</p>
+	    </div>
+
+
+		<div class="layout vertical center-justified">
+			<table class="table table-bordered scroll flex">
+				<thead class="flex">
+				    <tr>
+						<th>Type</th>
+					    <th>Skill</th>
+					    <th>Instances</th>
+					    <th>Last Updated</th>
+					    <th>Delete</th>
+				    </tr>
+				</thead>
+			    <tbody class="flex">
+				    {{#each tableItems}}
+				        <tr class="">
+						    <td>{{findSkillType skillKeyword}}</td>
+					        <td><a href="{{pathFor 'keywordMatchList' _id=skillId}}" title="">{{skillKeyword}}</a></td>
+					        <td>{{total}}</td>
+					        <td>{{ relativeTime (findSkillUpdate skillKeyword) }}</td>
+					        <td><iron-icon id="js-delete-skill" icon="delete"></iron-icon></td>
+				        </tr>
+				    {{/each}}
+			    </tbody>
+			</table>
+		</div>
+	</section>
+
+	<div class="fab-container layout vertical">
+		<paper-fab mini id="js-add-skill" icon="add" title="add" class="action-fab"></paper-fab>
+		<paper-fab mini id="js-upload-skills-csv" icon="file-upload" title="Upload CSV" class="action-fab" style="margin-top: 10px;"></paper-fab>
+		<paper-fab mini id="js-download-skills" icon="file-download" title="Download" class="action-fab" style="margin-top: 10px;"></paper-fab>
+		
+	</div>
+	
+</template>

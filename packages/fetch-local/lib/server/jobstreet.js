@@ -223,7 +223,78 @@ function getJobListing (obj, category, subspec, parentId) {
   });  
 }
 
+
+function jobStreetAutoRun () {
+  var existingSources = JobStreetSources.find({});
+
+  existingSources.forEach(function(obj){
+    var targets = [];
+    var upperLimit = obj.sourceSearchDepth;
+    i = 1;
+
+    // create url query with page numbers based on search depth
+    while (i <= upperLimit) {
+      var targetItem = {};
+      targetItem.url = obj.sourceUrl + '&pg=' + i;
+      targetItem.sourceCategory = obj.sourceCategory;
+      targetItem.sourceSpecialization = obj.sourceSpecialization;
+      targetItem.parentId = obj._id;
+      targets.push(targetItem);
+      i++;
+    }
+
+    // for each page URL, callback HTTP get on it
+    for (var i = targets.length - 1; i >= 0; i--) {
+      var parentCategory = targets[i].sourceCategory;
+      var subSpecialization = targets[i].sourceSpecialization;
+      var parentId = targets[i].parentId;
+
+      try {
+        getPageListings(targets[i].url, parentCategory, subSpecialization, parentId);
+      } catch (error) {
+        console.log('Error retrieving jobstreet page listings on :' + targets[i].url, error);
+      }
+    }
+
+    JobStreetSources.update({_id: obj._id}, {$set: {lastUpdate: new Date()}});
+    return true;     
+  });
+  
+}
+
+function _runParentIds (callback) {
+  var items = JobStreetItems.find({parentId: null});
+  items.forEach(function (item) {
+    var parent = JobStreetSources.findOne({sourceSpecialization: item.subSpecialization});
+    return JobStreetItems.update({_id: item._id},{$set: {parentId: parent._id}},function (err,res){
+      if(res){
+        console.log('Completed updating parentId on ' + item._id);
+      }
+    });
+  });
+}
+
 Meteor.methods({
+  findParentIdsForAll: function(){
+    if (this.userId){
+      return _runParentIds();
+    }
+
+  },
+  resetSkillsArrays: function () {
+    this.unblock();
+
+    if (this.userId){
+      return JobStreetItems.update({},{
+        $set: {
+          trackedSkills: [],
+          skillsClassified: []
+        }
+      },
+      {multi: true}
+      );   
+    }
+  },
   insertJobStreetSource: function( data) {
     check( data, Array );
 
@@ -282,8 +353,8 @@ Meteor.methods({
       JobStreetSources.update({_id: obj._id}, {$set: {lastUpdate: new Date()}});
       return true;     
     });
-    
-  }
+  },
+
 });
 
 Meteor.startup(function() {
@@ -318,62 +389,17 @@ Meteor.startup(function() {
   });
 });
 
-function jobStreetAutoRun () {
-  var existingSources = JobStreetSources.find({});
+// SyncedCron.add({
+  // name: 'Jobstreet batch autorun',
+  // schedule: function(parser) {
+  //   // parser is a later.parse object
+  //   return parser.text('every 8 hours');
+  // }, 
+  // job: function(intendedAt) {
 
-  existingSources.forEach(function(obj){
-    var targets = [];
-    var upperLimit = obj.sourceSearchDepth;
-    i = 1;
-
-    // create url query with page numbers based on search depth
-    while (i <= upperLimit) {
-      var targetItem = {};
-      targetItem.url = obj.sourceUrl + '&pg=' + i;
-      targetItem.sourceCategory = obj.sourceCategory;
-      targetItem.sourceSpecialization = obj.sourceSpecialization;
-      targetItem.parentId = obj._id;
-      targets.push(targetItem);
-      i++;
-    }
-
-    // for each page URL, callback HTTP get on it
-    for (var i = targets.length - 1; i >= 0; i--) {
-      var parentCategory = targets[i].sourceCategory;
-      var subSpecialization = targets[i].sourceSpecialization;
-      var parentId = targets[i].parentId;
-
-      try {
-        getPageListings(targets[i].url, parentCategory, subSpecialization, parentId);
-      } catch (error) {
-        console.log('Error retrieving jobstreet page listings on :' + targets[i].url, error);
-      }
-    }
-
-    JobStreetSources.update({_id: obj._id}, {$set: {lastUpdate: new Date()}});
-    return true;     
-  });
-  
-}
-
-function runParentIds () {
-  var items = JobStreetItems.find({parentId: null});
-  items.forEach(function (item) {
-    var parent = JobStreetSources.findOne({})
-  });
-}
-
-SyncedCron.add({
-  name: 'Jobstreet batch autorun',
-  schedule: function(parser) {
-    // parser is a later.parse object
-    return parser.text('every 8 hours');
-  }, 
-  job: function(intendedAt) {
-
-    console.log('running Jobstreet batch autorun');
-    console.log('job should be running at:');
-    console.log(intendedAt);
-    jobStreetAutoRun();
-  }
-});
+  //   console.log('running Jobstreet batch autorun');
+  //   console.log('job should be running at:');
+  //   console.log(intendedAt);
+  //   jobStreetAutoRun();
+  // }
+// });

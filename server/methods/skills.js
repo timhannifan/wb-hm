@@ -1,4 +1,10 @@
 Meteor.methods({
+	resetSkillsAndCounts: function() {
+		if (this.userId){
+			// var rem1 = Skills.remove({}, function (err,res){if(res){console.log('Completed resetting skillsDb.')}});
+			return Skills.remove({}, function (err,res){if(res){console.log('Completed resetting skillsDb.')}});
+		}
+	},	
 	insertSkill: function (data) {
 		check( data.skill_keyword, String );
 		check( data.type, String );
@@ -141,7 +147,7 @@ Meteor.methods({
 		check( _id, String );
 		var id = _id;
 		var user = this.userId;
-		console.log(_id);
+		// console.log(_id);
 		if (this.userId) {
 			try {
 				return Skills.remove({_id: id}, function(err, res){
@@ -150,7 +156,7 @@ Meteor.methods({
 					} else {
 						console.log('skill ' + id + ' deleted sucessfully by user ' + user);
 					}
-				})
+				});
 			} catch ( exception ) {
 				return exception;
 			}	
@@ -184,97 +190,52 @@ let _upsertCountInstance = (data, id, keyword) => {
 Meteor.startup(function() {
   Skills.after.insert(function (userId, doc) {
   	console.log('running classification on ' + doc.parsed_keyword);
-
-  	// init keyword on all js items
-  	JobStreetItems.update(
-	  	{},
-			{ $push: {
-						skillsClassified: doc._id
-					},
+		// update only the items where keyword is found
+		JobStreetItems.update(
+			{ 
+				// skillsClassified: { $nin: [ doc._id] },
+				descriptionTags: { $in:[ doc.parsed_keyword ] }
 			},
-			{multi: true},
-			function (err, res) {
-				if (res) {
-					// update only the items where keyword is found
-						var foundData = JobStreetItems.update(
-							{ descriptionTags: { $in:[ doc.parsed_keyword ] }},
-					  	{ $addToSet: {
-									trackedSkills: {
-										skillId: doc._id,
-										skillKeyword: doc.parsed_keyword,
-										dummyVar: 1
-									}
-								},
-							},
-							{multi: true}
-						);
+		  	{ 
+	  		$addToSet: {
+					trackedSkills: {
+						skillId: doc._id,
+						skillKeyword: doc.parsed_keyword,
+						dummyVar: 1
+					}
+				}
+			},
+			{
+				multi: true
+			},
+			function(err, res) {
+				if (err) {
+					console.log(err);
+				} else {
+					JobStreetItems.update( {},
+					  	{ 
+					  		$addToSet: {
+					  			skillsClassified: doc._id
+					  		}
+					  	},
+					  	{multi: true}
+				  	);
 
-						console.log(foundData);
-
-						// update skills doc with the number of instances found
-						Skills.update({_id: doc._id},
-							{
-								$inc: {
-									count: foundData
-								},
-								$set: {
-									lastUpdated: new Date()
-								}			
-							}, function (err,result){
-								if (result) {
-									console.log('finished updating skill ' + doc.parsed_keyword);
-								}
-							}
-						);  
-
-
+				  	Modules.server.runAggregations();
 				}
 			}
 		);
+	});
 
-		var identifiedInstances = JobStreetItems.find(
-			{ descriptionTags: { $in:[ doc.parsed_keyword ] }}
-		);
+  // cleanup aggreagations after removing a keyword
+  Skills.after.remove(function(userId,doc) {
 
-  	identifiedInstances.forEach(function (i) {
-	  	Counts.upsert(
-	  		{ listingId: i._id,
-	  		parentCategory:  i.parentCategory,
-	  		subSpecialization: i.subSpecialization,
-	  		skillId: doc._id,
-	  		skillName: doc.parsed_keyword,
-	  		industry: i.listedIndustry,
-	  		specialization: i.listedSpec,
-	  		role: i.listedRole,
-	  		companySnapIndustry: i.companySnapIndustry
-	  		},
-	  		{ $inc: {
-		  			count: 1
-		  		}
-		  	}
-	  	);
-  	});
+  	console.log('running skills cleanup on');
+  	console.dir(doc);
 
-  	// console.log('Postively identified instances: ' + foundData.count() );
+  	var res = SkillsAggregations.remove({skillId: doc._id});
+  	console.log(res);
 
-  // 	var notFoundData = JobStreetItems.find({descriptionTags: { $nin:[ doc.parsed_keyword ] }});
-  // 	notFoundData.forEach(function (i) {
-		// JobStreetItems.update({_id: i._id},
-	 //  		{
-	 //  			$addToSet: {
-	 //  				trackedSkills: {
-  // 					skillId: doc._id,
-  // 					skillKeyword: doc.parsed_keyword,
-  // 					dummyVar: 0
-  // 				}
-  // 			}
-  // 		});
-  // 	});
-  	
-  // 	console.log('Not identified instances: ' + notFoundData.count() );
-
-
-
-  
+  	// Modules.server.runAggregations();
   });
 });

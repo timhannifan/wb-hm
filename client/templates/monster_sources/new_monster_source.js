@@ -12,6 +12,8 @@ Template.new_monster_source.helpers({
   }
 });
 
+
+
 AutoForm.hooks({
   insertSourceForm: {
     onSuccess: function(formType, post) {

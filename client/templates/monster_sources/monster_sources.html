@@ -1,8 +1,9 @@
 <template name="monster_sources">
   <section class="layout vertical">
     <div class="page-header">
-      <h1 class="title">Monster.com Sources</h1>
+      <h1 class="title">Monster.com Source Manager</h1>
     </div>
+    
 
     <paper-material class="content-container">
       {{#each sources}}
@@ -13,4 +14,9 @@
     </paper-material>
     
   </section>
+
+  <div class="fab-container layout vertical">
+    <paper-fab mini id="js-add-monster-source" icon="add" title="Add Source" class="green"></paper-fab> 
+  </div>
+  
 </template>

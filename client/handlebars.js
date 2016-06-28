@@ -8,6 +8,12 @@ UI.registerHelper('formatShortDate', function(context, options) {
     return moment(context).format("DD-MMMM-YYYY");
 });
 
+UI.registerHelper('relativeTime', function(context, options) {
+  if(context)
+    return moment(context).fromNow();
+});
+
+
 UI.registerHelper('truncateText', function(string) {
   if(string)
     return string.substr(0,25)+ (string.length > 25 ? "..." : "");

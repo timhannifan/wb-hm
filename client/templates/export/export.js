@@ -1,54 +1,165 @@
-// Template.export.events({
-// 	"click #methodExportMonsterSources": function() {
-// 		console.log('clicked methodExportMonsterSources');
-// 		MyAppExporter.methodExportMonsterSources();
-// 	},
+ExportSchema = new SimpleSchema({
+  collection: {
+  	type: String,
+  	optional: false,
+  	label: 'Collection',
+  	autoform: {
+  	  type: "select",
+  	  options: function () {
+  	    return [
+  	      {label: "JobStreet.com Data", value: "JobStreetItems"},
+  	      {label: "Monster.com Data", value: "MonsterItems"},
+  	      // {label: "JobStreetSources", value: "JobStreetSources"},
+  	      // {label: "MonsterItems", value: "MonsterItems"}
+  	    ];
+  	  }
+  	},
+  	// defaultValue: "JobStreetItems"
 
-// 	"click #methodExportJobStreetSources": function() {
-// 		console.log('clicked methodExportJobStreetSources');
-// 		MyAppExporter.methodExportJobStreetSources();
-// 	},
+  },
+  jobStreetFields: {
+  	type: [String],
+  	optional: true,
+  	label: 'Collection fields',
+  	autoform: {
+  	  type: "select-checkbox",
+  	  options: function () {
+  	    return [
+  	      {label: "field1", value: "field1"},
+  	      {label: "field2", value: "field2"},
+  	      {label: "field3", value: "field3"}
+  	    ];
+  	  }
+  	}
+  },
+  monsterFields: {
+  	type: [String],
+  	optional: true,
+  	label: 'Collection fields',
+  	autoform: {
+  	  type: "select-checkbox",
+  	  options: function () {
+  	    return [
+  	      {label: "field4", value: "field4"},
+  	      {label: "field5", value: "field5"},
+  	      {label: "field6", value: "field6"}
+  	    ];
+  	  }
+  	}
+  },
+  startDate: {
+    type: Date,
+    optional: false,
+    label: 'Start Date',
+    autoform: {
+      afFieldInput: {
+        type: "date"
+      }
+    },
+    custom: function () {
+      if (this.value >= this.field('endDate').value) {
+        return "daterangeMismatch";
+      }
+    }
+  },
+  endDate: {
+    type: Date,
+    optional: false,
+    label: 'End Date',
+    defaultValue: function(){
+    	return new Date();
+    },
+    autoform: {
+      afFieldInput: {
+        type: "date"
+      }
+    },
+    // max: function(){
+    // 	return new Date();
+    // },
+  }
+});
 
-// 	"click #methodExportMonsterItems": function() {
-// 		console.log('clicked methodExportMonsterItems');
-// 		MyAppExporter.methodExportMonsterItems();
-// 	},
-// 	"click #methodExportJobStreetItems": function() {
-// 		console.log('clicked methodExporJobStreetItems');
-// 		var res = MyAppExporter.methodExportJobStreetItems();
-// 		console.log(res);
-// 	},
-// 	"click #methodExportCombinedItems": function() {
-// 		console.log('clicked methodExportCombinedItems');
-// 		MyAppExporter.methodExportCombinedItems();
-// 	}
-// 	// "click #method": function() {
-// 	// 	console.log('clicked method');
-// 	// 	MyAppExporter.method();
-// 	// },
+AutoForm.hooks({
+  exportOptionsForm: {
+  	// onSubmit: function(insertDoc, updateDoc, currentDoc) {
+  	  // You must call this.done()!
+  	  //this.done(); // submitted successfully, call onSuccess
+  	  //this.done(new Error('foo')); // failed to submit, call onError with the provided error
+  	  //this.done(null, "foo"); // submitted successfully, call onSuccess with `result` arg set to "foo"
+  	// },
+    onSuccess: function(formType, post) {
+		// console.log(); 
+    },
+    onError: function(formType, error) {
+		console.log(error);
+    },
+    beginSubmit: function() {},
+	endSubmit: function() {}
+  }
+});
 
-// });
 Template.export.onCreated( () => {
-  // Template.instance().subscribe( 'jobstreet' );
+});
+
+Template.export.onRendered( () => {
+});
+Template.export.helpers({
+	foo: function () {
+		// ...
+	}
 });
 
 Template.export.events({
-  'click .export-data' ( event, template ) {
-  	console.log('clicked');
+	'click #js-download-query': function () {
+		// var form =  $('#exportOptionsForm');
 
-    let name        = 'download_',
-    	date 		= new Date(),
-      fileName    = `${name} ${date}`;
+		// form.submit();
+		event.preventDefault();
+		
+		var form = AutoForm.getFormValues('exportOptionsForm'),
+		query = form.insertDoc,
+    modifier = {};
 
-    Meteor.apply( 'exportData',[],{wait: true}, ( error, response ) => {
-      if ( error ) {
-        Bert.alert( error.reason, 'warning' );
-      } else {
-        if ( response ) {
-          let blob = Modules.client.convertBase64ToBlob( response );
-          saveAs( blob, `${fileName}.zip` );
-        }
-      }
-    });
-  }
+		console.log(query);
+		Meteor.call('exportOptionsQuery',query,modifier, function(error, response) {
+		    if (error) {
+		        console.log(error);
+		    } else {
+		        console.log('received a resonse');
+		        let blob = Modules.client.convertBase64ToBlob( response );
+		        let filename = 'skills-download.zip';
+		        saveAs( blob, filename );
+		    }
+		});
+
+	}
+	// 'click .export-data-sync-limit': function ( event, template ) {
+	//   var el = $(event.target);
+	//   console.log(el);
+	//   // console.log(el[0].attributes['data-start'].value);
+	//   // console.log(el[0].attributes['data-end'].value);
+
+	//   var start = el[0].attributes['data-start'].value;
+	//   var end = el[0].attributes['data-end'].value;
+
+	//   // console.log(event.target);
+	//   let options = {
+	//     limit: 5000,
+	//     skip: Number(start)
+	//   };
+
+
+	//   Meteor.call( 'exportDataSync', options , ( error, response ) => {
+	//     if ( error ) {
+	//       GlobalUI.toast.alert( error.reason, 'warning' );
+	//     } else {
+	//       if ( response ) {
+	//         console.log('received a resonse');
+	//         let blob = Modules.client.convertBase64ToBlob( response );
+	//         saveAs( blob, 'archiveSynch.zip' );
+	//       }
+	//     }
+	//   });
+	// }
 });

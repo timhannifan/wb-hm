@@ -1,60 +1,33 @@
 <template name="export">
-  <div class="flex page-header">
-    <span class="title">Export CSV Data</span>
-    <!-- <paper-icon-button icon="refresh" class="action-button"></paper-icon-button> -->
+  <div class="page-header">
+    <h1 class="title">Data Exporter</h1>
   </div>
 
-  <paper-material>
-    <div class="list-wrapper">
-      <div role="listbox" class="list">
-    
-        <paper-icon-item class="list-item" id="methodExportMonsterSources">
-        	<paper-item-body two-line>
-    	      <div>Monster.com Sources</div>
-    	      <div secondary>Last updated:</div>
-    	    </paper-item-body>
+  <section class="flex">
+    <!-- <span class="section-header">About</span> -->
+    <p>Use the form below to build a data query for JobStreet and Monster data. Exports are limited to 19MB, which is roughly 5,000 job listings. A CSV fill be will automatically downloaded to your browser window.</p>
 
-          <iron-icon  item-icon icon="file-download"></iron-icon>
-        </paper-icon-item>
-    
-        <paper-icon-item class="list-item" id="methodExportJobStreetSources">
-        	<paper-item-body two-line>
-    	      <div>JobStreet.com Sources</div>
-    	      <div secondary>Last updated:</div>
-    	    </paper-item-body>
+    <paper-material class="content-container">
+      {{#autoForm schema="ExportSchema" type="method" meteormethod="exportOptionsQuery" id="exportOptionsForm"}}
 
-          <iron-icon  item-icon icon="file-download"></iron-icon>
-        </paper-icon-item>
-    
-        <paper-icon-item class="list-item" id="methodExportMonsterItems">
-        	<paper-item-body two-line>
-    	      <div>Monster.com Job Data</div>
-    	      <div secondary>Last updated:</div>
-    	    </paper-item-body>
+      {{> afQuickField name="collection"}}
+      {{#if afFieldValueIs name="collection" value="JobStreetItems"}}
+        {{> afQuickField name="jobStreetFields"}}
+      {{/if}}
+      {{#if afFieldValueIs name="collection" value="MonsterItems"}}
+        {{> afQuickField name="monsterFields"}}
+      {{/if}}    
+      <!-- <div class="layout horizontal"> -->
+        {{> afFormGroup name="startDate"}}
+        {{> afFormGroup name="endDate"}}
+      <!-- </div> -->
 
-          <iron-icon  item-icon icon="file-download"></iron-icon>
-        </paper-icon-item>
-    
-        <paper-icon-item class="list-item" id="methodExportJobStreetItems">
-        	<paper-item-body two-line>
-    	      <div>JobStreet.com Job Data</div>
-    	      <div secondary>Last updated:</div>
-    	    </paper-item-body>
-
-          <iron-icon  item-icon icon="file-download"></iron-icon>
-        </paper-icon-item>
-    
-        <paper-icon-item class="list-item" id="methodExportCombinedItems">
-        	<paper-item-body two-line>
-    	      <div>Combined Data</div>
-    	      <div secondary>Last updated:</div>
-    	    </paper-item-body>
-
-          <iron-icon  item-icon icon="file-download"></iron-icon>
-        </paper-icon-item>
-
-          
+      <div class="layout horizontal end-justified">
+        <paper-button raised id="js-reset-form">Reset</paper-button>
+        <paper-button raised id="js-download-query">Download</paper-button>
       </div>
-    </div>  
-  </paper-material>
+      {{/autoForm}}
+
+    </paper-material>
+  </section>
 </template>

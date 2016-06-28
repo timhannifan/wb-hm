@@ -21,14 +21,14 @@ scratch
 .demeteorized/*
 
 ### Meteor template
-.meteor/local
-.meteor/meteorite
-mup.json
-packages_update.py
+###.meteor/local
+###.meteor/meteorite
+###mup.json
+###packages_update.py
 .break
 .editorconfig
 
-public/components/*
+###public/components/*
 settings.json
 *.sh
 app.json

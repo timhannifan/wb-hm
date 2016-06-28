@@ -1,0 +1,16 @@
+Template.templateName.onCreated( () => {
+});
+
+Template.templateName.onRendered( () => {
+});
+Template.templateName.events({
+	'click': function () {
+		// ...
+	}
+});
+
+Template.templateName.helpers({
+	foo: function () {
+		// ...
+	}
+});

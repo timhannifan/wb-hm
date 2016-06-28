@@ -16,7 +16,6 @@ autoupdate@1.2.4
 babel-compiler@5.8.24_1
 babel-runtime@0.1.4
 base64@1.0.4
-benjaminrh:jquery-cookie@0.1.0
 binary-heap@1.0.4
 blaze@2.1.3
 blaze-html-templates@1.0.1
@@ -27,7 +26,6 @@ caching-html-compiler@1.0.2
 callback-hook@1.0.4
 check@1.1.0
 coffeescript@1.0.11
-d3js:d3@3.5.8
 dburles:collection-helpers@1.0.4
 ddp@1.2.2
 ddp-client@1.2.1
@@ -45,9 +43,7 @@ es5-shim@4.1.14
 fastclick@1.0.7
 fetch-local@0.0.1
 fortawesome:fontawesome@4.5.0
-fourseven:scss@3.3.3_3
 geojson-utils@1.0.4
-gildaspk:autoform-materialize@0.0.26
 harrison:papa-parse@1.1.1
 html-tools@1.0.5
 htmljs@1.0.5
@@ -69,7 +65,6 @@ livedata@1.0.15
 localstorage@1.0.5
 logging@1.0.8
 matb33:collection-hooks@0.8.1
-materialize:materialize@0.97.5
 mdg:validation-error@0.2.0
 meteor@1.1.10
 meteor-platform@1.2.3
@@ -93,8 +88,7 @@ numeral:numeral@1.5.3_1
 observe-sequence@1.0.7
 ordered-dict@1.0.4
 percolatestudio:synced-cron@1.1.0
-pfafman:filesaver@0.2.3_2
-poetic:materialize-scss@1.97.5_1
+pfafman:filesaver@1.3.2
 promise@0.5.1
 raix:eventemitter@0.1.3
 random@1.0.5
@@ -115,9 +109,7 @@ srp@1.0.4
 stevezhu:lodash@4.13.1
 templating@1.1.5
 templating-tools@1.0.0
-themeteorchef:bert@2.1.0
 tracker@1.0.9
-twbs:bootstrap@3.3.6
 ui@1.0.8
 underscore@1.0.4
 url@1.0.5

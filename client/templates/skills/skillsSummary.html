@@ -1,0 +1,62 @@
+<template name="skillsSummary">
+	<section class="layout vertical">
+		<div class="page-header">
+			<h1 class="title">Skills Summary</h1>
+		</div>
+		<div class="page-content-container">
+		 	<!-- <div class="description">Under Construction</div> -->
+		  	<!-- <p>This page is currently unavailable. Please check back later.</p> -->
+  		  	<div><paper-material class="table-container">
+  			  	<div class="description">Keyword Frequency by JobStreet Industry/Specialization Schema</div>
+  			  	<div>
+  			  		<select data-filter class="form-control" name="industry">
+  		  		        <option value="all">All Industries</option>
+  		  		        {{#each industries}}
+  		  		          <option value="{{this}}">{{this}}</option>
+  		  		        {{/each}}
+  		  		    </select>
+  	  		      	<select data-filter class="form-control" name="specialization">
+  			              	<option value="all">All Specializations</option>
+  			            	{{#each child currentIndustry}}
+  	  		                <option value="{{this}}">{{this}}</option>
+  	  		            {{/each}}
+  			            </select>
+  			  	</div>
+  			  	<div>
+  			  		{{totalCount}} total instances
+  			  	</div>
+  			  	<div>
+  			  		<table class="table table-bordered">
+  			  		  <thead>
+  			  		    <tr>
+  			  		      <th>Skill</th>
+  			  		      <th>Instances</th>
+  			  		    </tr>
+  			  		  </thead>
+  			  		  <tbody>
+  			  		    {{#each tableItems}}
+  			  		      <tr>
+  			  		        <td>{{skillKeyword}}</td>
+  			  		        <td>{{total}}</td>
+  			  		      </tr>
+  			  		    {{/each}}
+  			  		  </tbody>
+  			  		</table>
+  			  	</div>
+  		  	</paper-material></div>
+		</div>
+
+	</section>
+
+	<!-- <div> -->
+		 		
+	<!-- </div> -->
+</template>
+
+
+		  	<!-- <paper-tabs selected="0" autoselect autoselect-delay="1000">
+		  	  <paper-tab>Top Skills</paper-tab>
+		  	  <paper-tab>Industry</paper-tab>
+		  	  <paper-tab>Subspecialization</paper-tab>
+		  	</paper-tabs>	 -->
+

@@ -1,20 +1,46 @@
 <template name="keywordMatchList">
+	<section>
 
-	<section id="keywordMatchList">
-	  <div class="page-header">
-		  <paper-icon-button icon="arrow-back" data-action="back"></paper-icon-button>
-		    <span class="title">Keyword Matches: {{skill.parsed_keyword}}</span>
-	  </div>
-	  {{#if resultSetEmpty}}
-		  <div class="layout vertical">
-			  <div class="flex layout horizontal">
-			  	<div class="flex layout center">
-			  		<h6>No results found!</h6>
-			  	</div>
-			  	
-			  </div>	  	
-		  </div>
-	  {{else}}
+		<div class="layout vertical">
+			<div class="page-header">
+				  <paper-icon-button icon="arrow-back" data-action="back"></paper-icon-button>
+				    <span class="title">Keyword Matches: {{skill.parsed_keyword}}</span>
+			</div>
+			<div>
+				<table class="table table-bordered">
+					<thead>
+					    <tr>
+							<th>Title</th>
+						    <th>Category</th>
+						    <th>Subspecialization</th>
+						    <th>Industry</th>
+						    <th>AltSpecialization</th>
+						    <th>Role</th>
+					    </tr>
+					</thead>
+				    <tbody>
+					    {{#each items}}
+					        <tr>
+							    <td>
+	    				  			<a href="{{pathFor 'itemViewByKeyword' _id=_id}}" title="">
+						  			{{ title}}
+						  			</a>
+					  			</td>
+						        <td>{{truncateText parentCategory}}</td>
+						        <td>{{truncateText subSpecialization}}</td>
+						        <td>{{truncateText listedIndustry}}</td>
+						        <td>{{truncateText listedSpec}}</td>
+						        <td>{{truncateText listedRole}}</td>
+					        </tr>
+					    {{/each}}
+				    </tbody>
+				</table>
+			</div>
+		</div>
+	</section>
+
+	<!-- <section id="keywordMatchList">
+
 		  <paper-material class="paper-table">
 				<div class="layout vertical scroll" style="max-height: 600px;">
 					<paper-item>
@@ -40,27 +66,25 @@
 		  				<p><strong>Created</strong></p>
 		  			</div>
 					</paper-item>
-					{{#each matches}}
+					{{#each items}}
 		  			<paper-item>
 			  			<div class="flex">
-				  			<a href="{{pathFor 'itemViewByKeyword' _id=_id}}" title="">
-					  			<p>{{ truncateText title}}</p>
-				  			</a>
+
 			  			</div>
 			  			<div class="flex">
-				  			<p>{{truncateText parentCategory}}</p>
+				  			<p></p>
 			  			</div>
 			  			<div class="flex">
-			  				<p>{{truncateText listedIndustry}}</p>
+			  				<p></p>
 			  			</div>		  			
 			  			<div class="flex">
-			  				<p>{{truncateText subSpecialization}}</p>
+			  				<p></p>
 			  			</div>
 			  			<div class="flex">
-			  				<p>{{truncateText listedSpec}}</p>
+			  				<p></p>
 			  			</div>
 							<div class="flex">
-								<p>{{truncateText listedRole}}</p>
+								<p></p>
 							</div>
 			  			<div class="flex">
 				  			<p>{{formatShortDate this.createdAt}}</p>
@@ -69,6 +93,5 @@
 					{{/each}}
 				</div>
 		  </paper-material>
-	{{/if}}
-	</section>
+	</section> -->
 </template>

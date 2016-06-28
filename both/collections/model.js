@@ -2,7 +2,6 @@ MonsterSources = new Mongo.Collection('MonsterSources');
 JobStreetSources = new Mongo.Collection('JobStreetSources');
 MonsterItems = new Mongo.Collection('MonsterItems');
 JobStreetItems = new Mongo.Collection('JobStreetItems');
-UnionItems = new Mongo.Collection('UnionItems');
 
 MascoFive = new Mongo.Collection('MascoFive');
 MascoFour = new Mongo.Collection('MascoFour');

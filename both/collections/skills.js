@@ -1,5 +1,7 @@
 Skills = new Mongo.Collection('skills');
 Counts = new Mongo.Collection('counts');
+SkillsAggregations = new Mongo.Collection('SkillsAggregations');
+
 
 function trueFunc(userId) {
   if (!userId) {
@@ -30,7 +32,15 @@ Skills.allow({
   }
 });
 
-Counts.allow({
+SkillsAggregations.allow({
+    update: function (userId, doec) {
+    if (!userId) {
+      // must be logged in
+      return false;
+    }
+
+    return true;    
+  },
   remove: function (userId, doc) {
     if (!userId) {
       // must be logged in

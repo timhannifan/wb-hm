@@ -17,62 +17,57 @@ blaze-html-templates
 accounts-ui
 accounts-password
 
-# autopublish
-# insecure
-
 useraccounts:core
 useraccounts:polymer
 useraccounts:iron-routing
 
 iron:router
 momentjs:moment
-# reywood:publish-composite
+
 aldeed:simple-schema
 aldeed:collection2
 aldeed:autoform
 aldeed:template-extension
-dburles:collection-helpers
-matb33:collection-hooks
-percolatestudio:synced-cron
-anti:fake
 
 meteorhacks:aggregate
 meteorhacks:inject-initial
 meteorhacks:subs-manager
+meteorhacks:npm
+npm-container
 differential:vulcanize
+
+dburles:collection-helpers
+matb33:collection-hooks
+percolatestudio:synced-cron
+anti:fake
 rclai89:cheerio
 harrison:papa-parse
 fortawesome:fontawesome
+aslagle:reactive-table
+stevezhu:lodash
+numeral:numeral
+linto:jquery-ui
+
 yaki-local
 fetch-local
 
-meteorhacks:npm
-npm-container
-
-pfafman:filesaver
-themeteorchef:bert
-
-#cfs:standard-packages
-#cfs:gridfs
-#cfs:filesystem
-#cfs:s3
-#cfs:ui
-#cfs:autoform
-# cfs:graphicsmagick
-
-numeral:numeral
-benjaminrh:jquery-cookie
-
-twbs:bootstrap
-linto:jquery-ui
-#mizzao:autocomplete
-
-aslagle:reactive-table
-
+# benjaminrh:jquery-cookie
+# twbs:bootstrap
+# mizzao:autocomplete
 # machine
-stevezhu:lodash
-d3js:d3
-
-materialize:materialize
-poetic:materialize-scss
-gildaspk:autoform-materialize
+# d3js:d3
+# materialize:materialize
+# poetic:materialize-scss
+# gildaspk:autoform-materialize
+pfafman:filesaver
+# themeteorchef:bert
+# cfs:standard-packages
+# cfs:gridfs
+# cfs:filesystem
+# cfs:s3
+# cfs:ui
+# cfs:autoform
+# cfs:graphicsmagick
+# autopublish
+# insecure
+# reywood:publish-composite

@@ -10,3 +10,15 @@ Template.monster_sources.helpers({
     return EJSON.toJSONValue(sources);
   }
 });
+
+Template.monster_sources.events({
+  'click #js-add-monster-source': function () {
+    event.preventDefault();
+
+    GlobalUI.showDialog({
+      heading: "Add Monster RSS Feed",
+      template: "new_monster_source",
+      fullOnMobile: true
+    });
+  }
+});

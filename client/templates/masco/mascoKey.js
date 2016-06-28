@@ -62,7 +62,7 @@ Template.mascoFour.events({
             console.log( error.reason );
           } else {
             template.uploading.set( false );
-            // Bert.alert( 'Upload complete!', 'success', 'growl-top-right' );
+            // GlobalUI.toast.alert( 'Upload complete!', 'success', 'growl-top-right' );
           }
         });
       }

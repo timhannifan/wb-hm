@@ -8,135 +8,61 @@
       <paper-toolbar>
         <span>Occupational Keywords: Malaysia</span>
       </paper-toolbar>
-      <!-- Home -->
-      <div id="label" class="layout vertical center-justified">
-	      <span class="type-black-lighter">About</span>
-      </div>
-      <div class="nav" role="listbox">
-  	    <a href="{{pathFor 'home'}}" class="nav-menu-item">
-	  	    <paper-icon-item>
-	  	    	<div class="avatar grey layout vertical center-center" item-icon>
-	  	    			<iron-icon icon="icons:home" item-icon></iron-icon>
-	  	    	</div>
-  	    	    Project Summary
-  	    	  </paper-icon-item>
-  	    </a>
-        <a href="{{pathFor 'exportNew'}}" class="nav-menu-item">
-          <paper-icon-item>
-            <div class="avatar grey layout vertical center-center" item-icon>
-                <iron-icon icon="file-download" item-icon></iron-icon>
-            </div>
-             Downloads
-            </paper-icon-item>
-        </a> 
-        <!--<a href="" class="nav-menu-item">
-	  	    <paper-icon-item>
-	  	    	<div class="avatar grey layout vertical center-center" item-icon>
-	  	    			<iron-icon icon="icons:dns" item-icon></iron-icon>
-	  	    	</div>
-  	    	    Automated proce
-  	    	  </paper-icon-item>
-  	    </a> -->
-  	  </div>
+      <div class="nav-menu">
+        <div class="nav-section-header">
+          <span>Reference</span>
+          
+        </div>
+        <!-- <h2 class="nav-title">About</h2> -->
 
-      <!-- Monster -->
-	    <div class="divider-top"></div>
-      <div id="label" class="layout vertical center-justified">
-	      <span class="type-black-lighter">Monster.com</span>
-      </div>
-	    <div class="nav" role="listbox">
-	  	    <a href="{{pathFor 'monster_sources'}}" class="nav-menu-item">
-  	  	    <paper-icon-item>
-  	  	      <div class="avatar grey layout vertical center-center" item-icon>M</div>
-  	  	      Sources
-  	  	    </paper-icon-item>
-	  	    </a>
-	  	    <a href="{{pathFor 'monsterData'}}" class="nav-menu-item">
-  	  	    <paper-icon-item>
-  	  	      <div class="avatar grey layout vertical center-center" item-icon>M</div>
-  	  	      Data
-  	  	    </paper-icon-item>
-	  	    </a>
-	  	</div>
+        <div role="listbox">
+          <a class="paper-item-link" href="{{pathFor 'home'}}" tabindex="-1">
+            <paper-item>Project Summary</paper-item>
+          </a>
+          <a class="paper-item-link" href="{{pathFor 'export'}}" tabindex="-1">
+            <paper-item>Data Exporter</paper-item>
+          </a>
+        </div>
+        <div class="nav-section-header">
+          <span>Skills Classification</span>
+        </div>
+        <div role="listbox">
+          <a class="paper-item-link" href="{{pathFor 'skillsDb'}}" tabindex="-1">
+            <paper-item>Skills DB</paper-item>
+          </a>
+          <a class="paper-item-link" href="{{pathFor 'skillsSummary'}}" tabindex="-1">
+            <paper-item>Aggregated Stats</paper-item>
+          </a>
+        </div>
 
-  	   <!-- JobStreet -->
-	    <div class="divider-top"></div>
-      <div id="label" class="layout vertical center-justified">
-	      <span class="type-black-lighter">JobStreet.com</span>
+        <div class="nav-section-header">
+          <span>JobStreet.com</span>
+        </div>
+        <div role="listbox">
+          <a class="paper-item-link" href="{{pathFor 'job_street_sources'}}" tabindex="-1">
+            <paper-item>Source Manager</paper-item>
+          </a>
+          <a class="paper-item-link" href="{{pathFor 'job_street_data'}}" tabindex="-1">
+            <paper-item>Data</paper-item>
+          </a>
+        </div>
+        <div class="nav-section-header">
+          <span>Monster.com</span>
+        </div>
+        <div role="listbox">
+          <a class="paper-item-link" href="{{pathFor 'monster_sources'}}" tabindex="-1">
+            <paper-item>Source Manager</paper-item>
+          </a>
+          <a class="paper-item-link" href="{{pathFor 'monsterData'}}" tabindex="-1">
+            <paper-item>Data</paper-item>
+          </a>
+        </div>        
       </div>
-	    <div class="nav" role="listbox">
-  	    <a href="{{pathFor 'job_street_sources'}}" class="nav-menu-item">
-    	    <paper-icon-item>
-    	      <div class="avatar grey layout vertical center-center" item-icon>JS</div>
-    	      Sources
-    	    </paper-icon-item>
-  	    </a>
-  	    <a href="{{pathFor 'job_street_data'}}" class="nav-menu-item">
-    	    <paper-icon-item>
-    	      <div class="avatar grey layout vertical center-center" item-icon>JS</div>
-    	      Data
-    	    </paper-icon-item>
-  	    </a>
-  	  </div>
-
-
-       <!-- Skills Analysis -->
-      <div class="divider-top"></div>
-      <div id="label" class="layout vertical center-justified">
-        <span class="type-black-lighter">Skills Classification</span>
-      </div>
-      <div class="nav" role="listbox">
-        <a href="{{pathFor 'skillsList'}}" class="nav-menu-item">
-          <paper-icon-item>
-            <div class="avatar grey layout vertical center-center" item-icon>S</div>
-            Skills DB
-          </paper-icon-item>
-        </a>
-        <a href="{{pathFor 'skills'}}" class="nav-menu-item">
-          <paper-icon-item>
-            <div class="avatar grey layout vertical center-center" item-icon>S</div>
-            Skills Summary
-          </paper-icon-item>
-        </a>
-      </div>      
-
-	    <!-- Masco Classification -->
-<!-- 	    <div class="divider-top"></div>
-      <div id="label" class="layout vertical center-justified">
-	      <span class="type-black-lighter">Classification</span>
-      </div>
-	    <div class="nav" role="listbox">
-  	    <a href="{{pathFor 'mascoFour'}}" class="nav-menu-item">
-    	    <paper-icon-item>
-	    	    <div class="avatar grey layout vertical center-center" item-icon>4</div>
-	    	    Masco 4
-	    	  </paper-icon-item>
-  	    </a>
-  	    <a href="{{pathFor 'mascoFive'}}" class="nav-menu-item">
-    	    <paper-icon-item>
-  	    	  <div class="avatar grey layout vertical center-center" item-icon>5</div>
-  	    	  Masco 5
-  	    	</paper-icon-item>
-  	    </a>	
-  	    <a href="{{pathFor 'mascoKey'}}" class="nav-menu-item">
-  	    	<paper-icon-item>
-	    	    <div class="avatar grey layout vertical center-center" item-icon>A</div>
-	    	    Aggregated Keywords
-	    	  </paper-icon-item>
-  	    </a>
-  	  </div> -->
 
     </paper-header-panel>
-
+    
+    <!-- Main Content -->
     <paper-header-panel class="main" main mode="waterfall">
-
-      <!-- Main Toolbar -->
-      <paper-toolbar paper-drawer-toggle>
-        <paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
-        <span class="type-size-title">Occupational Keywords: Malaysia</span>
-      </paper-toolbar>
-
-      <!-- Main Content -->
       <div class="content">
         {{#if currentUser}}
           <div class="loginTemp">
@@ -146,9 +72,7 @@
   	      {{>yield}}
         {{/if}}
       </div>
-
     </paper-header-panel>
-
   </paper-drawer-panel>
   {{/globalLayout}}
 </template>

@@ -13,7 +13,7 @@ Template.exportNew.events({
 
     Meteor.call( 'exportData', options , ( error, response ) => {
       if ( error ) {
-        Bert.alert( error.reason, 'warning' );
+        GlobalUI.toast.alert( error.reason, 'warning' );
       } else {
         if ( response ) {
           let blob = Modules.client.convertBase64ToBlob( response );
@@ -37,7 +37,7 @@ Template.exportNew.events({
 
     Meteor.call( 'exportDataQuery', query, filter , ( error, response ) => {
       if ( error ) {
-        Bert.alert( error.reason, 'warning' );
+        GlobalUI.toast.alert( error.reason, 'warning' );
       } else {
         if ( response ) {
           console.log('received a resonse');
@@ -54,7 +54,7 @@ Template.exportNew.events({
 
     Meteor.call( 'exportDataSync', options , ( error, response ) => {
       if ( error ) {
-        Bert.alert( error.reason, 'warning' );
+        GlobalUI.toast.alert( error.reason, 'warning' );
       } else {
         if ( response ) {
           console.log('received a resonse');
@@ -82,7 +82,7 @@ Template.exportNew.events({
 
     Meteor.call( 'exportDataSync', options , ( error, response ) => {
       if ( error ) {
-        Bert.alert( error.reason, 'warning' );
+        GlobalUI.toast.alert( error.reason, 'warning' );
       } else {
         if ( response ) {
           console.log('received a resonse');
@@ -96,7 +96,7 @@ Template.exportNew.events({
 
     Meteor.call( 'exportBigZip', ( error, response ) => {
       if ( error ) {
-        Bert.alert( error.reason, 'warning' );
+        GlobalUI.toast.alert( error.reason, 'warning' );
       } else {
         if ( response ) {
           console.log('received a resonse');
@@ -163,14 +163,14 @@ Template.exportNew.events({
 
       // Meteor.call( 'addAppointment', appointment, ( error, response ) => {
       //   if ( error ) {
-      //     Bert.alert( error.reason, 'danger' );
+      //     GlobalUI.toast.alert( error.reason, 'danger' );
       //   } else {
       //     picker.val( '' );
-      //     Bert.alert( 'Appointment added!', 'success' );
+      //     GlobalUI.toast.alert( 'Appointment added!', 'success' );
       //   }
       // });
     } else {
-      Bert.alert( 'Make sure to pick an appointment time!', 'danger' );
+      GlobalUI.toast.alert( 'Make sure to pick an appointment time!', 'danger' );
     }
   }
 });

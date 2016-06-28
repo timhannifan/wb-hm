@@ -5,10 +5,14 @@ Template.keywordMatchList.onRendered( () => {
 });
 
 Template.keywordMatchList.helpers({
-	skill: function () {
-		// skill context is set in router
-		return Skills.findOne({});
-	},
+	// skill: function () {
+	// 	// skill context is set in router
+	// 	if (this.skill) {
+	// 		return this.skill.parsed_keyword;
+	// 	}
+	// 	// console.log(this.skill.parsed_keyword);
+	// 	// return this.skill.parsed_keyword;
+	// },
 	resultSetEmpty: function () {
 		var item = Skills.findOne({});
 

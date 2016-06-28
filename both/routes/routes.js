@@ -62,7 +62,7 @@ Meteor.startup(function () {
         if (this.ready()) {
           this.render();
         } else {
-          this.render('Loading');
+          this.render('loading');
         }
       }
     });
@@ -82,14 +82,14 @@ Meteor.startup(function () {
       subscriptions: function() {
         return [
           Meteor.subscribe('JobStreetSources'),
-          Meteor.subscribe('JobStreetItemsLimited')
+          Meteor.subscribe('JobStreetItemsLimited', 100,0)
         ];
       },
       action: function (){
         if (this.ready()) {
           this.render();
         } else {
-          this.render('Loading');
+          this.render('loading');
         }
       }
     });
@@ -106,14 +106,7 @@ Meteor.startup(function () {
         return JobStreetItems.findOne({_id: this.params._id});
       }
     });
-    this.route('about', {
-      path: '/about',
-      template:'about'
-    });
-    this.route('exportNew', {
-      path: '/export',
-      template:'exportNew'
-    });
+
     this.route('new_monster_source', {
       path: '/new-monster-source',
       template:'new_monster_source'
@@ -122,10 +115,7 @@ Meteor.startup(function () {
       path: '/new-jobstreet-source',
       template:'new_jobstreet_source'
     });
-    this.route('upload', {
-      path: '/utilities/upload-csv',
-      template:'upload'
-    });
+
     this.route('mascoFour', {
       path: '/masco-4',
       template:'mascoFour',
@@ -148,14 +138,44 @@ Meteor.startup(function () {
       }
     });
   });
+  
 
-  Router.route('skillsList', {
-    path: '/skills/list',
-    template:'skillsList',
-    subscriptions: function() {
-      return [
-        Meteor.subscribe('skillsList')
-      ];
+  Router.route('skillsSummary', {
+    path: '/skills/summary',
+    template:'skillsSummary',
+    // subscriptions: function() {
+    //   return [
+    //     // Meteor.subscribe('trackedSkillsCounts'),
+    //     Meteor.subscribe('skillsAggregations')
+    //   ];
+    // },
+    // data: function () {
+    //   return JobStreetItems.findOne({_id: this.params._id});
+    // },
+    action: function () {
+      if (this.ready()) {
+        this.render();
+      } else {
+        this.render('loading');
+      }
+    }
+  });
+
+  Router.route('skillsDb', {
+    path: '/skills/db',
+    template:'skillsDb',
+    // subscriptions: function() {
+    //   return [
+    //     Meteor.subscribe('skillsList'),
+    //     Meteor.subscribe('trackedSkillsCounts')
+    //   ];
+    // },
+    action: function () {
+      if (this.ready()) {
+        this.render();
+      } else {
+        this.render('loading');
+      }
     }
   });
   Router.route('keywordMatchList', {
@@ -165,20 +185,21 @@ Meteor.startup(function () {
       if (this.ready()) {
         this.render();
       } else {
-        this.render('Loading');
+        this.render('loading');
       }
     },
     subscriptions: function () {
       return [
         Meteor.subscribe('keywordMatchList', this.params._id),
-        Meteor.subscribe( 'JobStreetTrackedSkills',this.params._id)
+        Meteor.subscribe( 'JobStreetTrackedSkills',this.params._id),
+        Meteor.subscribe('skills')
       ];
     },
     data: function () {
-      return [
-        Skills.findOne({_id: this.params._id})
-        , JobStreetItems.find()
-      ];
+      return {
+        skill: Skills.findOne({_id: this.params._id}),
+        items: JobStreetItems.find()
+      };
     }
   });
 
@@ -202,10 +223,12 @@ Meteor.startup(function () {
     },
   });
 
-  Router.route('skills', {
-    path: '/skills/summary',
-    template:'skills'
+  Router.route('export', {
+    path: 'data-exporter',
+    template: 'export'
   });
+
+
 
   Router.route('loading', {
     path: '/loading',
