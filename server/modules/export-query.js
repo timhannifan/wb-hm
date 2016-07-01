@@ -48,7 +48,12 @@ let _getDataFromCollection = ( collection, query, modifier ) => {
   
   let data = collection.find( query, modifier ).fetch();
   if ( data ) {
-    return data;
+    if (data.length > 10000) {
+      throw new Meteor.Error("export-size", 
+        "File size is too large. Please use filters to restrict your results.");
+    } else {
+      return data;
+    }
   }
 };
 

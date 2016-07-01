@@ -92,8 +92,6 @@ ExportSchema = new SimpleSchema({
             return item.name;
           }), true );
 
-          console.log(uniques);
-
           var res = [];
           for (var i = 0; i < uniques.length; i++) {
             res.push({label: uniques[i], value: uniques[i]});
@@ -295,28 +293,48 @@ AutoForm.hooks({
 });
 
 Template.export.onCreated( () => {
+  // console.log(this);
   var self = this;
   self.ready = new ReactiveVar();
 
-  Tracker.autorun(function() {
-    var template = Template.instance();
-    var jss = SubManager.subscribe( 'JobStreetSources' );
-    var ms = SubManager.subscribe( 'MonsterSources' );
-    var jsmd = SubManager.subscribe( 'JobStreetMeta' );
-    self.ready.set(jss.ready() && ms.ready() && jsmd.ready() );
+  const handle = Meteor.subscribe('JobStreetMeta');
+  
+  Tracker.autorun(() => {
+    // const isReady = handle.ready();
+    // console.log(`Handle is ${isReady ? 'ready' : 'not ready'}`);  
+    self.ready.set(handle.ready());
   });
+
+  // Tracker.autorun(() => {
+      // Meteor.subscribe('');
+      // this.subscribe('JobStreetMeta');
+      // this.subscribe('JobStreetMeta');
+  // });
+
+
+
+  // var template = Template.instance();
+
+  // Tracker.autorun(function() {
+    // var jss = SubManager.subscribe( 'JobStreetSources' );
+    // var ms = SubManager.subscribe( 'MonsterSources' );
+    // var jsmd = SubManager.subscribe( 'JobStreetMeta' );
+    // self.ready.set(jss.ready() && ms.ready() && jsmd.ready() );
+  // });
 });
 
 Template.export.onRendered( () => {
+
 });
 Template.export.helpers({
-	foo: function () {
-		// ...
+	stillLoadingData: function () {
+    console.log(Template.instance());
+    return false;
 	}
 });
 
 Template.export.events({
-	'click #js-download-query': function () {
+	'click #js-download-query': function (event) {
     if (!AutoForm.validateForm('exportOptionsForm')) {
       GlobalUI.toast( 'There was an error processing your query. Please check for missing fields.', 'danger' );
     } else {
@@ -341,6 +359,9 @@ Template.export.events({
       if (doc.jsListedIndustry){
         query.jsListedIndustry = doc.jsListedIndustry;
       }
+      if (doc.jsListedSpec){
+        query.jsListedSpec = doc.jsListedSpec;
+      }
       if (doc.jsListedRole){
         query.jsListedRole = doc.jsListedRole;
       }
@@ -361,11 +382,17 @@ Template.export.events({
         });
       }
 
+      // console.log(event.currentTarget);
+      event.currentTarget.disabled = true;
+
+      GlobalUI.toast( 'Calculating results, please wait a few seconds...');
+
       console.log(query);
   		console.log(modifier);
   		Meteor.call('exportOptionsQuery',query,modifier, function(error, response) {
   		    if (error) {
   		        GlobalUI.toast( 'Error: ' + error.reason, 'danger' );
+              event.currentTarget.disabled = false;
   		    } else {
               AutoForm.resetForm('exportOptionsForm');
               GlobalUI.toast( 'Success! Downloading your query...', 'success' );

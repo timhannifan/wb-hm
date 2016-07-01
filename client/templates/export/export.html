@@ -2,14 +2,16 @@
   <div class="page-header">
     <h1 class="title">Exports</h1>
   </div>
+  {{#if stillLoadingData}}
+    {{> loading}}
+  {{else}}
 
   <section class="flex">
     <!-- <span class="section-header">About</span> -->
-    <p>Use the form below to build a data query for JobStreet and Monster data. Exports are limited to 19MB, which is roughly 5,000 job listings. A CSV fill be will automatically downloaded to your browser window.</p>
+    <p>Use the form below to build a query for the JobStreet and Monster databases. Queries are limited to 10,000 results per CSV file. Results will be automatically downloaded to your browser window.</p>
 
     {{#autoForm schema="ExportSchema" type="method" meteormethod="exportOptionsQuery" id="exportOptionsForm"}}
       <div class="layout vertical">
-        <!-- <h4>Select a collection to be exported.</h4> -->
         <h4>Collection and Date Range</h4>
         <div class="layout horizontal wrap start-justified">
           <div class="item">{{> afQuickField name="collection"}}</div>
@@ -18,35 +20,36 @@
         </div>
 
         {{#if afFieldValueIs name="collection" value="JobStreetItems"}}
-          <h4>Collection Filters</h4>
-          <p>Use the filters below to match job listing properties. Select multiple items within each list by using the command key. If no properties are selected, all job listings will be exported by default. 
+          
+            <h4>Collection Filters</h4>
+            <p>Use the filters below to match job listing properties. Select multiple items within each list by using the command key. If no properties are selected, all job listings will be exported by default. 
 
-          Selections across different properties will be process as 'and'. For example, selecting "Entry Level" and "Kuala Lampur" will export listings matching both conditions. Multiple selections within a property will be processed as an 'or'. For example, selecting "Entry Level" and "Junior Executive" will export listings matching either condition.</p>
+            Selections across different properties will be process as 'and'. For example, selecting "Entry Level" and "Kuala Lampur" will export listings matching both conditions. Multiple selections within a property will be processed as an 'or'. For example, selecting "Entry Level" and "Junior Executive" will export listings matching either condition.</p>
 
-          <div class="layout horizontal wrap start-justified">
-            <div class="item">{{> afQuickField name="jsParentCategory" }} </div>
-            <div class="item">{{> afQuickField name="jsSubSpecialization" }} </div>
-          </div>
-          <div class="layout horizontal wrap start-justified">
-            <div class="item">{{> afQuickField name="jsListedIndustry" }}</div>
-            <div class="item">{{> afQuickField name="jsListedSpec" }}</div>
-          </div>          
-          <div class="layout horizontal wrap start-justified">
-            <div class="item">{{> afQuickField name="jsListedRole" }}</div>
-            <div class="item">{{> afQuickField name="jsAltIndustry" }}</div>
-          </div>
-          <div class="layout horizontal wrap start-justified">
-            <div class="item">{{> afQuickField name="jsExperience" }}</div>
-            <div class="item">{{> afQuickField name="jsLocation" }}</div>
-          </div> 
+            <div class="layout horizontal wrap start-justified">
+              <div class="item">{{> afQuickField name="jsParentCategory" }} </div>
+              <div class="item">{{> afQuickField name="jsSubSpecialization" }} </div>
+            </div>
+            <div class="layout horizontal wrap start-justified">
+              <div class="item">{{> afQuickField name="jsListedIndustry" }}</div>
+              <div class="item">{{> afQuickField name="jsListedSpec" }}</div>
+            </div>          
+            <div class="layout horizontal wrap start-justified">
+              <div class="item">{{> afQuickField name="jsListedRole" }}</div>
+              <div class="item">{{> afQuickField name="jsAltIndustry" }}</div>
+            </div>
+            <div class="layout horizontal wrap start-justified">
+              <div class="item">{{> afQuickField name="jsExperience" }}</div>
+              <!-- <div class="item">{{> afQuickField name="jsLocation" }}</div> -->
+            </div> 
 
-          <h4>Collection Fields</h4>
-          <p>Select which fields from each JobStreet listing to export. Fields are mapped to column headers in the CSV file.</p>  
-          <div class="layout horizontal wrap start-justified">{{> afQuickField name="jobStreetFields"}}</div>
+            <h4>Collection Fields</h4>
+            <p>Select which fields from each JobStreet listing to export. Fields are mapped to column headers in the CSV file.</p>  
+            <div class="layout horizontal wrap start-justified">{{> afQuickField name="jobStreetFields"}}</div>
 
-          <div class="fab-container layout vertical">
-              <paper-fab mini id="js-download-query" icon="file-download" title="Download" class="action-fab" style="margin-top: 10px;"></paper-fab>
-          </div>
+            <div class="fab-container layout vertical">
+                <paper-fab mini id="js-download-query" icon="file-download" title="Download" class="action-fab" style="margin-top: 10px;"></paper-fab>
+            </div>
         {{/if}}
 
         {{#if afFieldValueIs name="collection" value="MonsterItems"}}        
@@ -61,4 +64,5 @@
       </div>
     {{/autoForm}}
   </section>
+  {{/if}}
 </template>
