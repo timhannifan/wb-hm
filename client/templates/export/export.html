@@ -9,28 +9,53 @@
 
     {{#autoForm schema="ExportSchema" type="method" meteormethod="exportOptionsQuery" id="exportOptionsForm"}}
       <div class="layout vertical">
-
-        <div class="layout horizontal start-justified">
-          {{> afQuickField name="collection"}}
+        <!-- <h4>Select a collection to be exported.</h4> -->
+        <h4>Collection and Date Range</h4>
+        <div class="layout horizontal wrap start-justified">
+          <div class="item">{{> afQuickField name="collection"}}</div>
+          <div class="item">{{> afFormGroup name="startDate"}}</div>
+          <div class="item">{{> afFormGroup name="endDate"}}</div>
         </div>
 
-        <div class="layout horizontal start-justified">
         {{#if afFieldValueIs name="collection" value="JobStreetItems"}}
-          {{> afQuickField name="jobStreetFields"}}
+          <h4>Collection Filters</h4>
+          <p>Filters are applied as an AND condition. Select multiple items within each list by using the command key.</p>
+
+          <div class="layout horizontal wrap start-justified">
+            <div class="item">{{> afQuickField name="jsParentCategory" }} </div>
+            <div class="item">{{> afQuickField name="jsSubSpecialization" }} </div>
+          </div>
+          <div class="layout horizontal wrap start-justified">
+            <div class="item">{{> afQuickField name="jsListedIndustry" }}</div>
+            <div class="item">{{> afQuickField name="jsListedSpec" }}</div>
+          </div>          
+          <div class="layout horizontal wrap start-justified">
+            <div class="item">{{> afQuickField name="jsListedRole" }}</div>
+            <div class="item">{{> afQuickField name="jsAltIndustry" }}</div>
+          </div>
+          <div class="layout horizontal wrap start-justified">
+            <div class="item">{{> afQuickField name="jsExperience" }}</div>
+            <div class="item">{{> afQuickField name="jsLocation" }}</div>
+          </div> 
+
+          <h4>Collection Fields</h4>
+          <p>Select which fields from each JobStreet listing to export. Fields are mapped to column headers in the CSV file.</p>  
+          <div class="layout horizontal wrap start-justified">{{> afQuickField name="jobStreetFields"}}</div>
+
+          <div class="fab-container layout vertical">
+              <paper-fab mini id="js-download-query" icon="file-download" title="Download" class="action-fab" style="margin-top: 10px;"></paper-fab>
+          </div>
         {{/if}}
-        </div>
-        <div class="layout horizontal start-justified">
-          {{#if afFieldValueIs name="collection" value="MonsterItems"}}
+
+        {{#if afFieldValueIs name="collection" value="MonsterItems"}}        
+          <!-- <div class="layout horizontal wrap start-justified">
             {{> afQuickField name="monsterFields"}}
-          {{/if}}
-        </div>
-        <div class="layout horizontal start-justified">
-          <div>{{> afFormGroup name="startDate"}}</div>
-          <div style="margin-left: 15px;">{{> afFormGroup name="endDate"}}</div>
-        </div>
-        <div class="layout horizontal end-justified">
-          <paper-button raised id="js-download-query">Download</paper-button>
-        </div>
+          </div> -->
+          <div class="fab-container layout vertical">
+            <paper-fab mini id="js-download-query" icon="file-download" title="Download" class="action-fab" style="margin-top: 10px;"></paper-fab>
+          </div>
+        {{/if}}
+
       </div>
     {{/autoForm}}
   </section>

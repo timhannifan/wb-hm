@@ -2,6 +2,8 @@
 
 JobStreetSources = new Mongo.Collection('JobStreetSources');
 JobStreetItems = new Mongo.Collection('JobStreetItems');
+JobStreetCounts = new Mongo.Collection('JobStreetCounts');
+JobStreetMeta = new Mongo.Collection('JobStreetMeta');
 
 // JobStreetSources Schema and Permissions
 JobStreetSources.schema = new SimpleSchema({
@@ -245,6 +247,17 @@ JobStreetItems.publicFields = {
   datePosted: 1,
   dateClosing: 1,
   createdAt: 1
+};
+
+JobStreetItems.filterableFields = {
+  location: 1,
+  experience: 1,
+  companySnapIndustry: 1,
+  parentCategory: 1,
+  subSpecialization: 1,
+  listedSpec: 1,
+  listedRole: 1,
+  listedIndustry: 1
 };
 
 

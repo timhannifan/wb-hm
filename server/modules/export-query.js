@@ -33,15 +33,20 @@ let _compileQueryZip = ( archive, collection, query, modifier) => {
     'JobStreetItems': JobStreetItems,
     'MonsterItems': MonsterItems
   };
-  _prepareQueryData( archive, collectionFinder[collection], 'csv', collection+'-custom-query.csv');
+  _prepareQueryData( archive, collectionFinder[collection], 'csv', collection+'-export.csv', query, modifier  );
 };
-let _prepareQueryData = ( archive, collection, type, fileName ) => {
-  let data          = collection instanceof Mongo.Collection ? _getDataFromCollection( collection ) : collection,
+let _prepareQueryData = ( archive, collection, type, fileName, query, modifier ) => {
+  let data          = collection instanceof Mongo.Collection ? _getDataFromCollection( collection, query, modifier ) : collection,
       formattedData = _formatQueryData[ type ]( data );
   _addFileToZipArchive( archive, fileName, formattedData );
 };
-let _getDataFromCollection = ( collection ) => {
-  let data = collection.find( {} ).fetch();
+let _getDataFromCollection = ( collection, query, modifier ) => {
+  console.log('inside _getDataFromCollection with query ');
+  console.dir(query);
+  console.log('inside _getDataFromCollection with modifier ');
+  console.dir(modifier);
+  
+  let data = collection.find( query, modifier ).fetch();
   if ( data ) {
     return data;
   }

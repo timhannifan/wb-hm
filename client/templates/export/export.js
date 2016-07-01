@@ -2,7 +2,7 @@ ExportSchema = new SimpleSchema({
   collection: {
   	type: String,
   	optional: false,
-  	label: 'Select a collection',
+  	label: "Collection",
   	autoform: {
   	  type: "select",
   	  options: function () {
@@ -15,17 +15,16 @@ ExportSchema = new SimpleSchema({
   	  }
   	},
   	// defaultValue: "JobStreetItems"
-
   },
   jobStreetFields: {
   	type: [String],
   	optional: true,
-  	label: 'Select available fields',
+  	label: 'Exportable Fields',
   	autoform: {
   	  type: "select-checkbox",
   	  options: function () {
         var fieldsArray = Object.keys(JobStreetItems.publicFields);
-        console.log(fieldsArray);
+        // console.log(fieldsArray);
 
         var result = fieldsArray.map(function(el){ 
            var rObj = {};
@@ -41,7 +40,7 @@ ExportSchema = new SimpleSchema({
   monsterFields: {
   	type: [String],
   	optional: true,
-  	label: 'Select fields to be exported',
+  	label: 'Select which columns to export:',
   	autoform: {
   	  type: "select-checkbox",
   	  options: function () {
@@ -55,29 +54,249 @@ ExportSchema = new SimpleSchema({
   },
   startDate: {
     type: Date,
-    optional: false,
-    label: 'Start Date',
+    optional: true,
+    label: 'Starting',
     autoform: {
       afFieldInput: {
         type: "date"
       }
     },
     custom: function () {
-      if (this.value > this.field('endDate').value) {
+      if (!!this.value && (this.value > this.field('endDate').value)) {
         return "daterangeMismatch";
       }
-    }
+    },
+    // defaultValue: null
   },
   endDate: {
     type: Date,
-    optional: false,
-    label: 'End Date',
+    optional: true,
+    label: 'Ending',
     autoform: {
       afFieldInput: {
         type: "date"
       }
     },
+    // defaultValue: null
+  },
+  // jobStreetFilterableFields: {
+  //   type: [String],
+  //   optional: true,
+  //   label: "Filterable Fields",
+  //   autoform: {
+  //     type: "select-checkbox",
+  //     options: function () {
+  //       var fieldsArray = Object.keys(JobStreetItems.filterableFields);
+  //       console.log('filterableFields' + fieldsArray);
+
+  //       var result = fieldsArray.map(function(el){ 
+  //          var rObj = {};
+  //          rObj['label'] = el;
+  //          rObj['value'] = el;
+  //          return rObj;
+  //       });
+
+  //       // console.log(result)
+  //       return result;
+  //     }
+  //   }
+  // },
+  jsParentCategory: {
+    type: [String],
+    optional: true,
+    label: "JobStreet Parent Category",
+    autoform: {
+      type: "select-multiple",
+      options: function () {
+        let data = JobStreetMeta.find( {type: "parentCategory"}, { fields: { name: 1 }, sort: { name: 1 }} );
+        if ( data ) {
+          var uniques = _.uniq( data.map( ( item ) => {
+            return item.name;
+          }), true );
+
+          console.log(uniques);
+
+          var res = [];
+          for (var i = 0; i < uniques.length; i++) {
+            res.push({label: uniques[i], value: uniques[i]});
+          }
+          return res;
+        }
+      }
+    }
+  },
+  jsSubSpecialization: {
+    type: [String],
+    optional: true,
+    label: "JobStreet Sub-Specialization",
+    autoform: {
+      type: "select-multiple",
+      options: function () {
+        let data = JobStreetMeta.find( {type: "subSpecialization"}, { fields: { name: 1 }, sort: { name: 1 }} );
+        if ( data ) {
+          var uniques = _.uniq( data.map( ( item ) => {
+            return item.name;
+          }), true );
+
+          var res = [];
+          for (var i = 0; i < uniques.length; i++) {
+            res.push({label: uniques[i], value: uniques[i]});
+          }
+          return res;
+        }
+      }
+    }
+    // autoform: {
+    //   type: "select-multiple",
+    //   options: function () {
+    //     let data = JobStreetSources.find( {}, { fields: { sourceSpecialization: 1 }, sort: { sourceSpecialization: 1 }} );
+    //     if ( data ) {
+    //       var uniques = _.uniq( data.map( ( item ) => {
+    //         return item.sourceSpecialization;
+    //       }), true );
+
+    //       var res = [];
+    //       for (var i = 0; i < uniques.length; i++) {
+    //         res.push({label: uniques[i], value: uniques[i]});
+    //       }
+    //       return res;
+    //     }
+    //   }
+    // }    
+  },
+  jsListedIndustry: {
+    type: [String],
+    optional: true,
+    label: "Industry",
+    autoform: {
+      type: "select-multiple",
+      options: function () {
+        let data = JobStreetMeta.find( {type: "listedIndustry"}, { fields: { name: 1 }, sort: { name: 1 }} );
+        if ( data ) {
+          var uniques = _.uniq( data.map( ( item ) => {
+            return item.name;
+          }), true );
+
+          var res = [];
+          for (var i = 0; i < uniques.length; i++) {
+            res.push({label: uniques[i], value: uniques[i]});
+          }
+          return res;
+        }
+      }
+    }   
+  },
+  jsListedSpec: {
+    type: [String],
+    optional: true,
+    label: "Industry Specialization",
+    autoform: {
+      type: "select-multiple",
+      options: function () {
+        let data = JobStreetMeta.find( {type: "listedSpec"}, { fields: { name: 1 }, sort: { name: 1 }} );
+        if ( data ) {
+          var uniques = _.uniq( data.map( ( item ) => {
+            return item.name;
+          }), true );
+
+          var res = [];
+          for (var i = 0; i < uniques.length; i++) {
+            res.push({label: uniques[i], value: uniques[i]});
+          }
+          return res;
+        }
+      }
+    }   
+  },
+  jsListedRole: {
+    type: [String],
+    optional: true,
+    label: "Role",
+    autoform: {
+      type: "select-multiple",
+      options: function () {
+        let data = JobStreetMeta.find( {type: "listedRole"}, { fields: { name: 1 }, sort: { name: 1 }} );
+        if ( data ) {
+          var uniques = _.uniq( data.map( ( item ) => {
+            return item.name;
+          }), true );
+
+          var res = [];
+          for (var i = 0; i < uniques.length; i++) {
+            res.push({label: uniques[i], value: uniques[i]});
+          }
+          return res;
+        }
+      }
+    }    
+  },
+  jsExperience: {
+    type: [String],
+    optional: true,
+    label: "Experience",
+    autoform: {
+      type: "select-multiple",
+      options: function () {
+        let data = JobStreetMeta.find( {type: "experience"}, { fields: { name: 1 }, sort: { name: 1 }} );
+        if ( data ) {
+          var uniques = _.uniq( data.map( ( item ) => {
+            return item.name;
+          }), true );
+
+          var res = [];
+          for (var i = 0; i < uniques.length; i++) {
+            res.push({label: uniques[i], value: uniques[i]});
+          }
+          return res;
+        }
+      }
+    }    
+  },
+  jsLocation: {
+    type: [String],
+    optional: true,
+    label: "Location",
+    autoform: {
+      type: "select-multiple",
+      options: function () {
+        let data = JobStreetMeta.find( {type: "location"}, { fields: { name: 1 }, sort: { name: 1 }} );
+        if ( data ) {
+          var uniques = _.uniq( data.map( ( item ) => {
+            return item.name;
+          }), true );
+
+          var res = [];
+          for (var i = 0; i < uniques.length; i++) {
+            res.push({label: uniques[i], value: uniques[i]});
+          }
+          return res;
+        }
+      }
+    }    
+  },
+  jsAltIndustry: {
+    type: [String],
+    optional: true,
+    label: "Alt. Industry",
+    autoform: {
+      type: "select-multiple",
+      options: function () {
+        let data = JobStreetMeta.find( {type: "companySnapIndustry"}, { fields: { name: 1 }, sort: { name: 1 }} );
+        if ( data ) {
+          var uniques = _.uniq( data.map( ( item ) => {
+            return item.name;
+          }), true );
+
+          var res = [];
+          for (var i = 0; i < uniques.length; i++) {
+            res.push({label: uniques[i], value: uniques[i]});
+          }
+          return res;
+        }
+      }
+    }     
   }
+
 });
 
 AutoForm.hooks({
@@ -100,6 +319,16 @@ AutoForm.hooks({
 });
 
 Template.export.onCreated( () => {
+  var self = this;
+  self.ready = new ReactiveVar();
+
+  Tracker.autorun(function() {
+    var template = Template.instance();
+    var jss = SubManager.subscribe( 'JobStreetSources' );
+    var ms = SubManager.subscribe( 'MonsterSources' );
+    var jsmd = SubManager.subscribe( 'JobStreetMeta' );
+    self.ready.set(jss.ready() && ms.ready() && jsmd.ready() );
+  });
 });
 
 Template.export.onRendered( () => {
@@ -128,11 +357,10 @@ Template.export.events({
         query.endDate = doc.endDate;
       }
       if (doc.jobStreetFields){
-        modifier.fields = doc.jobStreetFields.map(function(el){
-          var rObj = {};
-          rObj[el] = 1;
+        modifier.fields = {};
 
-          return rObj;
+        doc.jobStreetFields.forEach(function(el){
+          modifier.fields[el] = 1;
         });
       }
 

@@ -2,8 +2,6 @@ Template.skillsDb.onCreated( () => {
     var self = this;
     self.ready = new ReactiveVar();
 
-
-
     Tracker.autorun(function() {
       var template = Template.instance();
       // template.parentCategory = new ReactiveVar( 'all' );
