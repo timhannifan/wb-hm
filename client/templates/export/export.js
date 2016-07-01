@@ -79,28 +79,6 @@ ExportSchema = new SimpleSchema({
     },
     // defaultValue: null
   },
-  // jobStreetFilterableFields: {
-  //   type: [String],
-  //   optional: true,
-  //   label: "Filterable Fields",
-  //   autoform: {
-  //     type: "select-checkbox",
-  //     options: function () {
-  //       var fieldsArray = Object.keys(JobStreetItems.filterableFields);
-  //       console.log('filterableFields' + fieldsArray);
-
-  //       var result = fieldsArray.map(function(el){ 
-  //          var rObj = {};
-  //          rObj['label'] = el;
-  //          rObj['value'] = el;
-  //          return rObj;
-  //       });
-
-  //       // console.log(result)
-  //       return result;
-  //     }
-  //   }
-  // },
   jsParentCategory: {
     type: [String],
     optional: true,
@@ -296,7 +274,6 @@ ExportSchema = new SimpleSchema({
       }
     }     
   }
-
 });
 
 AutoForm.hooks({
@@ -314,7 +291,6 @@ AutoForm.hooks({
 		console.log(error);
     },
     beginSubmit: function() {},
-	endSubmit: function() {}
   }
 });
 
@@ -342,7 +318,7 @@ Template.export.helpers({
 Template.export.events({
 	'click #js-download-query': function () {
     if (!AutoForm.validateForm('exportOptionsForm')) {
-      GlobalUI.toast( 'Your request could not be processed. Please check for missing fields.', 'danger' );
+      GlobalUI.toast( 'There was an error processing your query. Please check for missing fields.', 'danger' );
     } else {
   		var form = AutoForm.getFormValues('exportOptionsForm'),
   		doc = form.insertDoc,
@@ -355,6 +331,27 @@ Template.export.events({
       }
       if (doc.endDate){
         query.endDate = doc.endDate;
+      }
+      if (doc.jsParentCategory){
+        query.jsParentCategory = doc.jsParentCategory;
+      }
+      if (doc.jsSubSpecialization){
+        query.jsSubSpecialization = doc.jsSubSpecialization;
+      }
+      if (doc.jsListedIndustry){
+        query.jsListedIndustry = doc.jsListedIndustry;
+      }
+      if (doc.jsListedRole){
+        query.jsListedRole = doc.jsListedRole;
+      }
+      if (doc.jsAltIndustry){
+        query.jsAltIndustry = doc.jsAltIndustry;
+      }
+      if (doc.jsExperience){
+        query.jsExperience = doc.jsExperience;
+      }
+      if (doc.jsLocation){
+        query.jsLocation = doc.jsLocation;
       }
       if (doc.jobStreetFields){
         modifier.fields = {};
@@ -381,32 +378,4 @@ Template.export.events({
   		});
     }
 	}
-	// 'click .export-data-sync-limit': function ( event, template ) {
-	//   var el = $(event.target);
-	//   console.log(el);
-	//   // console.log(el[0].attributes['data-start'].value);
-	//   // console.log(el[0].attributes['data-end'].value);
-
-	//   var start = el[0].attributes['data-start'].value;
-	//   var end = el[0].attributes['data-end'].value;
-
-	//   // console.log(event.target);
-	//   let options = {
-	//     limit: 5000,
-	//     skip: Number(start)
-	//   };
-
-
-	//   Meteor.call( 'exportDataSync', options , ( error, response ) => {
-	//     if ( error ) {
-	//       GlobalUI.toast.alert( error.reason, 'warning' );
-	//     } else {
-	//       if ( response ) {
-	//         console.log('received a resonse');
-	//         let blob = Modules.client.convertBase64ToBlob( response );
-	//         saveAs( blob, 'archiveSynch.zip' );
-	//       }
-	//     }
-	//   });
-	// }
 });

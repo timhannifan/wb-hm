@@ -200,8 +200,6 @@ function _runJobStreetMeta(){
     
     });
   };
-
-
 };
 
 Meteor.startup(function () {

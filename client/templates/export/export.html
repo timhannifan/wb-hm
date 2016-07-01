@@ -19,7 +19,9 @@
 
         {{#if afFieldValueIs name="collection" value="JobStreetItems"}}
           <h4>Collection Filters</h4>
-          <p>Filters are applied as an AND condition. Select multiple items within each list by using the command key.</p>
+          <p>Use the filters below to match job listing properties. Select multiple items within each list by using the command key. If no properties are selected, all job listings will be exported by default. 
+
+          Selections across different properties will be process as 'and'. For example, selecting "Entry Level" and "Kuala Lampur" will export listings matching both conditions. Multiple selections within a property will be processed as an 'or'. For example, selecting "Entry Level" and "Junior Executive" will export listings matching either condition.</p>
 
           <div class="layout horizontal wrap start-justified">
             <div class="item">{{> afQuickField name="jsParentCategory" }} </div>
