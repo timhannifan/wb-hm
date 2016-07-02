@@ -2,7 +2,8 @@
 
 JobStreetSources = new Mongo.Collection('JobStreetSources');
 JobStreetItems = new Mongo.Collection('JobStreetItems');
-JobStreetCounts = new Mongo.Collection('JobStreetCounts');
+JobStreetParentCategoryCounts = new Mongo.Collection('JobStreetParentCategoryCounts');
+JobStreetSubSpecializationCounts = new Mongo.Collection('JobStreetSubSpecializationCounts');
 JobStreetMeta = new Mongo.Collection('JobStreetMeta');
 
 // JobStreetSources Schema and Permissions

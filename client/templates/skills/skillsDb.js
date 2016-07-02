@@ -1,65 +1,87 @@
+
 Template.skillsDb.onCreated( () => {
-    var self = this;
-    self.ready = new ReactiveVar();
+  var self = this;
+  self.ready = new ReactiveVar();
 
-    Tracker.autorun(function() {
-      var template = Template.instance();
-      // template.parentCategory = new ReactiveVar( 'all' );
-      // template.subSpecialization  = new ReactiveVar( 'all' );
-      // template.listedSpecialization  = new ReactiveVar( 'all' );
-      // template.listedRole  = new ReactiveVar( 'all' );
-      // template.listedIndustry  = new ReactiveVar( 'all' );
-      // template.experience  = new ReactiveVar( 'all' );
-      // template.location  = new ReactiveVar( 'all' );
-      // template.totalCount  = new ReactiveVar();
-      // template.filters = {};
-
-      var jss = SubManager.subscribe( 'JobStreetSources' );
-      var stats = SubManager.subscribe( 'skillsAggregations',{} );
-      var skills = SubManager.subscribe( 'skills' );
-      self.ready.set(jss.ready() && stats.ready() && skills.ready());
-    });
+  const aggHandle = Meteor.subscribe('SkillsAggregations');
+  const skillsHandle = Meteor.subscribe('skills');
+  
+  Tracker.autorun(() => {
+    const isReady = aggHandle.ready() && skillsHandle.ready();
+    console.log(`SkillsDb is ${isReady ? 'ready' : 'not ready'}`);  
+    self.ready.set(isReady);
+  });
 });
 
+
+
+// Template.skillsDb.onCreated( () => {
+//     var self = this;
+//     self.ready = new ReactiveVar();
+
+//     Tracker.autorun(function() {
+//       var template = Template.instance();
+//       // template.parentCategory = new ReactiveVar( 'all' );
+//       // template.subSpecialization  = new ReactiveVar( 'all' );
+//       // template.listedSpecialization  = new ReactiveVar( 'all' );
+//       // template.listedRole  = new ReactiveVar( 'all' );
+//       // template.listedIndustry  = new ReactiveVar( 'all' );
+//       // template.experience  = new ReactiveVar( 'all' );
+//       // template.location  = new ReactiveVar( 'all' );
+//       // template.totalCount  = new ReactiveVar();
+//       // template.filters = {};
+
+//       // var jss = SubManager.subscribe( 'JobStreetSources' );
+//       // var stats = SubManager.subscribe( 'skillsAggregations',{} );
+//       // var skills = SubManager.subscribe( 'skills' );
+//       // self.ready.set(jss.ready() && stats.ready() && skills.ready());
+//     });
+// });
+
 Template.skillsDb.helpers({
-	skills: function () {
-		var data = Skills.find({},{sort: {parsed_keyword: 1}});
+	// skills: function () {
+	// 	var data = Skills.find({},{sort: {parsed_keyword: 1}});
 
-		var reformattedArray = data.map(function(obj, index, cursor){ 
-		   var rObj = {};
-		   rObj._id = obj._id;
-		   rObj.rank = index + 1;
-		   rObj.skill_keyword = obj.skill_keyword;
-		   rObj.parsed_keyword = obj.parsed_keyword;
-		   rObj.type = obj.type;
-		   rObj.count = function(){
-		   	return JobStreetItems.find({ 'trackedSkills.skillId': obj._id}).count();
-		   };
-		   return rObj;
-		});
+	// 	var reformattedArray = data.map(function(obj, index, cursor){ 
+	// 	   var rObj = {};
+	// 	   rObj._id = obj._id;
+	// 	   rObj.rank = index + 1;
+	// 	   rObj.skill_keyword = obj.skill_keyword;
+	// 	   rObj.parsed_keyword = obj.parsed_keyword;
+	// 	   rObj.type = obj.type;
+	// 	   rObj.count = function(){
+	// 	   	return JobStreetItems.find({ 'trackedSkills.skillId': obj._id}).count();
+	// 	   };
+	// 	   return rObj;
+	// 	});
 
-		return reformattedArray;
-	},
+	// 	return reformattedArray;
+	// },
 	tableItems() {
-	  let tableItems = SkillsAggregations.find().fetch();
+	  let tableItems = Skills.find({},{sort: {
+	  	parsed_keyword: 1
+	  }}).fetch();
 
 	  if ( tableItems ) {
 	  
-	  var mapped = tableItems.map( ( item, index, cursor ) => {
-	  	// console.log(item);
-	    return {
-	      index: index,
-	      skillKeyword: item.skillKeyword,
-	      skillId: item.skillId,
-	      total: +`${ item.total }`
-	    };
-	  });  
+	  // var mapped = tableItems.map( ( item, index, cursor ) => {
+	  // 	// console.log(item);
+	  //   // return {
+	  //   //   index: index,
+	  //   //   skillKeyword: item.skillKeyword,
+	  //   //   skillId: item.skillId,
+	  //   //   total: +`${ item.total }`
+	  //   // };
+	  //   return item;
+	  // });  
 	  
-	  return mapped.sort(function(a, b) {
-	    return b.total-a.total;
-	  });
-
-	  } 
+	  // return tableItems.sort(function(a, b) {
+	  //   return b.parsed_keyword-a.parsed_keyword;
+	  // });
+	  return tableItems;
+	  } else {
+	  	return [];
+	  }
 	},
 	findSkillType(string) {
 		var data = Skills.findOne({parsed_keyword: string});
@@ -75,9 +97,9 @@ Template.skillsDb.helpers({
 			return data.lastUpdated;
 		}
 	},
-	skillContext(_id){
-		return Skills.findOne({_id: _id});
-	}
+	// skillContext(_id){
+	// 	return Skills.findOne({_id: _id});
+	// }
 });
 
 Template.skillsDb.onRendered( () => {
@@ -88,14 +110,16 @@ Template.skillsDb.events({
 	'click #js-delete-skill': function(event, template){
 		event.preventDefault();
 
-		if (confirm('Are you sure you want to delete '+ this.skillKeyword+ '?' )) {
+		let keyword = this.parsed_keyword;
+
+		if (confirm('Are you sure you want to delete "'+ keyword+ '" from the Skills DB?' )) {
 		    
-		    Meteor.call('deleteSkill', this.skillId,  function(error, response) {
+		    Meteor.call('deleteSkill', this._id,  function(error, response) {
 		    	if (error) {
 		    		GlobalUI.toast('Error' + error.reason);
 		    		// console.log(error.reason);
 		    	} else {
-		    		GlobalUI.toast('Skill deleted');
+		    		GlobalUI.toast('"' + keyword +'" has been removed.');
 
 		    	}
 		    });
@@ -134,21 +158,21 @@ Template.skillsDb.events({
 		})
 	},
 
-	// 'change [name=upload]': function( event, template ) {
+	'change [name=upload]': function( event, template ) {
 
-	//   Papa.parse( event.target.files[0], {
-	//     header: true,
-	//     complete: function( results, file ) {
-	//       var insertArray = results.data;
-	//       for (var i = 0; i < insertArray.length; i++) {
-	//         Meteor.call('insertSkill',insertArray[i], function(err,res) {
-	//           if (res) {
-	//             console.log('inserted skill' + insertArray[i].type + insertArray[i].skill_keyword);
-	//           }
-	//         });
-	//       }
-	//     }
-	//   });
+	  Papa.parse( event.target.files[0], {
+	    header: true,
+	    complete: function( results, file ) {
+	      var insertArray = results.data;
+	      for (var i = 0; i < insertArray.length; i++) {
+	        Meteor.call('insertSkill',insertArray[i], function(err,res) {
+	          if (res) {
+	            console.log('inserted skill' + insertArray[i].type + insertArray[i].skill_keyword);
+	          }
+	        });
+	      }
+	    }
+	  });
 
-	// },
+	}
 });

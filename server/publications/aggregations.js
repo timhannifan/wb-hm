@@ -1,4 +1,3 @@
-Meteor.publish('skillsAggregations', function(filter) {
-	console.dir(filter);
+Meteor.publish('SkillsAggregations', function(filter) {
 	return SkillsAggregations.find();
 });

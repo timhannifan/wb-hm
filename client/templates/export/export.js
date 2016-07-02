@@ -304,27 +304,8 @@ Template.export.onCreated( () => {
     // console.log(`Handle is ${isReady ? 'ready' : 'not ready'}`);  
     self.ready.set(handle.ready());
   });
-
-  // Tracker.autorun(() => {
-      // Meteor.subscribe('');
-      // this.subscribe('JobStreetMeta');
-      // this.subscribe('JobStreetMeta');
-  // });
-
-
-
-  // var template = Template.instance();
-
-  // Tracker.autorun(function() {
-    // var jss = SubManager.subscribe( 'JobStreetSources' );
-    // var ms = SubManager.subscribe( 'MonsterSources' );
-    // var jsmd = SubManager.subscribe( 'JobStreetMeta' );
-    // self.ready.set(jss.ready() && ms.ready() && jsmd.ready() );
-  // });
 });
-
 Template.export.onRendered( () => {
-
 });
 Template.export.helpers({
 	stillLoadingData: function () {
