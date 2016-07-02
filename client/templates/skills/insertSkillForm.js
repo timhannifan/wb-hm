@@ -3,13 +3,6 @@ SkillSchema = new SimpleSchema({
     type: String,
     label: "Skill Type",
     optional: false
-    // autoform: {
-      // afFieldInput: {
-      //   options: function () {
-      //     //return options object
-      //   }
-      // }
-    // }
   },
   skill_keyword: {
     type: String,

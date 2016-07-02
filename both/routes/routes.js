@@ -115,28 +115,6 @@ Meteor.startup(function () {
       path: '/new-jobstreet-source',
       template:'new_jobstreet_source'
     });
-
-    this.route('mascoFour', {
-      path: '/masco-4',
-      template:'mascoFour',
-      waitOn: function() {
-        return Meteor.subscribe('MascoFour');
-      }
-    });
-    this.route('mascoFive', {
-      path: 'masco-5',
-      template:'mascoFive',
-      waitOn: function() {
-        return Meteor.subscribe('MascoFive');
-      }
-    });
-    this.route('mascoKey', {
-      path: '/masco-key',
-      template:'mascoKey',
-      waitOn: function() {
-        return Meteor.subscribe('MascoKey');
-      }
-    });
   });
   
 
