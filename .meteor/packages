@@ -51,15 +51,15 @@ linto:jquery-ui
 yaki-local
 fetch-local
 
+d3js:d3
+pfafman:filesaver
+
 # benjaminrh:jquery-cookie
 # twbs:bootstrap
 # mizzao:autocomplete
-# machine
-# d3js:d3
 # materialize:materialize
 # poetic:materialize-scss
 # gildaspk:autoform-materialize
-pfafman:filesaver
 # themeteorchef:bert
 # cfs:standard-packages
 # cfs:gridfs

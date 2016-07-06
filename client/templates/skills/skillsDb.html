@@ -23,19 +23,27 @@
 			<table class="" style="min-width: 500px;">
 				<thead class="">
 				    <tr>
-					    <th><h4>Skill</h4></th>
+					    <th><h4>Keyword</h4></th>
 					    <th><h4>Type</h4></th>
-					    <th><h4>Last Updated</h4></th>
+					    <th><h4>Began Tracking</h4></th>
+					    <th><h4>Matches</h4></th>
 				    	<th><h4>Delete</h4></th>
 				    </tr>
 				</thead>
 			    <tbody class="">
 				    {{#each tableItems}}
 				        <tr class="">
-						    <td><a href="{{pathFor 'keywordMatchList' _id=_id}}" title="">{{parsed_keyword}}</a></td>
+						    <td>{{parsed_keyword}}</td>
 						    <td>{{type}}</td>
-					        <td>{{ relativeTime lastUpdated }}</td>
-					        <td><iron-icon id="js-delete-skill" icon="delete" style="margin-left: 10px;color: black;height: 19px;"></iron-icon></td>
+					        <td>{{ relativeTime createdAt }}</td>
+					        <td>
+						        <a href="{{pathFor 'keywordMatchList' _id=_id}}" title="View Keyword Matches">
+							        <iron-icon icon="view-list" class="table-icon"></iron-icon>
+						        </a>
+					        </td>
+					        <td>
+						        <iron-icon id="js-delete-skill" icon="delete" class="table-icon"></iron-icon>
+					        </td>
 				        </tr>
 				    {{/each}}
 			    </tbody>

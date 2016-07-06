@@ -206,6 +206,11 @@ Meteor.startup(function () {
     template: 'export'
   });
 
+  Router.route('datavis', {
+    path: 'skills/data-visualisation',
+    template: 'datavis'
+  });
+
 
 
   Router.route('loading', {
