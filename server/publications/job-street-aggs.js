@@ -3,6 +3,11 @@ Meteor.publish('JSAggs',function(){
     JSAggs.find({})
   ];
 });
+Meteor.publish('JSAggs.filters',function(obj){
+  return [
+    JSAggs.find({})
+  ];
+});
 
 
 

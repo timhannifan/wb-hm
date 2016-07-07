@@ -32,3 +32,11 @@ Meteor.publish('Skills.byType',function(val){
 		return [];
 	}
 });
+Meteor.publish('Skills.types',function(){
+	if (this.userId) {
+		return Skills.find({},{fields: {type: 1}});
+	} else {
+		return [];
+	}
+
+});

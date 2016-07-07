@@ -81,22 +81,27 @@
 	<div id="tooltip" class="hidden">
 		<p><span id="value"></span></p>
 	</div>
-	<h4>Order:</h4>
-	<select id="order">
-  	<option value="by-cluster">by cluster</option>
-  	<option value="by-x-and-y">by x and y</option>
-  	<option value="by-y">by y</option>
-  	<option value="by-x">by x</option>
-  	<option value="custom">custom</option>
-	</select>
-  <h4>Skill Type</h4>
-  <select id="jsSkillType">
-    <option value="all">Select One</option>
-  {{#each skillTypes}}
-    <option value="{{this}}">{{this}}</option>
-  {{/each}}
-  </select>
-
+  <div class="layout horizontal wrap">
+    <div>
+      <h4>Order:</h4>
+      <select id="order">
+        <option value="by-cluster">by cluster</option>
+        <option value="by-x-and-y">by x and y</option>
+        <option value="by-y">by y</option>
+        <option value="by-x">by x</option>
+        <option value="custom">custom</option>
+      </select>    
+    </div>
+    <div>
+      <h4>Skill Type</h4>
+      <select id="jsSkillType">
+        <option value="all">Select One</option>
+      {{#each skillTypes}}
+        <option value="{{this}}">{{this}}</option>
+      {{/each}}
+      </select>      
+    </div>
+  </div>
 	<div id="chart" style='overflow:auto; width:960px; height:900px;'></div>	
 
 </template>

@@ -118,18 +118,9 @@ Meteor.startup(function () {
   });
   
 
-  Router.route('skillsSummary', {
-    path: '/skills/summary',
-    template:'skillsSummary',
-    // subscriptions: function() {
-    //   return [
-    //     // Meteor.subscribe('trackedSkillsCounts'),
-    //     Meteor.subscribe('skillsAggregations')
-    //   ];
-    // },
-    // data: function () {
-    //   return JobStreetItems.findOne({_id: this.params._id});
-    // },
+  Router.route('topSkills', {
+    path: '/skills/top',
+    template:'topSkills',
     action: function () {
       if (this.ready()) {
         this.render();

@@ -1,0 +1,84 @@
+<template name="topSkills">
+	<div class="page-header">
+		<h1 class="title">Top Skills</h1>
+	</div>
+
+  <section class="layout vertical">
+    <h4>About</h4>
+    <p>The skills database contains a list of keywords that represent desirable behavioral and technical skills. All existing JobStreet listings have been searched for lowercase instances within the description tags.  Future listings will be classified as they are added to the JobStreet DB. High-level results are available in the 'Aggregated Stats' section within the main menu bar.</p>  
+		  	<paper-material class="layout vertical">
+			  	<h5>Table Filters</h5>
+			  	<div class="layout horizontal wrap">
+			  		<select data-filter class="form-control" name="industry">
+		  		        <option value="all">parentCategory</option>
+		  		        {{#each parentCategories}}
+		  		          <option value="{{this}}">{{this}}</option>
+		  		        {{/each}}
+		  		    </select>
+              <select data-filter class="form-control" name="subSpecialization">
+                <option value="all">subSpecialization</option>
+                {{#each subSpecializations}}
+                    <option value="{{this}}">{{this}}</option>
+                {{/each}}
+              </select>
+
+              <select data-filter class="form-control" name="listedSpecialization">
+                <option value="all">companySnapIndustry</option>
+                {{#each companySnapIndustries}}
+                    <option value="{{this}}">{{this}}</option>
+                {{/each}}
+              </select>
+
+              <select data-filter class="form-control" name="listedIndustry">
+                <option value="all">listedIndustry</option>
+                {{#each listedIndustries}}
+                    <option value="{{this}}">{{this}}</option>
+                {{/each}}
+              </select>
+
+
+              <select data-filter class="form-control" name="listedSpecialization">
+                <option value="all">listedSpecialization</option>
+                {{#each listedSpecializations}}
+                    <option value="{{this}}">{{this}}</option>
+                {{/each}}
+              </select>
+
+
+              <select data-filter class="form-control" name="listedRole">
+                <option value="all">listedRole</option>
+                {{#each listedRoles}}
+                    <option value="{{this}}">{{this}}</option>
+                {{/each}}
+              </select>
+
+
+
+              <select data-filter class="form-control" name="experience">
+                <option value="all">experience</option>
+                {{#each experiences}}
+                    <option value="{{this}}">{{this}}</option>
+                {{/each}}
+              </select>
+        	</div>
+			  	<div class="flex">
+			  		<table class="table table-bordered">
+			  		  <thead>
+			  		    <tr>
+			  		      <th>Skill</th>
+			  		      <th>Instances</th>
+			  		    </tr>
+			  		  </thead>
+			  		  <tbody>
+			  		    {{#each tableItems}}
+			  		      <tr>
+			  		        <td>{{skillKeyword}}</td>
+			  		        <td>{{total}}</td>
+			  		      </tr>
+			  		    {{/each}}
+			  		  </tbody>
+			  		</table>
+			  	</div>
+		  	</paper-material>
+  </section>
+</template>
