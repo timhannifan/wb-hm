@@ -5,9 +5,10 @@ Template.skillsDb.onCreated( () => {
 
   const aggHandle = Meteor.subscribe('SkillsAggregations');
   const skillsHandle = Meteor.subscribe('skills');
+  const descriptionStringsHandle = Meteor.subscribe('DescriptionStrings');
   
   Tracker.autorun(() => {
-    const isReady = aggHandle.ready() && skillsHandle.ready();
+    const isReady = aggHandle.ready() && skillsHandle.ready() && descriptionStringsHandle.ready();
     console.log(`SkillsDb is ${isReady ? 'ready' : 'not ready'}`);  
     self.ready.set(isReady);
   });
@@ -144,6 +145,48 @@ Template.skillsDb.events({
 		        console.log('received a resonse');
 		        let blob = Modules.client.convertBase64ToBlob( response );
 		        let filename = 'skills-download.zip';
+		        saveAs( blob, filename );
+		    }
+		});
+	},
+	'click #js-download-desc-frequency': function () {
+		event.preventDefault();
+
+		Meteor.call('exportFrequencyData',{},{}, function(error, response) {
+		    if (error) {
+		        console.log(error);
+		    } else {
+		        console.log('received a resonse');
+		        let blob = Modules.client.convertBase64ToBlob( response );
+		        let filename = 'frequency.zip';
+		        saveAs( blob, filename );
+		    }
+		});
+	},
+	'click #js-bulk-description-export': function () {
+		event.preventDefault();
+
+		Meteor.call('jsBulkDescriptionExport',{},{}, function(error, response) {
+		    if (error) {
+		        console.log(error);
+		    } else {
+		        console.log('received a resonse');
+		        let blob = Modules.client.convertBase64ToBlob( response );
+		        let filename = 'js-bulk-description-export.zip';
+		        saveAs( blob, filename );
+		    }
+		});
+	},
+	'click #js-lemma-export': function () {
+		event.preventDefault();
+
+		Meteor.call('jsLemmaExport',{},{}, function(error, response) {
+		    if (error) {
+		        console.log(error);
+		    } else {
+		        console.log('received a resonse');
+		        let blob = Modules.client.convertBase64ToBlob( response );
+		        let filename = 'js-lemma-export.zip';
 		        saveAs( blob, filename );
 		    }
 		});

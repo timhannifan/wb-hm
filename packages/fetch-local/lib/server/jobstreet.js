@@ -353,8 +353,7 @@ Meteor.methods({
       JobStreetSources.update({_id: obj._id}, {$set: {lastUpdate: new Date()}});
       return true;     
     });
-  },
-
+  }
 });
 
 Meteor.startup(function() {

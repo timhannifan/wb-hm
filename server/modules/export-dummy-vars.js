@@ -85,8 +85,4 @@ let _getDummyDataFromCollection = ( collection, query, modifier ) => {
   return jsonResult;
 };
 
-
-
-
-
 Modules.server.exportDummyVars = exportDummyVars;

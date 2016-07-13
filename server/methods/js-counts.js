@@ -51,8 +51,8 @@ function _resetJobStreetCounts() {
 }
 
 Meteor.startup(function () {
-	_resetJobStreetCounts();
-	_runJobStreetCounts();
+	// _resetJobStreetCounts();
+	// _runJobStreetCounts();
 
 });
   

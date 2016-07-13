@@ -1,7 +1,7 @@
 Skills = new Mongo.Collection('skills');
 Counts = new Mongo.Collection('counts');
 SkillsAggregations = new Mongo.Collection('SkillsAggregations');
-
+SkillsFrequency = new Mongo.Collection('SkillsFrequency');
 
 function trueFunc(userId) {
   if (!userId) {
