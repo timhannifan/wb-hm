@@ -1,0 +1,43 @@
+{
+  "dependencies": {
+    "natural": {
+      "version": "0.4.0",
+      "dependencies": {
+        "sylvester": {
+          "version": "0.0.21"
+        },
+        "apparatus": {
+          "version": "0.0.9"
+        },
+        "underscore": {
+          "version": "1.8.3"
+        },
+        "log4js": {
+          "version": "0.6.37",
+          "dependencies": {
+            "readable-stream": {
+              "version": "1.0.34",
+              "dependencies": {
+                "core-util-is": {
+                  "version": "1.0.2"
+                },
+                "isarray": {
+                  "version": "0.0.1"
+                },
+                "string_decoder": {
+                  "version": "0.10.31"
+                },
+                "inherits": {
+                  "version": "2.0.1"
+                }
+              }
+            },
+            "semver": {
+              "version": "4.3.6"
+            }
+          }
+        }
+      }
+    }
+  }
+}

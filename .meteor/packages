@@ -54,6 +54,9 @@ fetch-local
 d3js:d3
 pfafman:filesaver
 
+#snowball
+natural
+
 # benjaminrh:jquery-cookie
 # twbs:bootstrap
 # mizzao:autocomplete

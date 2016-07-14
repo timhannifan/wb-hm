@@ -177,20 +177,6 @@ Template.skillsDb.events({
 		    }
 		});
 	},
-	'click #js-lemma-export': function () {
-		event.preventDefault();
-
-		Meteor.call('jsLemmaExport',{},{}, function(error, response) {
-		    if (error) {
-		        console.log(error);
-		    } else {
-		        console.log('received a resonse');
-		        let blob = Modules.client.convertBase64ToBlob( response );
-		        let filename = 'js-lemma-export.zip';
-		        saveAs( blob, filename );
-		    }
-		});
-	},
 	'click #js-upload-skills-csv': function () {
 		event.preventDefault();
 
@@ -216,6 +202,5 @@ Template.skillsDb.events({
 	      }
 	    }
 	  });
-
 	}
 });

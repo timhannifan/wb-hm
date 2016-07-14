@@ -6,7 +6,8 @@ JobStreetParentCategoryCounts = new Mongo.Collection('JobStreetParentCategoryCou
 JobStreetSubSpecializationCounts = new Mongo.Collection('JobStreetSubSpecializationCounts');
 JobStreetMeta = new Mongo.Collection('JobStreetMeta');
 JSNewTags = new Mongo.Collection('JSNewTags');
-JSNewTagsFrequency = new Mongo.Collection('JSNewTagsFrequency');
+JSNewDescTagsFrequency = new Mongo.Collection('JSNewDescTagsFrequency');
+JSNewTitleTagsFrequency = new Mongo.Collection('JSNewTitleTagsFrequency');
 LemmaIndex = new Mongo.Collection('LemmaIndex');
 
 // JobStreetSources Schema and Permissions
