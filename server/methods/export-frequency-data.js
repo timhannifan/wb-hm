@@ -1,18 +1,18 @@
 Meteor.methods({
-  exportFrequencyData(query, modifier) {
-    //this.unblock();
+  exportSkillsdbFrequencyData(query, modifier) {
+    this.unblock();
 
     check( query, Object );
     check( modifier, Object );
 
-    var exportFrequencyData = Meteor.wrapAsync(Modules.server.exportFrequencyData),
-      result = exportFrequencyData(query, modifier, function( error, response ) {
+    var exportSkillsdbFrequencyData = Meteor.wrapAsync(Modules.server.exportSkillsdbFrequencyData),
+      result = exportSkillsdbFrequencyData(query, modifier, function( error, response ) {
         if ( error ) {
           // Handle error.
           console.log(error)
         } else {
           // Handle response.
-          console.log('exportFrequencyData result');
+          console.log('exportSkillsdbFrequencyData result');
           console.log(result);
           return result;
 

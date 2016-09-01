@@ -28,43 +28,17 @@ Meteor.methods({
 		}
 		
 	},
-	uploadSkills: function (data) {
-		check( data, Array );
-
-		for ( i = 0; i < data.length; i++ ) {
-			console.log(data[ i ]);
-		  var item   = data[ i ],
-		  exists = Skills.findOne( { skill_keyword: item.skill_keyword } );
-
-		  if ( exists ) { 
-		    console.warn( 'Rejected. This item already exists.' );  
-		  } else {
-		  	nObj = {};
-		  	nObj.type = data [i].type;
-		  	nObj.skill_keyword = data [i].skill_keyword;
-		  	nObj.parsed_keyword = data [i].skill_keyword.toLowerCase();
-		  	nObj.createdAt = new Date();
-		  	nObj.lastUpdated = new Date();
-		  	nObj.count = 0;		  	
-		    
-		    Skills.insert(nObj);
-		  }
-		}
-		
-	},
-	mongoTextSearch: function () {
-		var data = JobStreetItems.find({
-		  $text:
-		    {
-		      	
-		      	$search: 'power point',
-		      	$language: 'en'
-		    }
-		}).fetch();
-
-		if (data){
-			console.log(data[0]);
-		}
+	mongoTextSearch: function (match) {
+		check( match, String );
+		// 
+		let data = JobStreetItems.find( 
+				{ $text: { $search: match, $language: 'en' }},
+			  { sort: { textScore: 1 } }
+			  // {sort: {score:}}
+		);
+		// console.log(data.sort( { score: { $meta: "textScore" } } ).limit(2));
+		console.log(data.fetch()[0]);
+		return data;
 	},
 	runSkillClassification: function () {
 		var skills = Skills.find({});
@@ -192,36 +166,21 @@ Meteor.startup(function() {
   	console.log('running classification on ' + doc.parsed_keyword);
 		// update only the items where keyword is found
 		JobStreetItems.update(
-			{ 
-				// skillsClassified: { $nin: [ doc._id] },
-				descriptionTags: { $in:[ doc.parsed_keyword ] }
-			},
-		  	{ 
-	  		$addToSet: {
+			{ descriptionTags: { $in:[ doc.parsed_keyword ] } },
+		  { $addToSet: {
 					trackedSkills: {
 						skillId: doc._id,
 						skillKeyword: doc.parsed_keyword,
 						dummyVar: 1
-					}
-				}
-			},
-			{
-				multi: true
-			},
+					}} },
+			{ multi: true},
 			function(err, res) {
 				if (err) {
 					console.log(err);
 				} else {
-					JobStreetItems.update( {},
-					  	{ 
-					  		$addToSet: {
-					  			skillsClassified: doc._id
-					  		}
-					  	},
-					  	{multi: true}
-				  	);
+					JobStreetItems.update( {}, { $addToSet: { skillsClassified: doc._id} }, { multi: true });
 
-				  	Modules.server.runAggregations();
+			  	Modules.server.runAggregations();
 				}
 			}
 		);

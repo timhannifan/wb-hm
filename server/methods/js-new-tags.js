@@ -39,29 +39,28 @@ function _runJobStreetAggregation(){
 }; 
 
 function strToKeywords(string) {
-  var cleanString = string.replace(/[a-z.]+(?=[A-Z.]+)/g, function(x){return x+" ";})   // regex to convert camelCase
-                          .replace(/_/g, " ")                               // regex for underscores
-                          .replace(/\W/g, " ")                               // regex for 
-                          .replace(/\d/g, " ")      //remove all digits
-                          .replace(/\s{2,}/g," ")  //replace 2 or more whitespaces
-                          .trim()
-                          .toLowerCase();
-
-  // console.log(cleanString);
-
-  return cleanString.split(" ");
+  if (string) {
+    return string.replace(/[a-z.]+(?=[A-Z.]+)/g, function(x){return x+" ";})   // regex to convert camelCase
+                  .replace(/_/g, " ")                               // regex for underscores
+                  .replace(/\W/g, " ")                               // regex for 
+                  .replace(/\d/g, " ")      //remove all digits
+                  .replace(/\s{2,}/g," ")  //replace 2 or more whitespaces
+                  .trim()
+                  .toLowerCase()
+                  .split(" ");
+  }
 };
 
 function _updateDescTags(){
   console.log('STARTED _updateDescTags');
   var emptySet = JSNewTags.find({newDescriptionTags: null});
 
-  emptySet.forEach(function (post) {
-    var tagArray = strToKeywords(post.rawDescription);
+  emptySet.forEach(function (item) {
+    var tagArray = strToKeywords(item.rawDescription);
     // console.log(tagArray);
     JSNewTags.update(
       { 
-        _id: post._id
+        _id: item._id
       },
       { 
         $set: {
@@ -71,25 +70,21 @@ function _updateDescTags(){
       function(err, res) {
         if (err) {
           console.log(err);
-        } else {
-          // console.log('update JSNewTags completed');
         }
       }
     );
   });
-
   console.log('COMPLETED _updateDescTags');
 };
 function _updateTitleTags(){
   console.log('STARTED _updateTitleTags');
   var emptySet = JSNewTags.find({newTitleTags: null});
 
-  emptySet.forEach(function (post) {
-    var tagArray = strToKeywords(post.rawTitle);
-    // console.log(tagArray);
+  emptySet.forEach(function (item) {
+    var tagArray = strToKeywords(item.rawTitle);
     JSNewTags.update(
       { 
-        _id: post._id
+        _id: item._id
       },
       { 
         $set: {
@@ -100,14 +95,13 @@ function _updateTitleTags(){
         if (err) {
           console.log(err);
         } else {
-          // console.log('update JSNewTags completed');
         }
       }
     );
   });
-
   console.log('COMPLETED _updateTitleTags');
 };
+
 function _runJSNewDescTagLemmas(){
   var data = JSNewDescTagsFrequency.find({lemmas: null});
   console.log('STARTED running runJSNewDescTagLemmas for new item.count() ' + data.count());
@@ -197,23 +191,19 @@ function _runJSNewTitleTagStems(){
   });
   console.log('COMPLETED running runJSNewTitleStems');
 };
-// function _runJSNewTagStemsTest(array){
-//   console.log(snowball.stemword(array,'english'));
-//   return snowball.stemword(array,'english');
-//   // var .stemword(['consignment', 'conspiring'], 'english')
-//   // console.log(snowball.stemword('consignment', 'english'));
-// }
+
 function _runJSNewDescTagAggregations(){
-  console.log('STARTED running _runJSNewDescTagAggregations');
-    _aggregateDescTagsOut({ 
+  _aggregateDescTagsOut({ _id: {newDescriptionTags: '$newDescriptionTags'}, count: { $sum: 1 } }, 'JSNewDescTagsFrequency');
+};
+function _runJSNewTitleTagAggregations(){
+    console.log('STARTED running _runJSNewTitleTagAggregations');
+    _aggregateTitleTagsOut({ 
       _id: {
-        newDescriptionTags: '$newDescriptionTags'
+        newTitleTags: '$newTitleTags'
       },
       count: { $sum: 1 }
-    }, 'JSNewDescTagsFrequency');
-  console.log('COMPLETED running runJSNewStems');
+    }, 'JSNewTitleTagsFrequency');
 };
-
 function _aggregateDescTagsOut(group, out) {
   var date = new Date();
   var pipeline = [
@@ -233,18 +223,6 @@ function _aggregateDescTagsOut(group, out) {
 
   return JSNewTags.aggregate(pipeline, {allowDiskUse: true});
 }; 
-
-function _runJSNewTitleTagAggregations(){
-    console.log('STARTED running _runJSNewTitleTagAggregations');
-    _aggregateTitleTagsOut({ 
-      _id: {
-        newTitleTags: '$newTitleTags'
-      },
-      count: { $sum: 1 }
-    }, 'JSNewTitleTagsFrequency');
-  console.log('COMPLETED running runJSNewStems');
-};
-
 function _aggregateTitleTagsOut(group, out) {
   var date = new Date();
   var pipeline = [
@@ -266,45 +244,20 @@ function _aggregateTitleTagsOut(group, out) {
   return JSNewTags.aggregate(pipeline, {allowDiskUse: true});
 }; 
 
-Meteor.startup(function () {
-  // console.log(_runJSNewTagStemsTest(['consignment', 'conspiring']));
-
-  _runJobStreetAggregation();
-  _updateDescTags();
-  _updateTitleTags();
-  _runJSNewDescTagAggregations();
-  _runJSNewTitleTagAggregations();
-  _runJSNewDescTagLemmas();
-  _runJSNewTitleTagLemmas();
-  _runJSNewDescTagStems();
-  _runJSNewTitleTagStems();
-});
-  
-
 Meteor.methods({
-  runNewTagsFrequency(){
+  runFullTagSuite(){
     if (this.userId) {
-
-      return [_runJobStreetAggregation(),_updateDescTags()]//;_runSkillsFrequency(),;
-    }
-  },
-  runJSNewTagLemmas(){
-    if (this.userId) {
-
-      return [_runJSNewTagLemmas()];
-    }
-  },
-  runJSNewTagStems(){
-    if (this.userId) {
-
-      return [];
-    }
-  },
-  runJSNewTagAggregations(){
-    this.unblock();
-
-    if (this.userId) {
-      return _runJSNewTagAggregations();
+      return [
+        _runJobStreetAggregation(),
+        _updateDescTags(),
+        _updateTitleTags(),
+        _runJSNewDescTagAggregations(),
+        _runJSNewTitleTagAggregations(),
+        _runJSNewDescTagLemmas(),
+        _runJSNewTitleTagLemmas(),
+        _runJSNewDescTagStems(),
+        _runJSNewTitleTagStems()
+      ];
     }
   }
 });

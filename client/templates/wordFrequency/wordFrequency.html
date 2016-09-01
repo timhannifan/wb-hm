@@ -1,0 +1,91 @@
+<template name="wordFrequency">
+	<div class="page-header">
+	  <h1 class="title">Word Frequency</h1>
+	</div>
+	<section class="flex">
+	  <h4>About</h4>
+	  <p>Titles plus descriptions, ranked by overall frequency.</p>
+
+	  <h4>Export</h4>
+	  <p>Tap the icon in the lower right corner of the page to download CSV frequency data.</p>
+  	
+  	<paper-material class="layout vertical">
+	  	<!-- <h5>Table Filters</h5>
+	  	<div class="layout horizontal wrap">
+	  		<select data-filter class="form-control" name="industry">
+  		        <option value="all">parentCategory</option>
+  		        {{#each parentCategories}}
+  		          <option value="{{this}}">{{this}}</option>
+  		        {{/each}}
+  		    </select>
+          <select data-filter class="form-control" name="subSpecialization">
+            <option value="all">subSpecialization</option>
+            {{#each subSpecializations}}
+                <option value="{{this}}">{{this}}</option>
+            {{/each}}
+          </select>
+
+          <select data-filter class="form-control" name="listedSpecialization">
+            <option value="all">companySnapIndustry</option>
+            {{#each companySnapIndustries}}
+                <option value="{{this}}">{{this}}</option>
+            {{/each}}
+          </select>
+
+          <select data-filter class="form-control" name="listedIndustry">
+            <option value="all">listedIndustry</option>
+            {{#each listedIndustries}}
+                <option value="{{this}}">{{this}}</option>
+            {{/each}}
+          </select>
+
+
+          <select data-filter class="form-control" name="listedSpecialization">
+            <option value="all">listedSpecialization</option>
+            {{#each listedSpecializations}}
+                <option value="{{this}}">{{this}}</option>
+            {{/each}}
+          </select>
+
+
+          <select data-filter class="form-control" name="listedRole">
+            <option value="all">listedRole</option>
+            {{#each listedRoles}}
+                <option value="{{this}}">{{this}}</option>
+            {{/each}}
+          </select>
+
+
+
+          <select data-filter class="form-control" name="experience">
+            <option value="all">experience</option>
+            {{#each experiences}}
+                <option value="{{this}}">{{this}}</option>
+            {{/each}}
+          </select>
+    	</div> -->
+	  	<div class="flex">
+	  		<table class="table table-bordered">
+	  		  <thead>
+	  		    <tr>
+	  		      <th>Word</th>
+	  		      <th>Frequency</th>
+	  		    </tr>
+	  		  </thead>
+	  		  <tbody>
+	  		    {{#each tableItems}}
+	  		      <tr>
+	  		        <td>{{word}}</td>
+	  		        <td>{{count}}</td>
+	  		      </tr>
+	  		    {{/each}}
+	  		  </tbody>
+	  		</table>
+	  	</div>
+  	</paper-material>	  
+
+	  <div class="fab-container layout vertical">
+	  	<paper-fab mini id="js-bulk-description-export" icon="file-download" title="Export frequency data" class="action-fab primary" style="margin-top: 10px;"></paper-fab>
+	  </div>
+	</section>
+</template>

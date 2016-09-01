@@ -118,35 +118,16 @@ Meteor.startup(function () {
   });
   
 
-  Router.route('topSkills', {
-    path: '/skills/top',
-    template:'topSkills',
-    action: function () {
-      if (this.ready()) {
-        this.render();
-      } else {
-        this.render('loading');
-      }
-    }
+  Router.route('skillsData', {
+    path: '/skills-data',
+    template:'skillsData'
   });
 
   Router.route('skillsDb', {
-    path: '/skills/db',
-    template:'skillsDb',
-    // subscriptions: function() {
-    //   return [
-    //     Meteor.subscribe('skillsList'),
-    //     Meteor.subscribe('trackedSkillsCounts')
-    //   ];
-    // },
-    action: function () {
-      if (this.ready()) {
-        this.render();
-      } else {
-        this.render('loading');
-      }
-    }
+    path: '/skills-db',
+    template:'skillsDb'
   });
+
   Router.route('keywordMatchList', {
     path: '/skills/keyword-matches/:_id',
     template:'keywordMatchList',
@@ -193,16 +174,13 @@ Meteor.startup(function () {
   });
 
   Router.route('export', {
-    path: 'exports',
+    path: '/export',
     template: 'export'
   });
 
-  Router.route('datavis', {
-    path: 'skills/data-visualisation',
-    template: 'datavis'
+  Router.route('wordFrequency', {
+    path: '/word-frequency'
   });
-
-
 
   Router.route('loading', {
     path: '/loading',

@@ -6,14 +6,23 @@ Meteor.methods({
         var collection = query.collection;
         var passedQuery = {}; 
         var passedModifier = {};   
+        var arrayOfAnds = [],
+        queryFieldCount = 0;
 
-        if (query.startDate){
-            check( query.startDate, Date)
+
+        if (query.startDate && !query.endDate){
+            check( query.startDate, Date);
             passedQuery.createdAt = {$gte: query.startDate};       
-        }
-        if (query.endDate){
+        } else if (!query.startDate && query.endDate){
             check( query.endDate, Date);
             passedQuery.createdAt = {$lte: query.endDate};
+        } else if (query.startDate && query.endDate){
+            check( query.startDate, Date);
+            check( query.endDate, Date);
+            passedQuery = {
+                $and: [ {createdAt: {$gte: query.startDate}}, {createdAt: {$lte: query.endDate}} ]
+            };
+
         }
         if (query.jsParentCategory){
             check( query.jsParentCategory, Array);
