@@ -33,7 +33,31 @@
 // States // -----------------------------------
 
 @color-error: #D50000;  // Red A700
+@color-success: #009688;
+@color-neutral: @color-black-lighter;
 
+.color-warning {
+	color: @color-error;
+}
+.color-create {
+	color: @color-success;
+}
+.color-neutral {
+	color: @color-black-light;
+}
+
+.fab-color-warning {
+	color: white;
+	background-color: @color-error;
+}
+.fab-color-create {
+	color: white;
+	background-color: @color-success;
+}
+.fab-color-neutral {
+	color: white;
+	background-color: @color-neutral;
+}
 
 // Backgrounds // -----------------------------------
 

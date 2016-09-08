@@ -26,23 +26,23 @@
 					    <th><h4>Keyword</h4></th>
 					    <th><h4>Type</h4></th>
 					    <th><h4>Began Tracking</h4></th>
-					    <th><h4>Matches</h4></th>
+					    <!-- <th><h4>Matches</h4></th> -->
 				    	<th><h4>Delete</h4></th>
 				    </tr>
 				</thead>
 			    <tbody class="">
 				    {{#each tableItems}}
 				        <tr class="">
-						    <td>{{parsed_keyword}}</td>
-						    <td>{{type}}</td>
+				        	<td><a href="{{pathFor 'keywordMatchList' _id=_id}}" title="View Keyword Matches">{{parsed_keyword}}</a></td>
+							    <td>{{type}}</td>
 					        <td>{{ relativeTime createdAt }}</td>
-					        <td>
+					        <!-- <td>
 						        <a href="{{pathFor 'keywordMatchList' _id=_id}}" title="View Keyword Matches">
 							        <iron-icon icon="view-list" class="table-icon"></iron-icon>
 						        </a>
-					        </td>
+					        </td> -->
 					        <td>
-						        <iron-icon id="js-delete-skill" icon="delete" class="table-icon"></iron-icon>
+						        <iron-icon id="js-delete-skill" icon="delete" class="table-icon color-neutral"></iron-icon>
 					        </td>
 				        </tr>
 				    {{/each}}
@@ -51,10 +51,10 @@
 		</paper-material>
 
 		<div class="fab-container layout vertical">
-			<paper-fab mini id="js-add-skill" icon="add" title="Add a skill to Skills DB" class="action-fab primary" style="margin-top: 10px;"></paper-fab>
-			<paper-fab mini id="js-upload-skills-csv" icon="file-upload" title="Upload CSV to Skills DB" class="action-fab primary" style="margin-top: 10px;"></paper-fab>
-			<paper-fab mini id="s-download-skillsdb-frequency" icon="file-download" title="Export Skills DB frequency data" class="action-fab primary" style="margin-top: 10px;"></paper-fab>
-			<paper-fab mini id="js-download-skills-matrix" icon="file-download" title="Export SkillsDb/JobStreet dummy variable data" class="action-fab primary" style="margin-top: 10px;"></paper-fab>
+			<paper-fab mini id="js-add-skill" icon="add" title="Add a skill to Skills DB" class="fab-color-create" style="margin-top: 10px;"></paper-fab>
+			<paper-fab mini id="js-upload-skills-csv" icon="file-upload" title="Upload CSV to Skills DB" class="fab-color-create" style="margin-top: 10px;"></paper-fab>
+			<paper-fab mini id="s-download-skillsdb-frequency" icon="file-download" title="Export Skills DB frequency data" class="fab-color-neutral" style="margin-top: 10px;"></paper-fab>
+			<paper-fab mini id="js-download-skills-matrix" icon="file-download" title="Export SkillsDb/JobStreet dummy variable data" class="fab-color-neutral" style="margin-top: 10px;"></paper-fab>
 		</div>
 	</section>
 </template>

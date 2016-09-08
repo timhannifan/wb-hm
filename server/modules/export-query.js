@@ -1,7 +1,6 @@
 let jsZip    = Meteor.npmRequire( 'jszip' );
 
 // ----- generic utilities
-
 let _formatQueryData = {
   csv( data )  { return Papa.unparse( data ); }
 };
@@ -41,19 +40,11 @@ let _prepareQueryData = ( archive, collection, type, fileName, query, modifier )
   _addFileToZipArchive( archive, fileName, formattedData );
 };
 let _getDataFromCollection = ( collection, query, modifier ) => {
-  console.log('inside _getDataFromCollection with query ');
-  console.dir(query);
-  console.log('inside _getDataFromCollection with modifier ');
-  console.dir(modifier);
+  console.dir(query,modifier);
   
   let data = collection.find( query, modifier ).fetch();
   if ( data ) {
-    // if (data.length > 10000) {
-    //   throw new Meteor.Error("export-size", 
-    //     "File size is too large. Please use filters to restrict your results.");
-    // } else {
       return data;
-    // }
   }
 };
 
