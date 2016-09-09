@@ -20,22 +20,30 @@
 					</thead>
 				    <tbody>
 					    {{#each items}}
-					        <tr>
-							    <td>
-	    				  			<a href="{{pathFor 'itemViewByKeyword' _id=_id}}" title="">
-						  			{{ title}}
-						  			</a>
-					  			</td>
-						        <td>{{truncateText parentCategory}}</td>
-						        <td>{{truncateText subSpecialization}}</td>
-						        <td>{{truncateText listedIndustry}}</td>
-						        <td>{{truncateText listedSpec}}</td>
-						        <td>{{truncateText listedRole}}</td>
-					        </tr>
+
+					    	{{>jobStreetRow _id=id}}
+
 					    {{/each}}
 				    </tbody>
 				</table>
 			</div>
 		</div>
 	</section>
+</template>
+
+<template name="jobStreetRow">
+	{{#with jsItem _id}}
+	  <tr>
+	    <td>
+	  			<a href="{{pathFor 'itemViewByKeyword' _id=_id}}" class="text-link" title="">
+					{{this.title}}
+				</a>
+			</td>
+	      <td>{{truncateText parentCategory}}</td>
+	      <td>{{truncateText subSpecialization}}</td>
+	      <td>{{truncateText listedIndustry}}</td>
+	      <td>{{truncateText listedSpec}}</td>
+	      <td>{{truncateText listedRole}}</td>
+		</tr>
+	{{/with}}
 </template>

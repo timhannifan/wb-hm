@@ -45,6 +45,26 @@ Meteor.publish('JobStreetTitlesAndDates', function() {
     }
   });
 });
+Meteor.publish('JobStreetTitlesOne', function(id) {
+  if (!id) {
+    return [];
+  } else {
+    return JobStreetItems.find({_id: id}, {
+      fields: {
+        title: 1
+      }
+    });    
+  }
+
+});
+Meteor.publish('JobStreetOne', function(id) {
+  if (!id) {
+    return [];
+  } else {
+    return JobStreetItems.find({_id: id});    
+  }
+
+});
 
 Meteor.publish('JobStreetTrackedSkills', function(id) {
   

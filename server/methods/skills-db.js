@@ -135,7 +135,6 @@ Meteor.methods({
 				return exception;
 			}	
 		}
-		
 	}
 });
 
@@ -159,42 +158,3 @@ let _runClassificationOnNewSkill = ( id, keyword, callback ) => {
 
 let _upsertCountInstance = (data, id, keyword) => {
 }
-
-
-Meteor.startup(function() {
-  Skills.after.insert(function (userId, doc) {
-  	console.log('running classification on ' + doc.parsed_keyword);
-		// update only the items where keyword is found
-		JobStreetItems.update(
-			{ descriptionTags: { $in:[ doc.parsed_keyword ] } },
-		  { $addToSet: {
-					trackedSkills: {
-						skillId: doc._id,
-						skillKeyword: doc.parsed_keyword,
-						dummyVar: 1
-					}} },
-			{ multi: true},
-			function(err, res) {
-				if (err) {
-					console.log(err);
-				} else {
-					JobStreetItems.update( {}, { $addToSet: { skillsClassified: doc._id} }, { multi: true });
-
-			  	Modules.server.runAggregations();
-				}
-			}
-		);
-	});
-
-  // cleanup aggreagations after removing a keyword
-  Skills.after.remove(function(userId,doc) {
-
-  	console.log('running skills cleanup on');
-  	console.dir(doc);
-
-  	var res = SkillsAggregations.remove({skillId: doc._id});
-  	console.log(res);
-
-  	// Modules.server.runAggregations();
-  });
-});

@@ -137,15 +137,8 @@ Router.route('keywordMatchList', {
   subscriptions: function () {
     return [
       Meteor.subscribe('keywordMatchList', this.params._id),
-      Meteor.subscribe( 'JobStreetTrackedSkills',this.params._id),
       Meteor.subscribe('skills')
     ];
-  },
-  data: function () {
-    return {
-      skill: Skills.findOne({_id: this.params._id}),
-      items: JobStreetItems.find()
-    };
   }
 });
 
