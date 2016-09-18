@@ -28,7 +28,7 @@
 				    <tr>
 					    <th><h4>Keyword</h4></th>
 					    <th><h4>Type</h4></th>
-					    <th><h4>Began Tracking</h4></th>
+					    <th><h4>Job Listing Matches</h4></th>
 					    <!-- <th><h4>Matches</h4></th> -->
 				    	<th><h4>Delete</h4></th>
 				    </tr>
@@ -36,9 +36,11 @@
 			    <tbody class="">
 				    {{#each tableItems}}
 				        <tr class="">
-				        	<td><a href="{{pathFor 'keywordMatchList' _id=_id}}" title="View Keyword Matches">{{parsed_keyword}}</a></td>
+				        	<td><a href="{{pathFor 'keywordMatchList' _id=_id}}" class="text-link" title="View Keyword Matches">{{parsed_keyword}}</a></td>
 							    <td>{{type}}</td>
-					        <td>{{ relativeTime createdAt }}</td>
+					        <!-- <td>{{ relativeTime createdAt }}</td> -->
+					        <td>{{count}}</td>
+
 					        <!-- <td>
 						        <a href="{{pathFor 'keywordMatchList' _id=_id}}" title="View Keyword Matches">
 							        <iron-icon icon="view-list" class="table-icon"></iron-icon>

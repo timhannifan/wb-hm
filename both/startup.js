@@ -34,7 +34,10 @@ Router.route('/skills-data', {
 	name: 'skillsData'
 });
 Router.route('/skills-db', {
-	name: 'skillsDb'
+  name: 'skillsDb'
+});
+Router.route('/filedownload', {
+	name: 'fileDownload'
 });
 
 Router.map(function(){

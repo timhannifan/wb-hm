@@ -28,11 +28,11 @@ let syncExportQuery = ( collection, query, modifier, callback ) => {
   return _generateZipArchive( archive );
 };
 let _compileQueryZip = ( archive, collection, query, modifier) => {
-  let collectionFinder = {
+  let collIndex = {
     'JobStreetItems': JobStreetItems,
     'MonsterItems': MonsterItems
   };
-  _prepareQueryData( archive, collectionFinder[collection], 'csv', collection+'-export.csv', query, modifier  );
+  _prepareQueryData( archive, collIndex[collection], 'csv', collection+'-export.csv', query, modifier  );
 };
 let _prepareQueryData = ( archive, collection, type, fileName, query, modifier ) => {
   let data          = collection instanceof Mongo.Collection ? _getDataFromCollection( collection, query, modifier ) : collection,

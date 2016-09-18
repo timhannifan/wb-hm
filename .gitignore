@@ -30,5 +30,6 @@ scratch
 
 ###public/components/*
 settings.json
+settings-dev.json
 *.sh
 app.json

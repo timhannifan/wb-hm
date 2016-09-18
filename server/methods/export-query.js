@@ -1,5 +1,5 @@
 Meteor.methods({
-  exportOptionsQuery: function (query, modifier) {
+  exportQuery: function (query, modifier) {
     this.unblock();
     check( query.collection, String );
     
@@ -68,11 +68,13 @@ Meteor.methods({
     result = asyncExportQuery(collection,passedQuery,passedModifier, function( error, response ) {
       if ( error ) {
         console.log(error)
-      } else {
+      } else {    
         return result;
       }
     });
-    
+
+    //Modules.server.uploadToS3(result);
+
     return result;
   }
 });

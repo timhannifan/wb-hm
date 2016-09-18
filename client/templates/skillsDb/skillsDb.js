@@ -15,7 +15,7 @@ Template.skillsDb.onCreated( () => {
 Template.skillsDb.helpers({
 	tableItems() {
 	  let tableItems = Skills.find({},{sort: {
-	  	parsed_keyword: 1
+	  	count: -1
 	  }}).fetch();
 
 	  if ( tableItems ) {

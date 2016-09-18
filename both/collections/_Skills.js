@@ -56,4 +56,10 @@ Skills.after.insert(function (userId, doc) {
     
     SkillsKeywordInstances.insert(nObj);
   });
+
+  let uniqueJobStreetCount  = cursor.count();
+
+  Skills.update({_id: doc._id}, {$set: {count: uniqueJobStreetCount}}, function (err, res) {
+    console.log('completed inserting' + doc.parsed_keyword);
+  });
 });
