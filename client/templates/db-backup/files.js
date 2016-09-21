@@ -2,10 +2,13 @@
 
 Template.files.helpers({
   files() {
-    var files = BatchDownloads.find( {}, { sort: { "createdAt": -1 } } );
+    var files = BatchDownloads.find( {}, { sort: { "periodStart": 1 } } );
     if ( files ) {
       return files;
     }
+  },
+  fileNameHelper(string) {
+  	return string.replace('/production/','');
   }
 });
 

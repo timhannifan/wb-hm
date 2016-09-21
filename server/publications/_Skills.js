@@ -51,7 +51,7 @@ Meteor.publish('skillsInstances', function (query, modifier) {
         check( modifier.fields, Object );    
         checkedModifier.fields = modifier.fields;
     }
-    console.dir(checkedQuery,checkedModifier);
+    console.log(checkedQuery,checkedModifier);
 
     return SkillsKeywordInstances.find(checkedQuery, checkedModifier);
   } else {
@@ -67,3 +67,58 @@ Meteor.publish('keywordMatchList', function(_id) {
         return [];
     }
 });
+
+Meteor.publish('skillsKeywordInstancesTypes', function(query) {
+  if (!query) {
+    return [];
+  } else {
+    let mod = {
+      sort: { 
+        keywordType: 1
+      },
+      fields: {
+        keywordType: 1
+      }
+    };
+
+    return  SkillsKeywordInstances.find( query, mod );
+  }
+});
+
+
+Meteor.publish('skillsKeywordInstancesAll', function(query) {
+  return SkillsKeywordInstances.find( {})
+  // if (query) {
+    // console.log('skillsKeywordInstancesAll publishing for null query');
+    // return SkillsKeywordInstances.find( {}, {limit: 1500} );
+  // }
+  // else {
+    // console.log('skillsKeywordInstancesAll publishing:');
+    // console.dir(query);
+    // console.log(query);
+    // ;//query );
+  // }
+      // console.log('skillsKeywordInstancesAll', query);
+      // // var collQuery = {}; 
+      // // var collMod = {};
+
+      // // if (query.startDate && !query.endDate){
+      // //     check( query.startDate, Date);
+      // //     collQuery.createdAt = {$gte: query.startDate};       
+      // // } else if (!query.startDate && query.endDate){
+      // //     check( query.endDate, Date);
+      // //     collQuery.createdAt = {$lte: query.endDate};
+      // // } else if (query.startDate && query.endDate){
+      // //     check( query.startDate, Date);
+      // //     check( query.endDate, Date);
+      // //     collQuery = {
+      // //         $and: [ {createdAt: {$gte: query.startDate}}, {createdAt: {$lte: query.endDate}} ]
+      // //     };
+      // // }
+
+      // // console.log(collQuery);
+
+      // return  SkillsKeywordInstances.find( query );
+    
+});
+

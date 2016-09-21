@@ -33,11 +33,19 @@ Router.route('/', {
 Router.route('/skills-data', {
 	name: 'skillsData'
 });
-Router.route('/skills-db', {
+Router.route('/keyword-list', {
   name: 'skillsDb'
 });
-Router.route('/filedownload', {
-	name: 'fileDownload'
+Router.route('/db-backup', {
+  name: 'fileDownload'
+});
+
+// Router.route('/filedownload', {
+//   name: 'fileDownload'
+// });
+
+Router.route('/dummy-variables', {
+	name: 'dummyVars'
 });
 
 Router.map(function(){
@@ -166,13 +174,13 @@ Router.route('itemViewByKeyword', {
 });
 
 Router.route('export', {
-  path: '/export',
+  path: '/custom-query',
   template: 'export'
 });
 
-Router.route('wordFrequency', {
-  path: '/word-frequency'
-});
+// Router.route('wordFrequency', {
+//   path: '/word-frequency'
+// });
 
 Router.route('loading', {
   path: '/loading',

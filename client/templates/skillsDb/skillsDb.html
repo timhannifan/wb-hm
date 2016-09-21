@@ -1,15 +1,15 @@
 <template name="skillsDb">
 
     <div class="page-header">
-	    <h1 class="title">Skills DB</h1>
+	    <h1 class="title">Keyword List</h1>
 	</div>
 
 	<section class="layout vertical">
 	    <h4>About</h4>
-	    <p>The Skills DB contains a list of defined keywords. Upon creation of a new job listing, the description field is searched for instances of each keyword. A separate DB is created on the server to track time-series data related to the occurrance of keyword appearances over time.</p>
+	    <p>As job postings enter the database, they are searched for occurances of each word listed below. These occurrances are recorded on the server along with a timestamp and relevant meta-data from the job posting (industry, experience, etc). Each occurance represents a unique job posting containing a given keyword, not the overall frequency with which a keyword appears.</p>
 
 	    <h4>Search Terms</h4>
-	    <p>Searches are performed using <a class="text-link" href="https://docs.mongodb.com/manual/reference/operator/query/text/" title="">MongoDB text operations</a>.  Specifically, we search for case-insensitive matches on the full phrase. Two or more word phrases will match only on the full string.</p>
+	    <p>Searches are performed using <a class="text-link" href="https://docs.mongodb.com/manual/reference/operator/query/text/" title="">MongoDB text operations</a>.  Specifically, we search for case-insensitive matches with two-or-more word phrases treated as a complete string (e.g. "web developer" is different from "web" + "developer").</p>
 
 	    <h4>Create a new keyword</h4>
 	    <p>To add a single keyword, use the plus icon in the lower right corner of the page. To upload multiple keywords, use the arrow-up icon to upload a CSV of data. Once added to the DB, all existing and future listings will be automatically be searched for the new keyword.</p>
@@ -20,7 +20,10 @@
 	    <h4>Delete existing keywords </h4>
 	    <p>To delete a keyword, tap the trash icon next to a keyword in the table below. This action cannot be undone. Future listings will not be searched for the deleted keyword, and current records will be removed from the Skills DB.</p>
 	    
-			
+<!-- 	  <paper-material>
+	  	{{>charts}}
+	  </paper-material> -->
+	  
 		<paper-material class="layout vertical">
 
 			<table class="" style="min-width: 500px;">
@@ -58,8 +61,8 @@
 		<div class="fab-container layout vertical">
 			<paper-fab mini id="js-add-skill" icon="add" title="Add a skill to Skills DB" class="fab-color-create" style="margin-top: 10px;"></paper-fab>
 			<paper-fab mini id="js-upload-skills-csv" icon="file-upload" title="Upload CSV to Skills DB" class="fab-color-create" style="margin-top: 10px;"></paper-fab>
-			<paper-fab mini id="s-download-skillsdb-frequency" icon="file-download" title="Export Skills DB frequency data" class="fab-color-neutral" style="margin-top: 10px;"></paper-fab>
-			<paper-fab mini id="js-download-skills-matrix" icon="file-download" title="Export SkillsDb/JobStreet dummy variable data" class="fab-color-neutral" style="margin-top: 10px;"></paper-fab>
+			<!-- <paper-fab mini id="s-download-skillsdb-frequency" icon="file-download" title="Export Skills DB frequency data" class="fab-color-neutral" style="margin-top: 10px;"></paper-fab> -->
+			<!-- <paper-fab mini id="js-download-skills-matrix" icon="file-download" title="Export SkillsDb/JobStreet dummy variable data" class="fab-color-neutral" style="margin-top: 10px;"></paper-fab> -->
 		</div>
 	</section>
 </template>

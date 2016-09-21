@@ -1,82 +1,51 @@
 <template name="skillsData">
 	<div class="page-header">
-		<h1 class="title">Skills Data</h1>
+		<h1 class="title">Keyword Occurrances</h1>
 	</div>
+  <section class="">
+  	<paper-material class="layout vertical">
+      {{#autoForm schema="JobStreetQueryFilter" type="method" meteormethod="exportOptionsQuery" id="skillsDataForm"}}
+        <div class="layout vertical">
+          <h4>Inclusive Date Range</h4>
+          <div class="layout horizontal wrap start-justified">
+            <div class="item">{{> afFormGroup name="startDate"}}</div>
+            <div class="item">{{> afFormGroup name="endDate"}}</div>
+          </div>   
+            <h4>Category Filters</h4>
+            <div class="layout horizontal wrap start-justified">
+              <div class="item">{{> afQuickField name="jsParentCategory" }} </div>
+              <div class="item">{{> afQuickField name="jsSubSpecialization" }} </div>
 
-  <section class="layout vertical">
-		  	<paper-material class="layout vertical">
-			  	<h5>Table Filters</h5>
-			  	<div class="layout horizontal wrap">
-			  		<select data-filter class="form-control" name="industry">
-		  		        <option value="all">parentCategory</option>
-		  		        {{#each parentCategories}}
-		  		          <option value="{{this}}">{{this}}</option>
-		  		        {{/each}}
-		  		    </select>
-              <select data-filter class="form-control" name="subSpecialization">
-                <option value="all">subSpecialization</option>
-                {{#each subSpecializations}}
-                    <option value="{{this}}">{{this}}</option>
-                {{/each}}
-              </select>
-
-              <select data-filter class="form-control" name="listedSpecialization">
-                <option value="all">companySnapIndustry</option>
-                {{#each companySnapIndustries}}
-                    <option value="{{this}}">{{this}}</option>
-                {{/each}}
-              </select>
-
-              <select data-filter class="form-control" name="listedIndustry">
-                <option value="all">listedIndustry</option>
-                {{#each listedIndustries}}
-                    <option value="{{this}}">{{this}}</option>
-                {{/each}}
-              </select>
-
-
-              <select data-filter class="form-control" name="listedSpecialization">
-                <option value="all">listedSpecialization</option>
-                {{#each listedSpecializations}}
-                    <option value="{{this}}">{{this}}</option>
-                {{/each}}
-              </select>
-
-
-              <select data-filter class="form-control" name="listedRole">
-                <option value="all">listedRole</option>
-                {{#each listedRoles}}
-                    <option value="{{this}}">{{this}}</option>
-                {{/each}}
-              </select>
-
-
-
-              <select data-filter class="form-control" name="experience">
-                <option value="all">experience</option>
-                {{#each experiences}}
-                    <option value="{{this}}">{{this}}</option>
-                {{/each}}
-              </select>
-        	</div>
-			  	<div class="flex">
-			  		<table class="table table-bordered">
-			  		  <thead>
-			  		    <tr>
-			  		      <th>Skill</th>
-			  		      <th>Instances</th>
-			  		    </tr>
-			  		  </thead>
-			  		  <tbody>
-			  		    {{#each tableItems}}
-			  		      <tr>
-			  		        <td>{{keywordMatch}}</td>
-			  		        <td>{{total}}</td>
-			  		      </tr>
-			  		    {{/each}}
-			  		  </tbody>
-			  		</table>
-			  	</div>
-		  	</paper-material>
+              <div class="item">{{> afQuickField name="jsListedIndustry" }}</div>
+              <div class="item">{{> afQuickField name="jsListedSpec" }}</div>
+            </div>          
+            <div class="layout horizontal wrap start-justified">
+              <div class="item">{{> afQuickField name="jsListedRole" }}</div>
+              <div class="item">{{> afQuickField name="jsAltIndustry" }}</div>
+              <div class="item">{{> afQuickField name="jsExperience" }}</div>
+            </div>
+        </div>
+      {{/autoForm}}
+    </paper-material>
+    <paper-material class="layout vertical">
+    	<div class="flex">
+    		<table class="table table-bordered">
+    		  <thead>
+    		    <tr>
+    		      <th><h4>Skills</h4></th>
+    		      <th><h4>Job Listing Matches</h4></th>
+    		    </tr>
+    		  </thead>
+    		  <tbody>
+    		    {{#each tableItems}}
+    		      <tr>
+    		        <td>{{keywordMatch}}</td>
+    		        <td>{{total}}</td>
+    		      </tr>
+    		    {{/each}}
+    		  </tbody>
+    		</table>
+    	</div>
+  	</paper-material>
   </section>
 </template>

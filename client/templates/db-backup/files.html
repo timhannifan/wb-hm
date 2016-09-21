@@ -1,0 +1,27 @@
+<template name="files">
+  <paper-material class="layout vertical">
+		<table class="" style="min-width: 500px;">
+  		<thead class="">
+  		    <tr>
+  			    <th><h4>Download</h4></th>
+  			    <th><h4>Period Start</h4></th>
+  			    <th><h4>Period End</h4></th>
+  		    </tr>
+	  		</thead>
+		    <tbody class="">
+			    {{#each files}}
+		        <tr class="">
+			        <td><a href="{{url}}" target="_blank" class="text-link" title="Download">{{fileNameHelper fileName}}</a></td>
+					    <td>{{formatTimeDate periodStart}}</td>
+			        <td>{{formatTimeDate periodEnd}}</td>
+		        </tr>
+	        {{else}}
+	          <tr>
+	          	<td>No files found.</td>
+	          </tr>
+	        {{/each}}
+
+	    </tbody>
+  	</table>
+  	</paper-material>
+</template>

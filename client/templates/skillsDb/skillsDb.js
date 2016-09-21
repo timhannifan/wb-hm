@@ -2,12 +2,10 @@ Template.skillsDb.onCreated( () => {
   var self = this;
   self.ready = new ReactiveVar();
 
-  const aggHandle = Meteor.subscribe('SkillsAggregations');
   const skillsHandle = Meteor.subscribe('skills');
   
   Tracker.autorun(() => {
-    const isReady = aggHandle.ready() && skillsHandle.ready();
-    // console.log(`SkillsDb is ${isReady ? 'ready' : 'not ready'}`);  
+    const isReady = skillsHandle.ready();
     self.ready.set(isReady);
   });
 });
@@ -68,34 +66,6 @@ Template.skillsDb.events({
 			fullOnMobile: true
 		})
 	},
-	'click #js-download-skills-matrix': function (event, template) {
-		event.preventDefault();
-
-		Meteor.call('exportDummyVars',{},{}, function(error, response) {
-		    if (error) {
-		        console.log(error);
-		    } else {
-		        console.log('received a resonse');
-		        let blob = Modules.client.convertBase64ToBlob( response );
-		        let filename = 'skills-matrix.zip';
-		        saveAs( blob, filename );
-		    }
-		});
-	},
-	'click #js-download-skillsdb-frequency': function (event, template) {
-		event.preventDefault();
-
-		Meteor.call('exportSkillsdbFrequencyData',{},{}, function(error, response) {
-		    if (error) {
-		        console.log(error);
-		    } else {
-		        console.log('received a resonse');
-		        let blob = Modules.client.convertBase64ToBlob( response );
-		        let filename = 'skills-db-frequency.zip';
-		        saveAs( blob, filename );
-		    }
-		});
-	},
 
 	'click #js-upload-skills-csv': function (event, template) {
 		event.preventDefault();
@@ -107,20 +77,20 @@ Template.skillsDb.events({
 		})
 	},
 
-	'change [name=upload]': function( event, template ) {
+	// 'change [name=upload]': function( event, template ) {
 
-	  Papa.parse( event.target.files[0], {
-	    header: true,
-	    complete: function( results, file ) {
-	      var insertArray = results.data;
-	      for (var i = 0; i < insertArray.length; i++) {
-	        Meteor.call('insertSkill',insertArray[i], function(err,res) {
-	          if (res) {
-	            console.log('inserted skill' + insertArray[i].type + insertArray[i].skill_keyword);
-	          }
-	        });
-	      }
-	    }
-	  });
-	}
+	//   Papa.parse( event.target.files[0], {
+	//     header: true,
+	//     complete: function( results, file ) {
+	//       var insertArray = results.data;
+	//       for (var i = 0; i < insertArray.length; i++) {
+	//         Meteor.call('insertSkill',insertArray[i], function(err,res) {
+	//           if (res) {
+	//             console.log('inserted skill' + insertArray[i].type + insertArray[i].skill_keyword);
+	//           }
+	//         });
+	//       }
+	//     }
+	//   });
+	// }
 });

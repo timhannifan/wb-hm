@@ -1,0 +1,8 @@
+<template name="fileDownload">
+  <div class="page-header">
+    <h1 class="title">DB Backup</h1>
+  </div>
+  <h4>About</h4>
+  <p>Every two weeks, new JobStreet data will be exported to a CSV file then uploaded to an AWS S3 bucket. All fields have been included for each listing. Historical downloads for each two-week period are available below.</p>
+  {{ > files }}
+</template>

@@ -1,8 +1,8 @@
 Meteor.methods({
-	resetSkillsAndCounts: function() {
+	resetSkillsDb: function() {
 		if (this.userId){
-			// var rem1 = Skills.remove({}, function (err,res){if(res){console.log('Completed resetting skillsDb.')}});
-			return Skills.remove({}, function (err,res){if(res){console.log('Completed resetting skillsDb.')}});
+			Skills.remove({}, function (err,res){if(res){console.log('Completed resetting skillsDb.')}});
+			SkillsKeywordInstances.remove({}, function (err,res){if(res){console.log('Completed resetting skillsDb.')}});
 		}
 	},	
 	insertSkill: function (data) {
@@ -29,93 +29,12 @@ Meteor.methods({
 		
 	},
 	mongoTextSearch: function (match) {
-		check( match, String );
-		// 
+		check( match, String ); 
 		let data = JobStreetItems.find( 
 				{ $text: { $search: match, $language: 'en' }},
 			  { sort: { textScore: 1 } }
-			  // {sort: {score:}}
 		);
-		// console.log(data.sort( { score: { $meta: "textScore" } } ).limit(2));
-		console.log(data.fetch()[0]);
 		return data;
-	},
-	runSkillClassification: function () {
-		var skills = Skills.find({});
-		
-		skills.forEach(function (skillsItem) {
-
-			var keyword = skillsItem.skill_keyword;
-
-			var data = JobStreetItems.find(
-				{ descriptionTags: { $in:[ skillsItem.skill_keyword ] }	}
-				,{
-					fields: {
-						parentCategory: 1,
-						subSpecialization: 1,
-						listedSpec: 1,
-						listedRole: 1,
-						listedIndustry: 1,
-						companySnapIndustry: 1
-					}
-				}
-			);			
-
-			if (data){
-				
-				data.forEach(function (jsItem) {
-
-					JobStreetItems.update({_id: jsItem._id}, {
-						$push: {
-							trackedSkills: {skillId: skillsItem._id, dummyvar: 1}
-						}
-					});
-
-
-					// parentCategory: 1,
-					// subSpecialization: 1,
-					// listedSpec: 1,
-					// listedRole: 1,
-					// listedIndustry: 1,
-					// companySnapIndustry: 1
-
-					Counts.upsert({
-						parentCategory:  jsItem.parentCategory,
-						subSpecialization: jsItem.subSpecialization,
-						skillId: skillsItem._id,
-						skillName: skillsItem.parsed_keyword,
-						industry: jsItem.listedIndustry,
-						specialization: jsItem.listedSpec,
-						role: jsItem.listedRole,
-						companySnapIndustry: jsItem.companySnapIndustry
-						},{
-							$inc: {
-							count: 1
-						},
-					});
-				});
-
-				Skills.update({_id: skillsItem._id},
-					{
-						$inc: {
-							count: data.count()
-						},
-						$set: {
-							lastUpdated: new Date()
-						}						
-					}
-				);
-
-				JobStreetItems.update({},
-					{
-						$addToSet: {
-							skillsClassified: skillsItem._id
-						}
-					}
-				);
-			}
-
-		});	
 	},
 	deleteSkill: function (_id) {
 		check( _id, String );
@@ -128,7 +47,8 @@ Meteor.methods({
 					if (err) {
 						console.log(err);
 					} else {
-						console.log('skill ' + id + ' deleted sucessfully by user ' + user);
+						var instances = SkillsKeywordInstances.remove({keywordId: id});
+						console.log('skill ' + id + ' deleted sucessfully by user ' + user + 'and deleted ' + instances + 'KeywordInstances');
 					}
 				});
 			} catch ( exception ) {
@@ -137,24 +57,3 @@ Meteor.methods({
 		}
 	}
 });
-
-let _runClassificationOnNewSkill = ( id, keyword, callback ) => {
-	let data = JobStreetItems.find({
-					descriptionTags: { $in:[ keyword ] }
-				},{
-					fields: {
-						parentCategory: 1,
-						subSpecialization: 1,
-						listedSpec: 1,
-						listedRole: 1,
-						listedIndustry: 1,
-						companySnapIndustry: 1
-					}
-				}
-	);
-
-	return _classifyThis(data, id, keyword);
-};
-
-let _upsertCountInstance = (data, id, keyword) => {
-}

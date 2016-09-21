@@ -11,7 +11,7 @@ let _addFileToZipArchive = ( archive, name, contents ) => {
   archive.file( name, contents );
 };
 let _generateZipArchive = ( archive ) => {
-  return archive.generate( { type: 'base64' } );
+  return archive.generateAsync( { type: 'base64' } );
 };
 let extend = ( obj, src ) => {
   for (var key in src) {

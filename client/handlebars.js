@@ -2,6 +2,10 @@ UI.registerHelper('formatDate', function(context, options) {
   if(context)
     return moment(context).format("dddd, MMMM Do YYYY, h:mm:ss a");
 });
+UI.registerHelper('formatTimeDate', function(context, options) {
+  if(context)
+    return moment(context).format("MMMM DD YYYY, h:mm a");
+});
 
 UI.registerHelper('formatShortDate', function(context, options) {
   if(context)
