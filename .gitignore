@@ -33,3 +33,4 @@ settings.json
 settings-dev.json
 *.sh
 app.json
+mup.json
