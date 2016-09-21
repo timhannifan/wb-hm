@@ -6,27 +6,30 @@
 				  <paper-icon-button icon="arrow-back" data-action="back"></paper-icon-button>
 				    <span class="title">Keyword Matches: {{skill.parsed_keyword}}</span>
 			</div>
-			<div>
-				<table class="table table-bordered">
-					<thead>
-					    <tr>
-							<th>Title</th>
-						    <th>Category</th>
-						    <th>Subspecialization</th>
-						    <th>Industry</th>
-						    <th>AltSpecialization</th>
-						    <th>Role</th>
-					    </tr>
-					</thead>
-				    <tbody>
-					    {{#each items}}
 
-					    	{{>jobStreetRow _id=id}}
+			<table class="table table-bordered">
+				<thead>
+				    <tr>
+						<th>Title</th>
+					    <th>Category</th>
+					    <th>Subspecialization</th>
+					    <th>Industry</th>
+					    <th>AltSpecialization</th>
+					    <th>Role</th>
+				    </tr>
+				</thead>
+			    <tbody>
+				    {{#each items}}
 
-					    {{/each}}
-				    </tbody>
-				</table>
-			</div>
+				    	{{>jobStreetRow _id=id}}
+
+				    {{/each}}
+			    </tbody>
+			</table>
+
+
+			<paper-button class="js-load-more primary">Load More</paper-button>
+
 		</div>
 	</section>
 </template>
@@ -45,5 +48,11 @@
 	      <td>{{truncateText listedSpec}}</td>
 	      <td>{{truncateText listedRole}}</td>
 		</tr>
+	{{/with}}
+</template>
+
+<template name="jobStreetRowWithId">
+	{{#with jsItem _id}}
+
 	{{/with}}
 </template>

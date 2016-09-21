@@ -4,14 +4,12 @@
     </div>
     
     <section>
-    	<span class="section-header">Welcome</span>
-    	<p>This is a real-time web scraper and XML/RSS data-aggregator built with the Meteor platform, Node.js, and MongoDB.</p>
-
     	<span class="section-header">Data Sources</span>
-    	<p>Job listings are created from two sources: Monster.com and JobStreet.com. All new listings are parsed, processed to create keyword arrays, and inspected for keyword matches from the Skills DB.</p>
+    	<p>
+            Job postings are scraped from two sources: Monster.com via an RSS feed and JobStreet.com via a recurring server process. Each post is stored on the server as a JSON object, with multiple properties available as key/value pairs within each object. The key/values provide some categorical structure to the scraped data; for example, this enables filtering or grouping based on experience, industry, or role. Each job posting is inspected for matches from the Keyword List. See the link on the left for more details.
+        </p>
 
-    	<span class="section-header">Automated Server Work</span>
-    	<p>Data sources are refreshed automatically every eight hours.</p>
-
+    	<span class="section-header">Recurring Server Processes</span>
+    	<p>JobStreet and Monster.com are scraped every eight hours. Batch CSV files of JobStreet postings are exported to an Amazon Web Services bucket every two weeks.</p>
     </section> 
 </template>

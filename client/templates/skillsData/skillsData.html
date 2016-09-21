@@ -4,14 +4,14 @@
 	</div>
   <section class="">
   	<paper-material class="layout vertical">
-      {{#autoForm schema="JobStreetQueryFilter" type="method" meteormethod="exportOptionsQuery" id="skillsDataForm"}}
+      {{#autoForm schema="skillsDataFilter" type="method" meteormethod="exportOptionsQuery" id="skillsDataForm"}}
         <div class="layout vertical">
-          <h4>Inclusive Date Range</h4>
+          <h4>Date Range</h4>
           <div class="layout horizontal wrap start-justified">
             <div class="item">{{> afFormGroup name="startDate"}}</div>
             <div class="item">{{> afFormGroup name="endDate"}}</div>
           </div>   
-            <h4>Category Filters</h4>
+            <h4>Category Filters (command + shift to select multiple, command + click to deselect)</h4>
             <div class="layout horizontal wrap start-justified">
               <div class="item">{{> afQuickField name="jsParentCategory" }} </div>
               <div class="item">{{> afQuickField name="jsSubSpecialization" }} </div>

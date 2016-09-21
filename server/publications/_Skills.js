@@ -122,3 +122,11 @@ Meteor.publish('skillsKeywordInstancesAll', function(query) {
     
 });
 
+Meteor.publish('skillsKeywordInstancesQuery', function(query) {
+  if (query && this.userId) {
+    return SkillsKeywordInstances.find({query});
+  } else {
+    return [];
+  } 
+});
+

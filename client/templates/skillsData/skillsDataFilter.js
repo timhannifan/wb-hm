@@ -1,55 +1,26 @@
-JobStreetQueryFilter = new SimpleSchema({
-  jobStreetFields: {
-  	type: [String],
-  	optional: true,
-  	label: 'Exportable Fields',
-  	autoform: {
-  	  type: "select-checkbox",
-  	  options: function () {
-        var fieldsArray = Object.keys(JobStreetItems.publicFields);
-        // console.log(fieldsArray);
 
-        var result = fieldsArray.map(function(el){ 
-           var rObj = {};
-           rObj['label'] = el;
-           rObj['value'] = el;
-           return rObj;
-        });
-
-  	    return result;
-  	  }
-  	}
-  },
-  monsterFields: {
-  	type: [String],
-  	optional: true,
-  	label: 'Select which columns to export:',
-  	autoform: {
-  	  type: "select-checkbox",
-  	  options: function () {
-  	    return [
-  	      {label: "field4", value: "field4"},
-  	      {label: "field5", value: "field5"},
-  	      {label: "field6", value: "field6"}
-  	    ];
-  	  }
-  	}
-  },
+skillsDataFilter = new SimpleSchema({
   startDate: {
     type: Date,
     optional: true,
     label: 'Starting',
     autoform: {
       afFieldInput: {
-        type: "date"
+        type: "date",
+      },
+      defaultValue: function() {
+        let current = new Date();
+        let daysAgo = new Date() - 1000*3600*24*30;
+
+        let rVal = moment.utc(daysAgo).format("YYYY-MM-DD");
+        return rVal;
       }
     },
     custom: function () {
       if (!!this.value && (this.value > this.field('endDate').value)) {
         return "daterangeMismatch";
       }
-    },
-    // defaultValue: null
+    }
   },
   endDate: {
     type: Date,
@@ -58,9 +29,9 @@ JobStreetQueryFilter = new SimpleSchema({
     autoform: {
       afFieldInput: {
         type: "date"
-      }
-    },
-    // defaultValue: null
+      },
+      defaultValue: new Date()
+    }
   },
   jsParentCategory: {
     type: [String],
@@ -257,20 +228,20 @@ JobStreetQueryFilter = new SimpleSchema({
   }
 });
 
-AutoForm.hooks({
-  exportOptionsForm: {
-  	// onSubmit: function(insertDoc, updateDoc, currentDoc) {
-  	  // You must call this.done()!
-  	  //this.done(); // submitted successfully, call onSuccess
-  	  //this.done(new Error('foo')); // failed to submit, call onError with the provided error
-  	  //this.done(null, "foo"); // submitted successfully, call onSuccess with `result` arg set to "foo"
-  	// },
-    onSuccess: function(formType, post) {
-		// console.log(); 
-    },
-    onError: function(formType, error) {
-		console.log(error);
-    },
-    beginSubmit: function() {},
-  }
-});
+// AutoForm.hooks({
+//   exportOptionsForm: {
+//   	// onSubmit: function(insertDoc, updateDoc, currentDoc) {
+//   	  // You must call this.done()!
+//   	  //this.done(); // submitted successfully, call onSuccess
+//   	  //this.done(new Error('foo')); // failed to submit, call onError with the provided error
+//   	  //this.done(null, "foo"); // submitted successfully, call onSuccess with `result` arg set to "foo"
+//   	// },
+//     onSuccess: function(formType, post) {
+// 		// console.log(); 
+//     },
+//     onError: function(formType, error) {
+// 		console.log(error);
+//     },
+//     beginSubmit: function() {},
+//   }
+// });

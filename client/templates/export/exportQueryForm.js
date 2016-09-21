@@ -13,8 +13,7 @@ ExportSchema = new SimpleSchema({
   	      // {label: "MonsterItems", value: "MonsterItems"}
   	    ];
   	  }
-  	},
-  	// defaultValue: "JobStreetItems"
+  	}
   },
   jobStreetFields: {
   	type: [String],
@@ -24,8 +23,6 @@ ExportSchema = new SimpleSchema({
   	  type: "select-checkbox",
   	  options: function () {
         var fieldsArray = Object.keys(JobStreetItems.publicFields);
-        // console.log(fieldsArray);
-
         var result = fieldsArray.map(function(el){ 
            var rObj = {};
            rObj['label'] = el;
@@ -59,7 +56,14 @@ ExportSchema = new SimpleSchema({
     autoform: {
       afFieldInput: {
         type: "date"
-      }
+      },
+      defaultValue: function() {
+        let current = new Date();
+        let daysAgo = new Date() - 1000*3600*24*30;
+
+        let rVal = moment.utc(daysAgo).format("YYYY-MM-DD");
+        return rVal;
+      }      
     },
     custom: function () {
       if (!!this.value && (this.value > this.field('endDate').value)) {
@@ -75,9 +79,14 @@ ExportSchema = new SimpleSchema({
     autoform: {
       afFieldInput: {
         type: "date"
-      }
-    },
-    // defaultValue: null
+      },
+      defaultValue: function() {
+        let current = new Date();
+
+        let rVal = moment.utc(current).format("YYYY-MM-DD");
+        return rVal;
+      }      
+    }
   },
   jsParentCategory: {
     type: [String],
@@ -121,24 +130,7 @@ ExportSchema = new SimpleSchema({
           return res;
         }
       }
-    }
-    // autoform: {
-    //   type: "select-multiple",
-    //   options: function () {
-    //     let data = JobStreetSources.find( {}, { fields: { sourceSpecialization: 1 }, sort: { sourceSpecialization: 1 }} );
-    //     if ( data ) {
-    //       var uniques = _.uniq( data.map( ( item ) => {
-    //         return item.sourceSpecialization;
-    //       }), true );
-
-    //       var res = [];
-    //       for (var i = 0; i < uniques.length; i++) {
-    //         res.push({label: uniques[i], value: uniques[i]});
-    //       }
-    //       return res;
-    //     }
-    //   }
-    // }    
+    }   
   },
   jsListedIndustry: {
     type: [String],

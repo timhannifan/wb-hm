@@ -30,7 +30,7 @@ AccountsTemplates.configureRoute('signUp', {
 Router.route('/', {
   name: 'home'
 });
-Router.route('/skills-data', {
+Router.route('/keyword-occurances', {
 	name: 'skillsData'
 });
 Router.route('/keyword-list', {
@@ -39,6 +39,12 @@ Router.route('/keyword-list', {
 Router.route('/db-backup', {
   name: 'fileDownload'
 });
+
+Router.route('export', {
+  path: '/custom-query',
+  template: 'export'
+});
+
 
 // Router.route('/filedownload', {
 //   name: 'fileDownload'
@@ -172,15 +178,6 @@ Router.route('itemViewByKeyword', {
     }
   },
 });
-
-Router.route('export', {
-  path: '/custom-query',
-  template: 'export'
-});
-
-// Router.route('wordFrequency', {
-//   path: '/word-frequency'
-// });
 
 Router.route('loading', {
   path: '/loading',

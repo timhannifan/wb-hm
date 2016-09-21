@@ -1,0 +1,123 @@
+
+
+<template name="job_street_data_item">
+
+  <section id="job_street_data_item">
+    <div class="page-header">
+      <paper-icon-button icon="arrow-back" data-action="back"></paper-icon-button>
+        <span class="title">Job Listing ID: {{this._id}}</span>
+    </div>
+
+
+
+    <paper-material class="paper-content">
+      <div class="content-header">Job Summary</div> 
+          <p class="flex">
+            <strong>Title:</strong><br>
+           {{this.title}}
+          </p>
+
+          <p class="flex">
+            <strong>Description:</strong><br>
+           {{this.description}}
+          </p>
+
+          <p class="flex">
+            <strong>Experience:</strong><br>
+           {{this.experience}}
+          </p>
+          <p class="flex">
+            <strong>Listed Specialization:</strong><br>
+           {{this.listedSpec}}
+          </p>
+          <p class="flex">
+            <strong>Listed Industry:</strong><br>
+           {{this.listedIndustry}}
+          </p>
+          <p class="flex">
+            <strong>Listed Role</strong><br>
+           {{this.listedRole}}
+          </p>
+
+          <p class="flex">
+            <strong>Created:</strong><br>
+           {{formatDate this.createdAt}}
+          </p>
+          <p class="flex">
+            <strong>Date Posted:</strong><br>
+           {{this.datePosted}}
+          </p>
+          <p class="flex">
+            <strong>Date Closing:</strong><br>
+           {{this.dateClosing}}
+          </p>
+          <p class="flex">
+            <strong>URL:</strong><br>
+           <a href="{{this.url}}" target="_blank" title="">{{this.url}}</a>
+          </p>
+    </paper-material>
+
+    <paper-material class="paper-content">
+      <div class="content-header">Company Summary</div>
+      <div class="content-body">
+        <p class="flex"><strong>Comany:</strong>
+         {{this.company}}
+        </p>
+        <p class="flex"><strong>Location:</strong>
+         {{this.location}}
+        </p>
+
+        <p class="flex"><strong>Company Registration #:</strong>
+         {{this.companyRegistrationNumber}}
+        </p>          
+        <p class="flex"><strong>Company Size:</strong>
+         {{this.companySize}}
+        </p>          
+        <p class="flex"><strong>Languages Spoken:</strong>
+         {{this.languagesSpoken}}
+        </p>  
+        <p class="flex">
+          <strong>Benefits:</strong><br>
+         {{this.benefits}}
+        </p>          
+        <p class="flex"><strong>Company Address:</strong>
+         {{this.companyAddress}}
+        </p>            
+        <p class="flex"><strong>Company Overview:</strong>
+         {{this.companyOverview}}
+        </p>             
+        <p class="flex"><strong>Company Industry:</strong>
+         {{this.companySnapIndustry}}
+        </p>             
+        <p class="flex"><strong>Company Dress Code:</strong>
+         {{this.companySnapDressCode}}
+        </p>                
+        <p class="flex"><strong>Company Size:</strong>
+         {{this.companySize}}
+        </p>
+      </div>
+      
+    </paper-material>
+
+    <paper-material class="paper-content flex">
+      <div class="content-header">Parsed Keywords</div>
+       <div class="content-body">
+        <strong>Title Tags:</strong><br>
+        <div class="flex">
+          {{#each this.titleTags}}
+            <span>'{{this}}'</span>
+          {{/each}}          
+        </div>
+
+         <br>
+        <strong>Description Tags:</strong><br>
+        <div class="flex">
+          {{#each this.descriptionTags}}
+            <span>'{{this}}'</span>
+          {{/each}}  
+        </div>
+      </div>
+    </paper-material>
+  </section>
+
+</template>

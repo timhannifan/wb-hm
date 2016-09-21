@@ -23,6 +23,11 @@ UI.registerHelper('truncateText', function(string) {
     return string.substr(0,25)+ (string.length > 25 ? "..." : "");
 });
 
+UI.registerHelper('truncateTextShort', function(string) {
+  if(string)
+    return string.substr(0,5)+'...';// (string.length > 25 ? "..." : "");
+});
+
 UI.registerHelper("absoluteUrl", function(path) {
   return Meteor.absoluteUrl(path);
 });
