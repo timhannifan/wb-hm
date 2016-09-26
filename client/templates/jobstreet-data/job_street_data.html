@@ -4,58 +4,69 @@
   </div>
 
   <section class="">
-  <!--   <paper-material class="layout vertical">
-      {{#autoForm schema="skillsDataFilter" type="method" meteormethod="somethingsilly" id="jsFilterForm"}}
-        <div class="layout vertical">
-          <h4>Date Range</h4>
-          <div class="layout horizontal wrap start-justified">
-            <div class="item">{{> afFormGroup name="startDate"}}</div>
-            <div class="item">{{> afFormGroup name="endDate"}}</div>
-          </div>   
-            <h4>Category Filters (command + shift to select multiple, command + click to deselect)</h4>
-            <div class="layout horizontal wrap start-justified">
-              <div class="item">{{> afQuickField name="jsParentCategory" }} </div>
-              <div class="item">{{> afQuickField name="jsSubSpecialization" }} </div>
+    <paper-material class="layout vertical">
 
-              <div class="item">{{> afQuickField name="jsListedIndustry" }}</div>
-              <div class="item">{{> afQuickField name="jsListedSpec" }}</div>
-            </div>          
+        {{#autoForm schema="skillsDataFilter" type="method" meteormethod="somethingsilly" id="jsFilterForm"}}
+          <div class="layout vertical">
+            <h4>Date Range</h4>
             <div class="layout horizontal wrap start-justified">
-              <div class="item">{{> afQuickField name="jsListedRole" }}</div>
-              <div class="item">{{> afQuickField name="jsAltIndustry" }}</div>
-              <div class="item">{{> afQuickField name="jsExperience" }}</div>
-            </div>
-        </div>
-      {{/autoForm}}
-    </paper-material> -->
+              <div class="item">{{> afFormGroup name="startDate"}}</div>
+              <div class="item">{{> afFormGroup name="endDate"}}</div>
+            </div>   
+              <h4>Category Filters (command + shift to select multiple, command + click to deselect)</h4>
+              <div class="layout horizontal wrap start-justified">
+                <div class="item">{{> afQuickField name="jsParentCategory" }} </div>
+                <div class="item">{{> afQuickField name="jsSubSpecialization" }} </div>
+                <div class="item">{{> afQuickField name="jsListedIndustry" }}</div>
+                <div class="item">{{> afQuickField name="jsListedSpec" }}</div>
+                <div class="item">{{> afQuickField name="jsListedRole" }}</div>
+                <div class="item">{{> afQuickField name="jsAltIndustry" }}</div>
+                <div class="item">{{> afQuickField name="jsExperience" }}</div>
+              </div>
+          </div>
+        {{/autoForm}}
+    </paper-material>
     <paper-material class="layout vertical">
 
       <table class="table table-bordered">
         <thead>
             <tr>
-              <th><h4>Id</h4></th>
               <th><h4>Title</h4></th>
-              <th><h4>Category</h4></th>
+              <th><h4>Company</h4></th>
+              <th><h4>Parent Category</h4></th>
               <th><h4>Created</h4></th>
             </tr>
         </thead>
         <tbody>
           {{#each tableItems}}
-              <tr>
-
-                <td><a href="{{pathFor 'job_street_data_item' _id=_id}}" class="text-link" title="">
-                    {{truncateTextShort this._id}}
-                  </a>
-                </td>
-                <td>{{truncateText this.title}}</td>
-                <td>{{truncateText parentCategory}}</td>
-                <td>{{formatShortDate createdAt}}</td>
-              </tr>
+            <tr>
+              <td><a href="{{pathFor 'job_street_data_item' _id=_id}}" class="text-link" title="">
+                {{#if this.title}}
+                   {{truncateTextLong this.title}}
+                 {{else}}
+                   {{this._id}}
+                 {{/if}}
+                </a>
+              </td>
+              <td>
+              {{#if this.company}}
+                 {{truncateText this.company}}
+               {{else}}
+                 Internship
+               {{/if}}
+              </td>
+              <td>{{parentCategory}}</td>
+              <td>{{formatShortDate createdAt}}</td>
+            </tr>
           {{/each}}
         </tbody>
       </table>
 
     </paper-material>
-    <paper-button class="js-load-more primary">Load More</paper-button>
+
+    <div class="layout horizontal center-center">
+      <paper-button class="js-load-more flex">Load More</paper-button>      
+    </div>
+
   </section>
 </template>
