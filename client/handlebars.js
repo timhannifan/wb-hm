@@ -9,7 +9,7 @@ UI.registerHelper('formatTimeDate', function(context, options) {
 
 UI.registerHelper('formatShortDate', function(context, options) {
   if(context)
-    return moment(context).format("DD-MMMM-YYYY");
+    return moment(context).format("DD-MMM-YY");
 });
 
 UI.registerHelper('relativeTime', function(context, options) {
@@ -20,12 +20,16 @@ UI.registerHelper('relativeTime', function(context, options) {
 
 UI.registerHelper('truncateText', function(string) {
   if(string)
-    return string.substr(0,25)+ (string.length > 25 ? "..." : "");
+    return string.substr(0,20)+ (string.length > 25 ? "..." : "");
 });
 
 UI.registerHelper('truncateTextShort', function(string) {
   if(string)
     return string.substr(0,5)+'...';// (string.length > 25 ? "..." : "");
+});
+UI.registerHelper('truncateTextLong', function(string) {
+  if(string)
+     return string.substr(0,45) + (string.length > 45 ? "..." : "");
 });
 
 UI.registerHelper("absoluteUrl", function(path) {
