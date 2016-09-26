@@ -1,5 +1,3 @@
-
-
 JobStreetSources = new Mongo.Collection('JobStreetSources');
 JobStreetItems = new Mongo.Collection('JobStreetItems');
 JobStreetParentCategoryCounts = new Mongo.Collection('JobStreetParentCategoryCounts');
@@ -277,3 +275,116 @@ JobStreetItems.allow({
     return true;
   }
 });
+
+
+let checkForKeywords = (dataPoint) => {
+  let skills = Skills.find({});
+
+  skills.forEach(function (skill) {
+    try {
+        var regex = new RegExp(skill.parsed_keyword,'i');
+    } catch(e) {
+        console.log(e);
+        return false;
+    }
+    var found = regex.test(dataPoint.description);
+
+    if (found) {
+      console.log(found, skill.parsed_keyword);
+      var nObj = {};
+      nObj.keywordId = skill._id;
+      nObj.keywordMatch = skill.parsed_keyword;
+      nObj.keywordType = skill.type;
+      nObj.source = 'JobStreet';
+      nObj.id = dataPoint._id;
+      nObj.parentCategory = dataPoint.parentCategory;
+      nObj.subSpecialization = dataPoint.subSpecialization;
+      nObj.listedIndustry = dataPoint.listedIndustry;
+      nObj.listedSpec = dataPoint.listedSpec;
+      nObj.listedRole = dataPoint.listedRole;
+      nObj.companySnapIndustry = dataPoint.companySnapIndustry;
+      nObj.experience = dataPoint.experience;
+      nObj.createdAt = dataPoint.createdAt;      
+      
+      SkillsKeywordInstances.insert(nObj, function(err,res){
+        if(err){
+          console.log(err);
+        } else {
+          console.log('inserting new skillsKeywordInstance ' + res);
+        }
+      });
+
+      Skills.update(
+        {_id: skill._id},
+        { $inc: { count: 1 }, $set: { lastUpdated: new Date()} },
+        function(err,res){
+          if( err ){
+            console.log(err);
+          } else {
+            console.log('incrementing skill ' + res);
+          }
+        }          
+      );
+    }
+  });
+}
+
+JobStreetItems.after.insert(function (userId, doc) {
+  checkForKeywords(doc);
+});
+
+// if(Meteor.isServer){
+//   Meteor.startup(function () {
+
+//     let dataPoint = JobStreetItems.findOne({});
+//     let skills = Skills.find({});
+
+//     skills.forEach(function (skill) {
+//       try {
+//           var regex = new RegExp(skill.parsed_keyword,'i');
+//       } catch(e) {
+//           console.log(e);
+//           return false;
+//       }
+//       var found = regex.test(dataPoint.description);
+
+//       if (found) {
+//         console.log(found, skill.parsed_keyword);
+//         var nObj = {};
+//         nObj.keywordId = skill._id;
+//         nObj.keywordMatch = skill.parsed_keyword;
+//         nObj.keywordType = skill.type;
+//         nObj.source = 'JobStreet';
+//         nObj.id = dataPoint._id;
+//         nObj.parentCategory = dataPoint.parentCategory;
+//         nObj.subSpecialization = dataPoint.subSpecialization;
+//         nObj.listedIndustry = dataPoint.listedIndustry;
+//         nObj.listedSpec = dataPoint.listedSpec;
+//         nObj.listedRole = dataPoint.listedRole;
+//         nObj.companySnapIndustry = dataPoint.companySnapIndustry;
+//         nObj.experience = dataPoint.experience;
+//         nObj.createdAt = dataPoint.createdAt;      
+        
+//         SkillsKeywordInstances.insert(nObj, function(err,res){
+//           if(err){
+//             console.log(err);
+//           } else {
+//             console.log('inserting new skillsKeywordInstance ' + res);
+//           }
+//         });
+
+//         Skills.update(
+//           {_id: skill._id},
+//           { $inc: { count: 1 }, $set: { lastUpdated: new Date()} },
+//           function(err,res){
+//             if( err ){
+//               console.log(err);
+//             } else {
+//               console.log('incrementing skill ' + res);
+//             }
+//           }          
+//         );
+//       }
+//     });
+//   });
+// }

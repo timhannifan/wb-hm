@@ -2,7 +2,7 @@ Skills = new Mongo.Collection('skills');
 SkillsKeywordInstances = new Mongo.Collection('SkillsKeywordInstances');
 if ( Meteor.isServer ) {
   SkillsKeywordInstances._ensureIndex( { createdAt: -1 } );
-  // JobStreetItems._ensureIndex( { description: "text" } );
+  Skills._ensureIndex( { parsed_keyword: "text" } );
 }
 
 

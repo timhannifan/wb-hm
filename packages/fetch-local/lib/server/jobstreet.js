@@ -275,6 +275,9 @@ function _runParentIds (callback) {
 }
 
 Meteor.methods({
+  jobStreetAutoRun: function() {
+    jobStreetAutoRun();
+  },
   findParentIdsForAll: function(){
     if (this.userId){
       return _runParentIds();
