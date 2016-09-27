@@ -1,11 +1,5 @@
 Meteor.startup( () => Modules.both.startup() );
 
-var mySubmitFunc = function(error, state){
-  if (!error) {
-    this.render('home');
-  }
-};
-
 Router.configure({
     layoutTemplate: 'app_layout',
     loadingTemplate: 'loading',
@@ -13,8 +7,7 @@ Router.configure({
 });
 
 AccountsTemplates.configure({
-    defaultLayout: 'app_layout',
-    // onSubmitHook: mySubmitFunc
+    defaultLayout: 'app_layout'
 });
 
 AccountsTemplates.configureRoute('signIn', {
@@ -45,11 +38,6 @@ Router.route('export', {
   template: 'export'
 });
 
-
-// Router.route('/filedownload', {
-//   name: 'fileDownload'
-// });
-
 Router.route('/dummy-variables', {
 	name: 'dummyVars'
 });
@@ -78,11 +66,6 @@ Router.map(function(){
   this.route('monsterData', {
     path: '/data/monster',
     template:'monsterData',
-    subscriptions: function() {
-      return [
-        Meteor.subscribe('MonsterItems')
-      ];
-    },
     action: function (){
       if (this.ready()) {
         this.render();
@@ -91,16 +74,20 @@ Router.map(function(){
       }
     }
   });
-  this.route('data_item', {
+
+  this.route('monsterDataItem', {
     path: '/data/monster/:_id',
-    template:'data_item',
-    waitOn: function() {
-      Meteor.subscribe('MonsterItems');
+    template:'monsterDataItem',
+    subscriptions: function() {
+      return [
+        Meteor.subscribe('MonsterItemsById', this.params._id)
+      ];
     },
     data: function () {
       return MonsterItems.findOne({_id: this.params._id});
     }
   });
+
   this.route('job_street_data', {
     path: '/data/jobstreet',
     template:'job_street_data',
@@ -136,11 +123,14 @@ Router.map(function(){
     path: '/new-monster-source',
     template:'new_monster_source'
   });
+
   this.route('new_jobstreet_source', {
     path: '/new-jobstreet-source',
     template:'new_jobstreet_source'
   });
+
 });
+
 Router.route('keywordMatchList', {
   path: '/skills/keyword-matches/:_id',
   template:'keywordMatchList',

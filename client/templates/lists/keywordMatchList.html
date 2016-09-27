@@ -7,28 +7,36 @@
 				    <span class="title">Keyword Matches: {{skill.parsed_keyword}}</span>
 			</div>
 
-			<table class="table table-bordered">
-				<thead>
-				    <tr>
-						<th>Title</th>
-					    <th>Category</th>
-					    <th>Subspecialization</th>
-					    <th>Industry</th>
-					    <th>AltSpecialization</th>
-					    <th>Role</th>
-				    </tr>
-				</thead>
-			    <tbody>
-				    {{#each items}}
+			<paper-material class="layout vertical">
+				{{#if items}}
+					<table class="table table-bordered">
+						<thead>
+						    <tr>
+								<th>Title</th>
+							    <th>Category</th>
+							    <th>Sub Specialization</th>
+							    <th>Industry</th>
+							    <th>Alt. Specialization</th>
+							    <th>Role</th>
+						    </tr>
+						</thead>
+					    <tbody>
+						    {{#each items}}
 
-				    	{{>jobStreetRow _id=id}}
+						    	{{>jobStreetRow _id=id}}
 
-				    {{/each}}
-			    </tbody>
-			</table>
+						    {{/each}}
+					    </tbody>
+					</table>
 
+					{{#if isMoreData}}
+						<paper-button class="js-load-more primary">Load More</paper-button>
+					{{/if}}
 
-			<paper-button class="js-load-more primary">Load More</paper-button>
+				{{else}}
+					<p>No matches found.</p>
+				{{/if}}
+			</paper-material>			
 
 		</div>
 	</section>

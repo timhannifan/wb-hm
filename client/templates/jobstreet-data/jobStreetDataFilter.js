@@ -1,5 +1,5 @@
 
-skillsDataFilter = new SimpleSchema({
+jobStreetDataFilter = new SimpleSchema({
   startDate: {
     type: Date,
     optional: true,
@@ -10,7 +10,7 @@ skillsDataFilter = new SimpleSchema({
       },
       defaultValue: function() {
         let current = new Date();
-        let daysAgo = new Date() - 1000*3600*24*2;
+        let daysAgo = new Date() - 1000*3600*24*1;
 
         let rVal = moment.utc(daysAgo).format("YYYY-MM-DD");
         return rVal;
@@ -107,7 +107,7 @@ skillsDataFilter = new SimpleSchema({
   // jsListedSpec: {
   //   type: [String],
   //   optional: true,
-  //   label: "Industry Specialization",
+  //   label: "Alt. Specialization",
   //   autoform: {
   //     type: "select-multiple",
   //     options: function () {
@@ -215,21 +215,3 @@ skillsDataFilter = new SimpleSchema({
     }     
   }
 });
-
-// AutoForm.hooks({
-//   exportOptionsForm: {
-//   	// onSubmit: function(insertDoc, updateDoc, currentDoc) {
-//   	  // You must call this.done()!
-//   	  //this.done(); // submitted successfully, call onSuccess
-//   	  //this.done(new Error('foo')); // failed to submit, call onError with the provided error
-//   	  //this.done(null, "foo"); // submitted successfully, call onSuccess with `result` arg set to "foo"
-//   	// },
-//     onSuccess: function(formType, post) {
-// 		// console.log(); 
-//     },
-//     onError: function(formType, error) {
-// 		console.log(error);
-//     },
-//     beginSubmit: function() {},
-//   }
-// });

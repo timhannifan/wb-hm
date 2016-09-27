@@ -2,8 +2,9 @@
 	<div class="page-header">
 		<h1 class="title">Keyword Occurrances</h1>
 	</div>
-  <section class="">
-  	<paper-material class="layout vertical">
+
+  <section class="layout horizontal">
+  	<paper-material class="layout vertical" style="min-height: 700px;">
       {{#autoForm schema="skillsDataFilter" type="method" meteormethod="exportOptionsQuery" id="skillsDataForm"}}
         <div class="layout vertical">
           <h4>Date Range</h4>
@@ -11,29 +12,25 @@
             <div class="item">{{> afFormGroup name="startDate"}}</div>
             <div class="item">{{> afFormGroup name="endDate"}}</div>
           </div>   
-            <h4>Category Filters (command + shift to select multiple, command + click to deselect)</h4>
+          <h4>Category Filters</h4>
+          <p>Use command + shift to select multiple items and command + click to deselect</p>
             <div class="layout horizontal wrap start-justified">
               <div class="item">{{> afQuickField name="jsParentCategory" }} </div>
               <div class="item">{{> afQuickField name="jsSubSpecialization" }} </div>
-
-              <div class="item">{{> afQuickField name="jsListedIndustry" }}</div>
-              <div class="item">{{> afQuickField name="jsListedSpec" }}</div>
-            </div>          
-            <div class="layout horizontal wrap start-justified">
               <div class="item">{{> afQuickField name="jsListedRole" }}</div>
+              <div class="item">{{> afQuickField name="jsListedIndustry" }}</div>
               <div class="item">{{> afQuickField name="jsAltIndustry" }}</div>
               <div class="item">{{> afQuickField name="jsExperience" }}</div>
             </div>
         </div>
       {{/autoForm}}
     </paper-material>
-    <paper-material class="layout vertical">
-    	<div class="flex">
+    <paper-material class="layout vertical flex scroll" style="margin-left: 15px; height: 700px; min-width: 400px;">
     		<table class="table table-bordered">
     		  <thead>
     		    <tr>
-    		      <th><h4>Skills</h4></th>
-    		      <th><h4>Job Listing Matches</h4></th>
+    		      <th><h4>Keyword</h4></th>
+    		      <th><h4>Unique Occurances</h4></th>
     		    </tr>
     		  </thead>
     		  <tbody>
@@ -45,7 +42,7 @@
     		    {{/each}}
     		  </tbody>
     		</table>
-    	</div>
   	</paper-material>
   </section>
+
 </template>

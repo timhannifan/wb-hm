@@ -5,68 +5,71 @@
 
   <section class="">
     <paper-material class="layout vertical">
-
-        {{#autoForm schema="skillsDataFilter" type="method" meteormethod="somethingsilly" id="jsFilterForm"}}
+      <!-- {{#if Template.subscriptionsReady}} -->
+        {{#autoForm schema="jobStreetDataFilter" type="method" meteormethod="somethingsilly" id="jsFilterForm"}}
           <div class="layout vertical">
             <h4>Date Range</h4>
             <div class="layout horizontal wrap start-justified">
               <div class="item">{{> afFormGroup name="startDate"}}</div>
               <div class="item">{{> afFormGroup name="endDate"}}</div>
             </div>   
-              <h4>Category Filters (command + shift to select multiple, command + click to deselect)</h4>
+              <h4>Category Filters</h4>
+              <p>Use command + shift to select multiple items and command + click to deselect</p>              
               <div class="layout horizontal wrap start-justified">
                 <div class="item">{{> afQuickField name="jsParentCategory" }} </div>
-                <div class="item">{{> afQuickField name="jsSubSpecialization" }} </div>
+                <div class="item">{{> afQuickField name="jsSubSpecialization" }} </div><div class="item">{{> afQuickField name="jsListedRole" }}</div>
                 <div class="item">{{> afQuickField name="jsListedIndustry" }}</div>
-                <div class="item">{{> afQuickField name="jsListedSpec" }}</div>
-                <div class="item">{{> afQuickField name="jsListedRole" }}</div>
                 <div class="item">{{> afQuickField name="jsAltIndustry" }}</div>
                 <div class="item">{{> afQuickField name="jsExperience" }}</div>
               </div>
           </div>
         {{/autoForm}}
+      <!-- {{/if}} -->
     </paper-material>
     <paper-material class="layout vertical">
-
-      <table class="table table-bordered">
-        <thead>
+        <table class="table table-bordered">
+          <thead>
             <tr>
               <th><h4>Title</h4></th>
               <th><h4>Company</h4></th>
               <th><h4>Parent Category</h4></th>
               <th><h4>Created</h4></th>
             </tr>
-        </thead>
-        <tbody>
-          {{#each tableItems}}
-            <tr>
-              <td><a href="{{pathFor 'job_street_data_item' _id=_id}}" class="text-link" title="">
-                {{#if this.title}}
-                   {{truncateTextLong this.title}}
+          </thead>
+          <tbody>
+            {{#each items}}
+              <tr>
+                <td><a href="{{pathFor 'job_street_data_item' _id=_id}}" class="text-link" title="">
+                  {{#if this.title}}
+                     {{truncateTextLong this.title}}
+                   {{else}}
+                     {{this._id}}
+                   {{/if}}
+                  </a>
+                </td>
+                <td>
+                {{#if this.company}}
+                   {{truncateText this.company}}
                  {{else}}
-                   {{this._id}}
+                   Internship
                  {{/if}}
-                </a>
-              </td>
-              <td>
-              {{#if this.company}}
-                 {{truncateText this.company}}
-               {{else}}
-                 Internship
-               {{/if}}
-              </td>
-              <td>{{parentCategory}}</td>
-              <td>{{formatShortDate createdAt}}</td>
-            </tr>
-          {{/each}}
-        </tbody>
-      </table>
-
+                </td>
+                <td>{{parentCategory}}</td>
+                <td>{{formatShortDate createdAt}}</td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+        {{#if Template.subscriptionsReady}}
+          {{#if hasMoreData}}
+            <div class="layout horizontal flex center-center">
+              <a class="js-load-more text-link" href="#" style="margin-top: 40px;">Load 50 More</a>
+            </div>
+          {{/if}}
+        {{else}}
+          {{>loading}}
+        {{/if}}
     </paper-material>
-
-    <div class="layout horizontal center-center">
-      <paper-button class="js-load-more flex">Load More</paper-button>      
-    </div>
 
   </section>
 </template>

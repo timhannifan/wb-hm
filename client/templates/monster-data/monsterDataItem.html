@@ -1,18 +1,18 @@
-
-
-<template name="job_street_data_item">
+<template name="monsterDataItem">
 
   <section id="job_street_data_item">
     <div class="page-header">
       <paper-icon-button icon="arrow-back" data-action="back"></paper-icon-button>
-        <span class="title">{{this.title}}</span>
+        <span class="title">Job Listing ID: {{this._id}}</span>
     </div>
+
+
 
     <paper-material class="paper-content">
       <div class="content-header">Job Summary</div> 
           <p class="flex">
-            <strong>_id:</strong><br>
-           {{this._id}}
+            <strong>Title:</strong><br>
+           {{this.title}}
           </p>
 
           <p class="flex">
@@ -20,32 +20,27 @@
            {{this.description}}
           </p>
 
-
-          <p class="flex">
-            <strong>Parent Category:</strong><br>
-           {{this.parentCategory}}
-          </p>
-          <p class="flex">
-            <strong>Specialization:</strong><br>
-           {{this.subSpecialization}}
-          </p>
-          <p class="flex">
-            <strong>Role:</strong><br>
-           {{this.listedRole}}
-          </p>          
-          <p class="flex">
-            <strong>Industry:</strong><br>
-           {{this.listedIndustry}}
-          </p>
-          <p class="flex">
-            <strong>Alt Industry:</strong><br>
-           {{this.companySnapIndustry}}
-          </p>          
           <p class="flex">
             <strong>Experience:</strong><br>
            {{this.experience}}
           </p>
+          <p class="flex">
+            <strong>Listed Specialization:</strong><br>
+           {{this.listedSpec}}
+          </p>
+          <p class="flex">
+            <strong>Listed Industry:</strong><br>
+           {{this.listedIndustry}}
+          </p>
+          <p class="flex">
+            <strong>Listed Role</strong><br>
+           {{this.listedRole}}
+          </p>
 
+          <p class="flex">
+            <strong>Created:</strong><br>
+           {{formatDate this.createdAt}}
+          </p>
           <p class="flex">
             <strong>Date Posted:</strong><br>
            {{this.datePosted}}
@@ -88,7 +83,10 @@
         </p>            
         <p class="flex"><strong>Company Overview:</strong>
          {{this.companyOverview}}
-        </p>                        
+        </p>             
+        <p class="flex"><strong>Company Industry:</strong>
+         {{this.companySnapIndustry}}
+        </p>             
         <p class="flex"><strong>Company Dress Code:</strong>
          {{this.companySnapDressCode}}
         </p>                
