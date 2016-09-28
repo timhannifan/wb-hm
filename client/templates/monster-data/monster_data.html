@@ -4,27 +4,27 @@
   </div>
 
   <section class="">
-    <paper-material class="layout vertical">
 
+    <paper-material class="layout vertical">
         {{#autoForm schema="monsterDataFilter" type="method" meteormethod="somethingsilly" id="monsterFilterForm"}}
-          <div class="layout vertical">
-            <h4>Date Range</h4>
-            <div class="layout horizontal wrap start-justified">
-              <div class="item">{{> afFormGroup name="startDate"}}</div>
-              <div class="item">{{> afFormGroup name="endDate"}}</div>
-            </div>   
-            <h4>Filters</h4>
-            <p>Use the command key to select multiple items.</p> 
-            <div class="layout horizontal wrap">
+          <div class="layout horizontal">
+            <div class="flex">
+              <h4>Date Range</h4>
+              <div class="layout horizontal">
+                <div class="item">{{> afFormGroup name="startDate"}}</div>
+                <div class="item">{{> afFormGroup name="endDate"}}</div>
+              </div>
+            </div>
+            <div class="flex">
+              <h4>Filters</h4>
+              <p>Use the command key to select multiple items.</p> 
               <div class="item">{{> afQuickField name="sourceCategory" }} </div>
-              <!-- <div class="item">{{> afQuickField name="qualification" }} </div> -->
-              <!-- <div class="item">{{> afQuickField name="experience" }} </div> -->
             </div>
           </div>
         {{/autoForm}}
     </paper-material>
-    <paper-material class="layout vertical">
 
+    <paper-material class="layout vertical">
       <table class="table table-bordered">
         <thead>
             <tr>

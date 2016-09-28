@@ -59,14 +59,6 @@ Meteor.publish('skillsInstances', function (query, modifier) {
   }
 });
 
-Meteor.publish('keywordMatchList', function(_id) {
-    console.log('publishing for a new keyword' + _id);
-    if (_id) {
-        return  SkillsKeywordInstances.find( {keywordId: _id} );
-    } else {
-        return [];
-    }
-});
 
 Meteor.publish('skillsKeywordInstancesTypes', function(query) {
   if (!query) {

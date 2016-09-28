@@ -140,12 +140,6 @@ Router.route('keywordMatchList', {
     } else {
       this.render('loading');
     }
-  },
-  subscriptions: function () {
-    return [
-      Meteor.subscribe('keywordMatchList', this.params._id),
-      Meteor.subscribe('skills')
-    ];
   }
 });
 

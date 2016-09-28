@@ -8,16 +8,15 @@
 			</div>
 
 			<paper-material class="layout vertical">
-				{{#if items}}
 					<table class="table table-bordered">
 						<thead>
 						    <tr>
-								<th>Title</th>
-							    <th>Category</th>
-							    <th>Sub Specialization</th>
-							    <th>Industry</th>
-							    <th>Alt. Specialization</th>
-							    <th>Role</th>
+						    	<th><h4>Title</h4></th>
+						    	<th><h4>Category</h4></th>
+						    	<th><h4>Sub Specialization</h4></th>
+						    	<th><h4>Industry</h4></th>
+						    	<th><h4>Alt. Specialization</h4></th>
+						    	<th><h4>Role</h4></th>
 						    </tr>
 						</thead>
 					    <tbody>
@@ -28,14 +27,15 @@
 						    {{/each}}
 					    </tbody>
 					</table>
-
-					{{#if isMoreData}}
-						<paper-button class="js-load-more primary">Load More</paper-button>
+					{{#if Template.subscriptionsReady}}
+					  {{#if hasMoreData}}
+					    <div class="layout horizontal flex center-center">
+					      <a class="js-load-more text-link" href="#" style="margin-top: 40px;">Load More</a>
+					    </div>
+					  {{/if}}
+					{{else}}
+					  {{>loading}}
 					{{/if}}
-
-				{{else}}
-					<p>No matches found.</p>
-				{{/if}}
 			</paper-material>			
 
 		</div>
