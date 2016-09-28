@@ -1,5 +1,5 @@
 
-Template.monsterData.onCreated( () => {
+Template.monsterData.onCreated( function() {
 
   let initialStart=moment().subtract(1000*3600*24*1).toDate();
   let today = new Date();
@@ -8,95 +8,99 @@ Template.monsterData.onCreated( () => {
   this.endDate=new ReactiveVar({createdAt: {$lte: today}});
   this.sourceCategory=new ReactiveVar({});
   this.qualification=new ReactiveVar({});
+  this.experience=new ReactiveVar({});
 
   this.fields = new ReactiveVar({
       title: 1,
       company: 1,
       sourceCategory: 1,
       qualification: 1,
+      experience: 1,
       createdAt: 1
   });
+  this.limit = new ReactiveVar(50);
+  this.loaded = new ReactiveVar(0);
 
-	this.templateLimit = new ReactiveVar(50);
-	this.increaseLimit = function(current, num) {
-		const newVal = current + num;
-		console.log(newVal)
+  this.autorun(() => {
+    var limit = this.limit.get();
+    var pq = {
+      $and : [
+        this.startDate.get(),
+        this.endDate.get(),
+        this.sourceCategory.get(),
+        this.qualification.get(),
+        this.experience.get()
+      ]      
+    };
 
-		this.templateLimit.set(newVal);
-	}	
-
-  let passedQ = { 
-    $and : [
-          startDate.get(),
-          endDate.get(),
-          sourceCategory.get(),
-          qualification.get()
-        ] 
-  };
-
-  Tracker.autorun(function () {
-    Meteor.subscribe('JobStreetMeta');
-    Meteor.subscribe('monsterQuery', passedQ);
+    if ( pq ){
+      var subscription = this.subscribe('monsterQuery', pq, limit);    
+      this.subscribe('monsterMeta');
+      if (subscription.ready()) {
+        this.loaded.set(limit);
+        console.log("> Subscription is ready. \n\n");
+      } else {
+        console.log("> Subscription is not ready yet. \n\n");
+      }
+    }
   });
+
+  this.items = function() { 
+    return MonsterItems.find({},{ sort: { createdAt: -1 }, limit: this.loaded.get() });
+  };
 
 });
 
 Template.monsterData.helpers({
-  tableItems() {
-    let data = MonsterItems.find(
-      {
-        $and : [
-	        startDate.get(),
-	        endDate.get(),
-	        sourceCategory.get(),
-	        qualification.get()
-        ] 
-      },
-      {
-      	limit: templateLimit.get(),
-      	sort: {createdAt: -1},
-        fields: fields.get(),
-      }
-    );
-
-    if (data) {
-    	return data.fetch();
-    } else {
-    	return []
-    };
-  }
+  items: function () {
+    return Template.instance().items();
+  },
+  hasMoreData: function () {
+    return Template.instance().items().count() >= Template.instance().limit.get();
+  }  
 });
 
 Template.monsterData.events({
-  'change #monsterFilterForm': function (event, template) {
-    GlobalUI.toast( 'Updating table....');
-    var form = AutoForm.getFormValues('monsterFilterForm'),
-    doc = form.insertDoc;
+  'change #monsterFilterForm': function (event, instance) {
+    if (!AutoForm.validateForm('monsterFilterForm')) {
+        GlobalUI.toast( 'There was an error processing your query.', 'danger' );
+    } else {
+      GlobalUI.toast( 'Updating table....');
+      var form = AutoForm.getFormValues('monsterFilterForm'),
+      doc = form.insertDoc;
 
-    if (doc.startDate){
-      startDate.set({createdAt: {$gte: moment().subtract(1000*3600*24*1).toDate()}});
-    }else {
-      startDate.set({createdAt: {$gte: new Date()}});
-    }     
-    if (doc.endDate){
-      endDate.set({createdAt: {$lte: doc.endDate}});
-    }else {
-      endDate.set({createdAt: {$lte: new Date()}});
-    }    
-    if (doc.sourceCategory){
-      sourceCategory.set({sourceCategory: {$in: doc.sourceCategory}});
-    } else {
-      sourceCategory.set({});
-    }    
-    if (doc.qualification){
-      qualification.set({qualification: {$in: doc.qualification}});
-    } else {
-      qualification.set({});
+      if (doc.startDate){
+        instance.startDate.set({createdAt: {$gte: doc.startDate}});
+      }else {
+        instance.startDate.set({createdAt: {$gte:  moment().subtract(1000*3600*24*1).toDate() }});
+      }     
+      if (doc.endDate){
+        instance.endDate.set({createdAt: {$lte: doc.endDate}});
+      }else {
+        instance.endDate.set({createdAt: {$lte: new Date()}});
+      }    
+      if (doc.sourceCategory){
+        instance.sourceCategory.set({sourceCategory: {$in: doc.sourceCategory}});
+      } else {
+        instance.sourceCategory.set({});
+      }    
+      if (doc.qualification){
+        instance.qualification.set({qualification: {$in: doc.qualification}});
+      } else {
+        instance.qualification.set({});
+      }    
+      if (doc.experience){
+        instance.experience.set({experience: {$in: doc.experience}});
+      } else {
+        instance.experience.set({});
+      }    
     }
   },
-  'click .js-load-more': function (event, template) {
-  	const current = templateLimit.get();
-  	increaseLimit(current,50);
-  }  
+  'click .js-load-more': function (event, instance) {
+    event.preventDefault();
+    var limit = instance.limit.get();
+    limit += 50;
+    instance.limit.set(limit);
+  }   
 });
 

@@ -1,6 +1,6 @@
 Meteor.publish('jobStreetQuery', function (query,limit) {
   Meteor._sleepForMs(2000);
-  // console.log(query)
+
   return JobStreetItems.find(query, 
   	{
   		limit: limit,

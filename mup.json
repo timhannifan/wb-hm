@@ -7,7 +7,7 @@
       // "password": "tard4pas",
       // or pem file (ssh based authentication)
       // WARNING: Keys protected by a passphrase are not supported
-      "pem": "~/.ssh/id_rsa"
+      "pem": "/Users/hannifan/.ssh/id_rsa"
       // Also, for non-standard ssh port use this
       // "sshOptions": { "port" : 49154 },
       // server specific environment variables
@@ -24,7 +24,7 @@
   // Location of app (local directory). This can reference '~' as the users home directory.
   // i.e., "app": "~/Meteor/my-app",
   // This is the same as the line below.
-  "app": "~/_code/worldbank/wb-hm",
+  "app": "/Users/hannifan/_code/worldbank/wb-hm",
 
   // Configure environment
   // ROOT_URL must be set to your correct domain (https or http)
@@ -44,7 +44,7 @@
 
   "buildOptions": {
     // build with the debug mode on
-    "debug": true
+    "debug": true,
     // mobile setting for cordova apps
     // "mobileSettings": {
     //   "public": {
@@ -53,6 +53,6 @@
     // },
     // executable used to build the meteor project
     // you can set a local repo path if needed
-    // "executable": "meteor"
+    "executable": "meteor"
   }
 }

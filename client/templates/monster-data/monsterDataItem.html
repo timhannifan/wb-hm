@@ -3,16 +3,14 @@
   <section id="job_street_data_item">
     <div class="page-header">
       <paper-icon-button icon="arrow-back" data-action="back"></paper-icon-button>
-        <span class="title">Job Listing ID: {{this._id}}</span>
+        <span class="title">{{this.title}}</span>
     </div>
-
-
 
     <paper-material class="paper-content">
       <div class="content-header">Job Summary</div> 
           <p class="flex">
-            <strong>Title:</strong><br>
-           {{this.title}}
+            <strong>_id:</strong><br>
+           {{this._id}}
           </p>
 
           <p class="flex">
@@ -21,37 +19,25 @@
           </p>
 
           <p class="flex">
+            <strong>Parent Cateogry:</strong><br>
+           {{this.sourceCategory}}
+          </p>
+          <p class="flex">
+            <strong>Qualification:</strong><br>
+           {{this.qualification}}
+          </p>
+          <p class="flex">
             <strong>Experience:</strong><br>
            {{this.experience}}
           </p>
-          <p class="flex">
-            <strong>Listed Specialization:</strong><br>
-           {{this.listedSpec}}
-          </p>
-          <p class="flex">
-            <strong>Listed Industry:</strong><br>
-           {{this.listedIndustry}}
-          </p>
-          <p class="flex">
-            <strong>Listed Role</strong><br>
-           {{this.listedRole}}
-          </p>
-
+          
           <p class="flex">
             <strong>Created:</strong><br>
            {{formatDate this.createdAt}}
           </p>
           <p class="flex">
-            <strong>Date Posted:</strong><br>
-           {{this.datePosted}}
-          </p>
-          <p class="flex">
-            <strong>Date Closing:</strong><br>
-           {{this.dateClosing}}
-          </p>
-          <p class="flex">
             <strong>URL:</strong><br>
-           <a href="{{this.url}}" target="_blank" title="">{{this.url}}</a>
+           <a href="{{this.url}}" class="text-link" target="_blank" title="">{{this.url}}</a>
           </p>
     </paper-material>
 
@@ -63,35 +49,6 @@
         </p>
         <p class="flex"><strong>Location:</strong>
          {{this.location}}
-        </p>
-
-        <p class="flex"><strong>Company Registration #:</strong>
-         {{this.companyRegistrationNumber}}
-        </p>          
-        <p class="flex"><strong>Company Size:</strong>
-         {{this.companySize}}
-        </p>          
-        <p class="flex"><strong>Languages Spoken:</strong>
-         {{this.languagesSpoken}}
-        </p>  
-        <p class="flex">
-          <strong>Benefits:</strong><br>
-         {{this.benefits}}
-        </p>          
-        <p class="flex"><strong>Company Address:</strong>
-         {{this.companyAddress}}
-        </p>            
-        <p class="flex"><strong>Company Overview:</strong>
-         {{this.companyOverview}}
-        </p>             
-        <p class="flex"><strong>Company Industry:</strong>
-         {{this.companySnapIndustry}}
-        </p>             
-        <p class="flex"><strong>Company Dress Code:</strong>
-         {{this.companySnapDressCode}}
-        </p>                
-        <p class="flex"><strong>Company Size:</strong>
-         {{this.companySize}}
         </p>
       </div>
       

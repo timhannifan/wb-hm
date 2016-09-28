@@ -215,11 +215,6 @@ Meteor.methods({
       return _runJobStreetMeta();
     }
   },
-  runJobStreetMeta2(){
-    if (this.userId) {
-      return _runJobStreetMeta2();
-    }
-  },
   runJobStreetMetaRoles(){
     if (this.userId) {
       return _runJobStreetMetaRoles();
