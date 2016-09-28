@@ -13,13 +13,11 @@
               <div class="item">{{> afFormGroup name="startDate"}}</div>
               <div class="item">{{> afFormGroup name="endDate"}}</div>
             </div>   
-            <h4>Filters</h4>
-            <p>Use the command key to select multiple items.</p> 
-            <div class="layout horizontal wrap">
-              <div class="item">{{> afQuickField name="sourceCategory" }} </div>
-              <!-- <div class="item">{{> afQuickField name="qualification" }} </div> -->
-              <!-- <div class="item">{{> afQuickField name="experience" }} </div> -->
-            </div>
+              <h4>Category Filters (command + shift to select multiple, command + click to deselect)</h4>
+              <div class="layout horizontal wrap start-justified">
+                <!-- <div class="item">{{> afQuickField name="sourceCategory" }} </div> -->
+                <!-- <div class="item">{{> afQuickField name="jsSubSpecialization" }} </div> -->
+              </div>
           </div>
         {{/autoForm}}
     </paper-material>
@@ -35,7 +33,7 @@
             </tr>
         </thead>
         <tbody>
-          {{#each items}}
+          {{#each tableItems}}
             <tr>
               <td><a href="{{pathFor 'monsterDataItem' _id=_id}}" class="text-link" title="">
                 {{#if this.title}}
@@ -58,16 +56,12 @@
           {{/each}}
         </tbody>
       </table>
-      {{#if Template.subscriptionsReady}}
-        {{#if hasMoreData}}
-          <div class="layout horizontal flex center-center">
-            <a class="js-load-more text-link" href="#" style="margin-top: 40px;">Load More</a>
-          </div>
-        {{/if}}
-      {{else}}
-        {{>loading}}
-      {{/if}}
+
     </paper-material>
+
+    <div class="layout horizontal center-center">
+      <paper-button class="js-load-more flex">Load More</paper-button>      
+    </div>
 
   </section>
 </template>

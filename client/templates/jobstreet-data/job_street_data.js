@@ -42,6 +42,7 @@ Template.job_street_data.onCreated(function () {
         console.log("> Subscription is not ready yet. \n\n");
       }
     }
+
   });
 
   this.items = function() { 
