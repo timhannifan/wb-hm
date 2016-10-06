@@ -395,13 +395,11 @@ SyncedCron.add({
   name: 'Jobstreet batch autorun',
   schedule: function(parser) {
     // parser is a later.parse object
-    return parser.text('every 8 hours');
+    return parser.text('every 1 day at 12:00 pm');
   }, 
   job: function(intendedAt) {
 
-    console.log('running Jobstreet batch autorun');
-    console.log('job should be running at:');
-    console.log(intendedAt);
+    console.log('running Jobstreet batch autorun ' + intendedAt);
     jobStreetAutoRun();
   }
 });

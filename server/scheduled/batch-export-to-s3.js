@@ -23,27 +23,73 @@ let _createNewDBRecord = (url, fileName, startDate, endDate) => {
   });
 }
 let _runBatch = (startDate,endDate) => {
-  console.log('running a new batch export: ' + startDate + ' through ' + endDate);
+  console.log('running a batch export process for the following dates: ',startDate,endDate);
 
   let query = {
     $and: [ {createdAt: {$gte: startDate}}, {createdAt: {$lte: endDate}} ]
   };
   let modifier = {
-      sort: {
+    sort: {
       createdAt: -1
-    }
+    },
+    fields: JobStreetItems.publicFields
   };
   let data = JobStreetItems.find(query, modifier).fetch();
   let csvFile = Papa.unparse( data );
   let readableDate = function (date) {
      return moment(date).format('DMMMYYYY');
   }
-  let fileName = '/production/'+ readableDate(startDate) + '_' + readableDate(endDate) + '.csv';
+  let dirName = '/production/';
+  let fileName = readableDate(endDate) + '.csv';
+  let awsString = dirName + fileName;
 
   if (csvFile) {
-    console.log('inserting a file to s3:' + fileName);
+    console.log('inserting a file to s3:' + awsString);
 
-    let req = client.put( fileName, {
+    let req = client.put( awsString, {
+        'Content-Length': Buffer.byteLength(csvFile),
+        'Content-Type': 'text/csv',
+        'x-amz-acl': 'public-read'
+      }
+    );
+
+    req.on('response', function(res){
+      bound(function(){
+          if (200 == res.statusCode) {
+            console.log('saved to %s', req.url);
+            _createNewDBRecord(req.url, fileName, startDate, endDate);
+          }
+      })
+    });
+
+    req.end(csvFile);
+  }
+}
+let _runBatchTest = (startDate,endDate) => {
+  console.log('batch export called',startDate,endDate);
+
+  let query = {
+    $and: [ {createdAt: {$gte: startDate}}, {createdAt: {$lte: endDate}} ]
+  };
+  let modifier = {
+    sort: {
+      createdAt: -1
+    },
+    fields: JobStreetItems.publicFields
+  };
+  let data = JobStreetItems.find(query, modifier).fetch();
+  let csvFile = Papa.unparse( data );
+  let readableDate = function (date) {
+     return moment(date).format('DMMMYYYY');
+  }
+  let dirName = '/test/';
+  let fileName = readableDate(endDate) + '.csv';
+  let awsString = dirName + fileName;
+
+  if (csvFile) {
+    console.log('inserting a file to s3:' + awsString);
+
+    let req = client.put( awsString, {
         'Content-Length': Buffer.byteLength(csvFile),
         'Content-Type': 'text/csv',
         'x-amz-acl': 'public-read'
@@ -63,64 +109,78 @@ let _runBatch = (startDate,endDate) => {
   }
 }
 let _runBatchSeed = () => {
-  const begginingOfTime = new Date(2016,4,1,0,0,0);
+  const begginingOfTime = new Date(2016,1,1);
 
   let sched = later.parse.recur()
-                .on(1).dayOfMonth()
+                .on(1).dayOfMonth().on('04:00').time()
               .and()
-                .on(15).dayOfMonth();
+                .on(15).dayOfMonth().on('04:00').time();
 
-  let schedule = later.schedule(sched).next(100, begginingOfTime)
+  let backwards = later.schedule(sched).prev(15, new Date());
+  
+  for (var i = backwards.length - 1; i >= 0; i--) {
 
-  for (var i = schedule.length - 1; i >= 0; i--) {
-    if (schedule[i+1] < new Date()) {
-      _runBatch(schedule[i],schedule[i+1]);      
+    if (backwards[i+1] < new Date()) {
+      _runBatch(backwards[i+1],backwards[i]);
     }
   }
 }
 
-let _cleanUpBatchCollections = () => {
-  BatchDownloads.remove({});
-  _runBatchSeed();
+let _resetBatchDownloads = () => {
+  BatchDownloads.remove({},function(err,res) {
+    if(!err) {
+      console.log('completed batch reset');
+      _runBatchSeed();
+    }
+  });
 }
 
 Meteor.methods({
-  testBatch: function () {
-    _runBatch();
+  runBatchTest: function () {
+    let start = BatchDownloads.findOne({},{sort: {periodEnd: -1}}); 
+    if (start.periodEnd) {
+      _runBatchTest(start.periodEnd, new Date());
+    }
   },
   resetBatchDownloads: function () {
     if (this.userId) {
-      _cleanUpBatchCollections();
+      _resetBatchDownloads();
     }
   }
 });
 
-
-
 SyncedCron.add({
-  name: 'Export batch data to s3',
+  name: 'Production batch data to s3',
   schedule: function(parser) {
-    // return parser.text('every 1 min');
-    return parser.recur()
-                .on(1).dayOfMonth()
-              .and()
-                .on(15).dayOfMonth();
+    // parser is a later.parse object
+    return parser.text('at 12:00 am on the 1st and 15th day of the month');
   }, 
   job: function(intendedAt) {
-    console.log('running scheduled process: export batch data to s3 at ' + intendedAt);
-    let cronSched = later.parse.recur()
-                              .on(1).dayOfMonth()
-                            .and()
-                              .on(15).dayOfMonth();
-
-    let start = later.schedule(cronSched).prev(1, intendedAt);
-
-    _runBatch(start,intendedAt);
+    console.log('Test batch data to s3 ' + intendedAt);
+    let start = BatchDownloads.findOne({},{sort: {periodEnd: -1}}); 
+    if (start.periodEnd) {
+      _runBatch(start.periodEnd,intendedAt);      
+    }
   }
 });
 
-Meteor.startup(function () {
-  if (BatchDownloads.find().count() == 0 ){
-    _runBatchSeed(); 
-  }
-});
+// SyncedCron.add({
+//   name: 'Test batch data to s3',
+//   schedule: function(parser) {
+//     // parser is a later.parse object
+//     return parser.text('at 6:20 am on the 5th day of the month');
+//   }, 
+//   job: function(intendedAt) {
+//     console.log('Test batch data to s3 ' + intendedAt);
+//     let start = BatchDownloads.findOne({},{sort: {periodEnd: -1}}); 
+//     if (start.periodEnd) {
+//       _runBatchTest(start.periodEnd,intendedAt);      
+//     }
+//   }
+// });
+ 
+// Meteor.startup(function () {
+//   if (BatchDownloads.find().count() == 0 ){
+//     _runBatchSeed(); 
+//   }
+// });

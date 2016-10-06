@@ -239,7 +239,6 @@ JobStreetItems.publicFields = {
   companySnapIndustry: 1,
   companySnapDressCode: 1,
   companyOverview: 1,
-  companyOverviewTags: 1,
   url: 1,
   parentCategory: 1,
   subSpecialization: 1,
