@@ -1,7 +1,7 @@
 dummyVarFilterSchema = new SimpleSchema({
   startDate: {
     type: Date,
-    optional: true,
+    optional: false,
     label: 'Starting',
     autoform: {
       afFieldInput: {
@@ -17,206 +17,19 @@ dummyVarFilterSchema = new SimpleSchema({
   },
   endDate: {
     type: Date,
-    optional: true,
+    optional: false,
     label: 'Ending',
     autoform: {
       afFieldInput: {
         type: "date"
       }
-    }
-  },
-  jsParentCategory: {
-    type: [String],
-    optional: true,
-    label: "JobStreet Parent Category",
-    autoform: {
-      type: "select-multiple",
-      options: function () {
-        let data = JobStreetMeta.find( {type: "parentCategory"}, { fields: { name: 1 }, sort: { name: 1 }} );
-        if ( data ) {
-          var uniques = _.uniq( data.map( ( item ) => {
-            return item.name;
-          }), true );
-
-          var res = [];
-          for (var i = 0; i < uniques.length; i++) {
-            res.push({label: uniques[i], value: uniques[i]});
-          }
-          return res;
-        }
+    },
+    defaultValue: new Date(),
+    custom: function () {
+      if (!!this.value && (this.value <= this.field('startDate').value)) {
+        return "daterangeMismatch";
       }
-    }
-  },
-  jsSubSpecialization: {
-    type: [String],
-    optional: true,
-    label: "JobStreet Sub-Specialization",
-    autoform: {
-      type: "select-multiple",
-      options: function () {
-        let data = JobStreetMeta.find( {type: "subSpecialization"}, { fields: { name: 1 }, sort: { name: 1 }} );
-        if ( data ) {
-          var uniques = _.uniq( data.map( ( item ) => {
-            return item.name;
-          }), true );
-
-          var res = [];
-          for (var i = 0; i < uniques.length; i++) {
-            res.push({label: uniques[i], value: uniques[i]});
-          }
-          return res;
-        }
-      }
-    }
-    // autoform: {
-    //   type: "select-multiple",
-    //   options: function () {
-    //     let data = JobStreetSources.find( {}, { fields: { sourceSpecialization: 1 }, sort: { sourceSpecialization: 1 }} );
-    //     if ( data ) {
-    //       var uniques = _.uniq( data.map( ( item ) => {
-    //         return item.sourceSpecialization;
-    //       }), true );
-
-    //       var res = [];
-    //       for (var i = 0; i < uniques.length; i++) {
-    //         res.push({label: uniques[i], value: uniques[i]});
-    //       }
-    //       return res;
-    //     }
-    //   }
-    // }    
-  },
-  jsListedIndustry: {
-    type: [String],
-    optional: true,
-    label: "Industry",
-    autoform: {
-      type: "select-multiple",
-      options: function () {
-        let data = JobStreetMeta.find( {type: "listedIndustry"}, { fields: { name: 1 }, sort: { name: 1 }} );
-        if ( data ) {
-          var uniques = _.uniq( data.map( ( item ) => {
-            return item.name;
-          }), true );
-
-          var res = [];
-          for (var i = 0; i < uniques.length; i++) {
-            res.push({label: uniques[i], value: uniques[i]});
-          }
-          return res;
-        }
-      }
-    }   
-  },
-  jsListedSpec: {
-    type: [String],
-    optional: true,
-    label: "Industry Specialization",
-    autoform: {
-      type: "select-multiple",
-      options: function () {
-        let data = JobStreetMeta.find( {type: "listedSpec"}, { fields: { name: 1 }, sort: { name: 1 }} );
-        if ( data ) {
-          var uniques = _.uniq( data.map( ( item ) => {
-            return item.name;
-          }), true );
-
-          var res = [];
-          for (var i = 0; i < uniques.length; i++) {
-            res.push({label: uniques[i], value: uniques[i]});
-          }
-          return res;
-        }
-      }
-    }   
-  },
-  jsListedRole: {
-    type: [String],
-    optional: true,
-    label: "Role",
-    autoform: {
-      type: "select-multiple",
-      options: function () {
-        let data = JobStreetMeta.find( {type: "listedRole"}, { fields: { name: 1 }, sort: { name: 1 }} );
-        if ( data ) {
-          var uniques = _.uniq( data.map( ( item ) => {
-            return item.name;
-          }), true );
-
-          var res = [];
-          for (var i = 0; i < uniques.length; i++) {
-            res.push({label: uniques[i], value: uniques[i]});
-          }
-          return res;
-        }
-      }
-    }    
-  },
-  jsExperience: {
-    type: [String],
-    optional: true,
-    label: "Experience",
-    autoform: {
-      type: "select-multiple",
-      options: function () {
-        let data = JobStreetMeta.find( {type: "experience"}, { fields: { name: 1 }, sort: { name: 1 }} );
-        if ( data ) {
-          var uniques = _.uniq( data.map( ( item ) => {
-            return item.name;
-          }), true );
-
-          var res = [];
-          for (var i = 0; i < uniques.length; i++) {
-            res.push({label: uniques[i], value: uniques[i]});
-          }
-          return res;
-        }
-      }
-    }    
-  },
-  jsLocation: {
-    type: [String],
-    optional: true,
-    label: "Location",
-    autoform: {
-      type: "select-multiple",
-      options: function () {
-        let data = JobStreetMeta.find( {type: "location"}, { fields: { name: 1 }, sort: { name: 1 }} );
-        if ( data ) {
-          var uniques = _.uniq( data.map( ( item ) => {
-            return item.name;
-          }), true );
-
-          var res = [];
-          for (var i = 0; i < uniques.length; i++) {
-            res.push({label: uniques[i], value: uniques[i]});
-          }
-          return res;
-        }
-      }
-    }    
-  },
-  jsAltIndustry: {
-    type: [String],
-    optional: true,
-    label: "Alt. Industry",
-    autoform: {
-      type: "select-multiple",
-      options: function () {
-        let data = JobStreetMeta.find( {type: "companySnapIndustry"}, { fields: { name: 1 }, sort: { name: 1 }} );
-        if ( data ) {
-          var uniques = _.uniq( data.map( ( item ) => {
-            return item.name;
-          }), true );
-
-          var res = [];
-          for (var i = 0; i < uniques.length; i++) {
-            res.push({label: uniques[i], value: uniques[i]});
-          }
-          return res;
-        }
-      }
-    }     
+    },    
   }
 });
 

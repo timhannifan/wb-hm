@@ -4,34 +4,22 @@
 		</div>
 	  <section class="">
 		  <h4>About</h4>
-		  <p>Use the form below to export dummy variable data showing occurances of keywords within individual JobStreet listings. This query uses the current Keyword list to build column headers for the CSV data. These types of queries can be slow; be patient or use a smaller date range!</p>
+		  <p>Use the form below to export keyword dummy variable data to AWS. The generated CSV file shows occurances of keywords within JobStreet postings. The current keyword list is used to build column headers for the CSV data.</p>
 
-	  	<paper-material class="layout vertical">
-	      {{#autoForm schema="dummyVarFilterSchema" type="method" meteormethod="exportOptionsQuery" id="dummyVarsForm"}}
-	        <div class="layout vertical">
-	          <h4>Inclusive Date Range</h4>
-	          <div class="layout horizontal wrap start-justified">
-	            <div class="item">{{> afFormGroup name="startDate"}}</div>
-	            <div class="item">{{> afFormGroup name="endDate"}}</div>
-	          </div>   
-	            <h4>Category Filters</h4>
-	            <div class="layout horizontal wrap start-justified">
-	              <div class="item">{{> afQuickField name="jsParentCategory" }} </div>
-	              <div class="item">{{> afQuickField name="jsSubSpecialization" }} </div>
+			<div class="layout horizontal wrap">
+		  	<paper-material class="layout vertical" style="margin-right: 15px;">
+		  	<h4 style="margin: 15px 0;">Export Form</h4>
+		      {{#autoForm schema="dummyVarFilterSchema" type="method" meteormethod="somethingsilly" id="dummyVarsForm"}}
+	          {{> afFormGroup name="startDate"}}
+	          {{> afFormGroup name="endDate"}}
 
-	              <div class="item">{{> afQuickField name="jsListedIndustry" }}</div>
-	              <div class="item">{{> afQuickField name="jsListedSpec" }}</div>
-	            </div>          
-	            <div class="layout horizontal wrap start-justified">
-	              <div class="item">{{> afQuickField name="jsListedRole" }}</div>
-	              <div class="item">{{> afQuickField name="jsAltIndustry" }}</div>
-	              <div class="item">{{> afQuickField name="jsExperience" }}</div>
-	            </div>
-	        </div>
-	      {{/autoForm}}
-	    </paper-material>	  
+	          <paper-button id="js-create-dummy-var-file" class="primary" style="margin: 15px; float: right;">Submit</paper-button>
+		      {{/autoForm}}
+		    </paper-material>
+
+		    <div class="flex" >
+  		    {{ > dummyFiles }}
+		    </div>
+			</div>
 	  </section>
-	  <div class="fab-container layout vertical">
-	  	<paper-fab mini id="js-download-skills-matrix" icon="file-download" title="Export SkillsDb/JobStreet dummy variable data" class="fab-color-neutral" style="margin-top: 10px;"></paper-fab>
-	  </div>	  
 </template>

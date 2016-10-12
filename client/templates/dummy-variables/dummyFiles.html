@@ -1,0 +1,29 @@
+<template name="dummyFiles">
+  <paper-material class="layout vertical">
+		<table class="" style="min-width: 500px;">
+  		<thead class="">
+  		    <tr>
+  			    <th><h4>Download Link</h4></th>
+  			    <th><h4>Start</h4></th>
+  			    <th><h4>End</h4></th>
+  			    <th><h4>Created</h4></th>
+  		    </tr>
+	  		</thead>
+		    <tbody class="">
+			    {{#each files}}
+		        <tr class="">
+			        <td><a href="{{url}}" target="_blank" class="text-link" title="Download">{{fileNameHelper fileName}}</a></td>
+			        <td>{{formatTimeDate startDate}}</td>
+			        <td>{{formatTimeDate endDate}}</td>
+					    <td>{{relativeTime createdAt}}</td>
+		        </tr>
+	        {{else}}
+	          <tr>
+	          	<td>No files found.</td>
+	          </tr>
+	        {{/each}}
+
+	    </tbody>
+  	</table>
+  	</paper-material>
+</template>

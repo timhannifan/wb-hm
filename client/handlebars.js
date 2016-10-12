@@ -3,11 +3,15 @@ UI.registerHelper('formatDate', function(context, options) {
     return moment(context).format("dddd, MMMM Do YYYY, h:mm:ss a");
 });
 UI.registerHelper('formatTimeDate', function(context, options) {
-  if(context)
-    return moment(context).format("MMMM DD YYYY, h:mm a");
+  // var offset = moment(context).utcOffset();
+  // console.log();
+  // var newDate = moment(context).utcOffset(offset);
+
+  return moment(context).utc().format("DD-MMM-YYYY h:mma");
 });
 
 UI.registerHelper('formatShortDate', function(context, options) {
+
   if(context)
     return moment(context).format("DD-MMM-YY");
 });

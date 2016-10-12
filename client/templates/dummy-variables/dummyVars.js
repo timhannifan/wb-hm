@@ -2,91 +2,39 @@
 Template.dummyVars.onCreated( () => {
   this.startDate=new ReactiveVar({});
   this.endDate=new ReactiveVar({});
-  this.jsParentCategory=new ReactiveVar({});
-  this.jsSubSpecialization=new ReactiveVar({});
-  this.jsListedIndustry=new ReactiveVar({});
-  this.jsListedSpec=new ReactiveVar({});
-  this.jsListedRole=new ReactiveVar({});
-  this.jsAltIndustry=new ReactiveVar({});
-  this.jsExperience=new ReactiveVar({});
-
 
   Tracker.autorun(function () {
-    Meteor.subscribe('JobStreetMeta');
+    Meteor.subscribe('DummyQueries');
   });
 
 });
 Template.dummyVars.events({
-	'click #js-download-skills-matrix': function (event,template) {
+	'click #js-create-dummy-var-file': function (event,template) {
+    event.currentTarget.disabled = true;
     if (!AutoForm.validateForm('dummyVarsForm')) {
-	      GlobalUI.toast( 'There was an error processing your query. Please check for missing fields.', 'danger' );
-	    } else {
+	      GlobalUI.toast( 'There was an error processing your request. Check for field errors.', 'danger' );
+    } else {
+
 	  		var form = AutoForm.getFormValues('dummyVarsForm'),
 	  		doc = form.insertDoc,
 	      modifier = {};
 
-	      if (doc.startDate){
-	        startDate.set({createdAt: {$gte: doc.startDate}});
-	      }    
-	      if (doc.endDate){
-	        endDate.set({createdAt: {$lte: doc.endDate}});
-	      }    
-	      if (doc.jsParentCategory){
-	        jsParentCategory.set({parentCategory: {$in: doc.jsParentCategory}});
-	      }    
-	      if (doc.jsSubSpecialization){
-	        jsSubSpecialization.set({subSpecialization: {$in: doc.jsSubSpecialization}});
-	      }
-	      
-	      if (doc.jsListedIndustry){
-	        jsListedIndustry.set({listedIndustry: {$in: doc.jsListedIndustry}});
-	      }
-	      
-	      if (doc.jsListedSpec){
-	        jsListedSpec.set({listedSpec: {$in: doc.jsListedSpec}});
-	      }
-	      
-	      if (doc.jsListedRole){
-	        jsListedRole.set({listedRole: {$in: doc.jsListedRole}});
-	      }
-	      
-	      if (doc.jsAltIndustry){
-	        jsAltIndustry.set({companySnapIndustry: {$in: doc.jsAltIndustry}});
-	      }    
-	      if (doc.jsExperience){
-	        jsExperience.set({experience: {$in: doc.jsExperience}});
-	      }
+	      let startDate = doc.startDate ? doc.startDate : new Date() - 1000*3600*24*30;
+	      let endDate = doc.endDate ? doc.endDate : new Date();
 
-	      event.currentTarget.disabled = true;
 
-	      let query = { 
-	      	$and : [
-	          startDate.get(),
-	          endDate.get(),
-	          jsParentCategory.get(),
-	          jsSubSpecialization.get(),
-	          jsListedIndustry.get(),
-	          jsListedSpec.get(),
-	          jsListedRole.get(),
-	          jsAltIndustry.get(),
-	          jsExperience.get()
-	        ] 
-	      };
-	      GlobalUI.toast( 'Query submitted, retrieving results. Download will start automatically when file is ready.');
+	      GlobalUI.toast( 'Creating CSV and uploading your request to AWS. File will appear as a new link in the table below.', 'success');
 
-	  		Meteor.call('exportDummyVars',query,modifier, function(error, response) {
+	  		Meteor.call('exportDummyVars',startDate,endDate, function(error, response) {
 	  		    if (error) {
 	  		        GlobalUI.toast( 'Error: ' + error.reason, 'danger' );
-	              event.currentTarget.disabled = false;
-	  		    } else {
-              AutoForm.resetForm('dummyVarsForm');
-              GlobalUI.toast( 'Success! Downloading your query...', 'success' );
-
-  		        let blob = Modules.client.convertBase64ToBlob( response );
-  		        let filename = 'dummyVariables.zip';
-  		        saveAs( blob, filename );
 	  		    }
+	  		    
+	  		    AutoForm.resetForm('dummyVarsForm');
+	  		    
+
 	  		});
-	    }
+    }
+    event.currentTarget.disabled = false;
 	}	
 });
