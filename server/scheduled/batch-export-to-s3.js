@@ -65,56 +65,14 @@ let _runBatch = (startDate,endDate) => {
     req.end(csvFile);
   }
 }
-let _runBatchTest = (startDate,endDate) => {
-  console.log('batch export called',startDate,endDate);
 
-  let query = {
-    $and: [ {createdAt: {$gte: startDate}}, {createdAt: {$lte: endDate}} ]
-  };
-  let modifier = {
-    sort: {
-      createdAt: -1
-    },
-    fields: JobStreetItems.publicFields
-  };
-  let data = JobStreetItems.find(query, modifier).fetch();
-  let csvFile = Papa.unparse( data );
-  let readableDate = function (date) {
-     return moment(date).format('DMMMYYYY');
-  }
-  let dirName = '/test/';
-  let fileName = readableDate(endDate) + '.csv';
-  let awsString = dirName + fileName;
-
-  if (csvFile) {
-    console.log('inserting a file to s3:' + awsString);
-
-    let req = client.put( awsString, {
-        'Content-Length': Buffer.byteLength(csvFile),
-        'Content-Type': 'text/csv',
-        'x-amz-acl': 'public-read'
-      }
-    );
-
-    req.on('response', function(res){
-      bound(function(){
-          if (200 == res.statusCode) {
-            console.log('saved to %s', req.url);
-            _createNewDBRecord(req.url, fileName, startDate, endDate);
-          }
-      })
-    });
-
-    req.end(csvFile);
-  }
-}
 let _runBatchSeed = () => {
   const begginingOfTime = new Date(2016,1,1);
 
   let sched = later.parse.recur()
-                .on(1).dayOfMonth().on('04:00').time()
+                .on(1).dayOfMonth().on('00:00').time()
               .and()
-                .on(15).dayOfMonth().on('04:00').time();
+                .on(15).dayOfMonth().on('00:00').time();
 
   let backwards = later.schedule(sched).prev(15, new Date());
   
@@ -153,7 +111,7 @@ SyncedCron.add({
   name: 'Production batch data to s3',
   schedule: function(parser) {
     // parser is a later.parse object
-    return parser.text('at 12:00 am on the 1st and 15th day of the month');
+    return parser.text('at 4:00 am on the 1st and 15th day of the month');
   }, 
   job: function(intendedAt) {
     console.log('Test batch data to s3 ' + intendedAt);
@@ -163,24 +121,3 @@ SyncedCron.add({
     }
   }
 });
-
-// SyncedCron.add({
-//   name: 'Test batch data to s3',
-//   schedule: function(parser) {
-//     // parser is a later.parse object
-//     return parser.text('at 6:20 am on the 5th day of the month');
-//   }, 
-//   job: function(intendedAt) {
-//     console.log('Test batch data to s3 ' + intendedAt);
-//     let start = BatchDownloads.findOne({},{sort: {periodEnd: -1}}); 
-//     if (start.periodEnd) {
-//       _runBatchTest(start.periodEnd,intendedAt);      
-//     }
-//   }
-// });
- 
-// Meteor.startup(function () {
-//   if (BatchDownloads.find().count() == 0 ){
-//     _runBatchSeed(); 
-//   }
-// });

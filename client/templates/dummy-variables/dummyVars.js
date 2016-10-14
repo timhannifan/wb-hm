@@ -25,15 +25,18 @@ Template.dummyVars.events({
 
 	      GlobalUI.toast( 'Creating CSV and uploading your request to AWS. File will appear as a new link in the table below.', 'success');
 
-	  		Meteor.call('exportDummyVars',startDate,endDate, function(error, response) {
-	  		    if (error) {
-	  		        GlobalUI.toast( 'Error: ' + error.reason, 'danger' );
-	  		    }
+	      Meteor.apply('submoduleDummyData', [startDate,endDate], function (error, result) {
+	      	if (error) {
+		        GlobalUI.toast( 'Error: ' + error.reason, 'danger' );
+  		    }
+	      });
+	  		// Meteor.call('exportDummyVars',startDate,endDate, function(error, response) {
+	  		//     
 	  		    
-	  		    AutoForm.resetForm('dummyVarsForm');
+	  		//     AutoForm.resetForm('dummyVarsForm');
 	  		    
 
-	  		});
+	  		// });
     }
     event.currentTarget.disabled = false;
 	}	

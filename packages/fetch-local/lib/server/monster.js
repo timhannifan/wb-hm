@@ -280,7 +280,7 @@ SyncedCron.add({
   name: 'Monster batch autorun',
   schedule: function(parser) {
     // parser is a later.parse object
-    return parser.text('every 1 day at 1:00 pm');
+    return parser.text('every 1 day at 4:00 pm');
   }, 
   job: function(intendedAt) {
     console.log('running Monster XML job' + intendedAt);

@@ -53,55 +53,60 @@ let _exportDummyVars = (start,end) => {
     var jsonResult = [];
     var defaultItem = {};
 
-    currentKeywords.forEach(function (doc) {
-      defaultItem[doc.parsed_keyword] = 0;
-    });
-
-    jobStreetData.forEach(function (doc) {
-      var newObject = JSON.parse(JSON.stringify(defaultItem));
-      var matchingDocs = SkillsKeywordInstances.find({id: doc._id});  
-      newObject["_id"] = doc._id;
-
-      matchingDocs.forEach(function(doc) {
-        newObject[doc.keywordMatch] = 1;
+    if (currentKeywords && jobStreetData) {
+      currentKeywords.forEach(function (doc) {
+        defaultItem[doc.parsed_keyword] = 0;
       });
 
-      jsonResult.push(newObject);
-    });
+      jobStreetData.forEach(function (doc) {
+        var newObject = JSON.parse(JSON.stringify(defaultItem));
+        var matchingDocs = SkillsKeywordInstances.find({id: doc._id});  
+        newObject["_id"] = doc._id;
 
-    return jsonResult;
+        matchingDocs.forEach(function(doc) {
+          newObject[doc.keywordMatch] = 1;
+        });
+
+        jsonResult.push(newObject);
+      });
+
+      return jsonResult;
+    }
   };  
+  let jsonData = _getDummyDataFromCollection(start,end);
 
-  let csvFile = Papa.unparse( _getDummyDataFromCollection(start,end) );
-  let readableDate = function (date) {
-     return moment(date).format('DMMMYYYY');
-  }
-  let collectionCounter = DummyQueries.find().count();
-  let dirName = '/production/dummyqueries/';
-  let fileName = 'dummy-export-'+collectionCounter+'.csv';
-  let awsString = dirName + fileName;
+  if (jsonData) {
+    let csvFile = Papa.unparse( jsonData );
+    let readableDate = function (date) {
+       return moment(date).format('DMMMYYYY');
+    }
+    let collectionCounter = DummyQueries.find().count();
+    let dirName = '/production/dummyqueries/';
+    let fileName = 'dummy-export-'+collectionCounter+'.csv';
+    let awsString = dirName + fileName;
 
-  if (csvFile) {
-    console.log('inserting a file to s3:' + awsString);
+    if (csvFile) {
+      console.log('inserting a file to s3:' + awsString);
 
-    let filesize = Buffer.byteLength(csvFile);
-    let req = client.put( awsString, {
-        'Content-Length': filesize,
-        'Content-Type': 'text/csv',
-        'x-amz-acl': 'public-read'
-      }
-    );
+      let filesize = Buffer.byteLength(csvFile);
+      let req = client.put( awsString, {
+          'Content-Length': filesize,
+          'Content-Type': 'text/csv',
+          'x-amz-acl': 'public-read'
+        }
+      );
 
-    req.on('response', function(res){
-      bound(function(){
-          if (200 == res.statusCode) {
-            console.log('saved to %s', req.url);
-            _createLocalRecord(req.url, fileName, filesize, start, end);
-          }
-      })
-    });
+      req.on('response', function(res){
+        bound(function(){
+            if (200 == res.statusCode) {
+              console.log('saved to %s', req.url);
+              _createLocalRecord(req.url, fileName, filesize, start, end);
+            }
+        })
+      });
 
-    req.end(csvFile);
+      req.end(csvFile);
+    }
   }
 }
 
@@ -115,12 +120,12 @@ let _resetDummyQueries = () => {
 
 Meteor.methods({
   exportDummyVars: function (start,end) {
-
+    this.unblock();
     _exportDummyVars(start, end);
   },
   resetDummyQueries: function () {
     if (this.userId) {
       _resetDummyQueries();
     }
-  }
+  }  
 });
